@@ -1,55 +1,58 @@
-{
-  "version": "0.1.0",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
-  },
-  "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
+# Shyft JS SDK [transaction-signer]
+
+This package is built on top of [@solana/web3.js](https://solana-labs.github.io/solana-web3.js) and [solana-wallet-adapter](https://github.com/solana-labs/wallet-adapter).
+You can sign & send transaction using this package.
+
+## Installation
+
+Install with npm & yarn
+
+```bash
+  Coming soon...
+```
+
+## Usage/Examples
+
+### Backend usage
+
+```javascript
+import { confirmTransactionFromBackend } from '../node_modules/shyft-js-sdk';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+
+const network = WalletAdapterNetwork.Devnet;
+const privateKey =
+  '5GGZQpoiDPRJLwMonq4ovBBKbxvNq76L3zgMXyiQ5grbPzgF3k35dkHuWwt3GmwVGZBXywXteJcJ53Emsda92D5v';
+// Get using Shyft API
+const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr'(
+  async () => {
+    try {
+      const tx = confirmTransactionFromBackend(
+        WalletAdapterNetwork.Devnet,
+        privateKey,
+        encodedTransaction
+      );
+      console.log(tx);
+    } catch (error) {
+      throw new Error(error);
     }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "name": "shyft-js",
-  "author": "impin2rex",
-  "module": "dist/shyft-js.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/shyft-js.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/shyft-js.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^8.0.0",
-    "husky": "^8.0.1",
-    "size-limit": "^8.0.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.4.0",
-    "typescript": "^4.7.4"
   }
-}
+)();
+```
+
+### Frontend usage
+
+Follow [sample project](https://github.com/rex-god/shyft_signer_frontend).
+
+## Roadmap
+
+- Integrate sync APIs
+
+- More features
+
+## About Us
+
+We're here to provide a bridge between web2 & web3.
+
+## 🚀 Powered By
+
+[Shyft](https://shyft.to)
