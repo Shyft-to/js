@@ -10,13 +10,18 @@ Install with npm & yarn
 ```bash
   Coming soon...
 ```
+Install from GitHub
+
+```bash
+  npm i https://github.com/Shyft-to/js
+```
 
 ## Usage/Examples
 
 ### Backend usage
 
 ```javascript
-import { confirmTransactionFromBackend } from '../node_modules/shyft-js-sdk';
+import { confirmTransactionFromBackend } from 'shyft-js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 
 const network = WalletAdapterNetwork.Devnet;
