@@ -6,3 +6,7 @@ export interface ShyftWallet {
   signTransaction(tx: Transaction): Promise<Transaction>;
   signAllTransactions?(txs: Transaction[]): Promise<Transaction[]>;
 }
+
+export type ShyftSettings = {
+  apiKey: string;
+};
