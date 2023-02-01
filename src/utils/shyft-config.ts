@@ -1,4 +1,4 @@
-import { ShyftSettings } from '../types/types';
+import { ShyftSettings } from '@/types';
 
 export class ShyftConfig {
   readonly apiKey: string;

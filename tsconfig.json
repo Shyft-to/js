@@ -1,8 +1,10 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "include": [
-    "src/**/*",
-    "src/test.tst.tssrc/test.ts/test.ts"
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "compilerOptions": {
     "module": "esnext",
@@ -10,6 +12,7 @@
       "dom",
       "esnext"
     ],
+    "baseUrl": ".",
     "importHelpers": true,
     // output .d.ts declaration files for consumers
     "declaration": true,
@@ -17,6 +20,7 @@
     "sourceMap": true,
     // match output dir to input dir. e.g. dist/index instead of dist/src/index
     "rootDir": "./src",
+    "outDir": "dist",
     // stricter type-checking for stronger correctness. Recommended by TS
     "strict": true,
     // linter checks for common issues
@@ -37,6 +41,11 @@
     "forceConsistentCasingInFileNames": true,
     // `tsdx build` ignores this option, but it is commonly used when type-checking separately with `tsc`
     "noEmit": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
   },
   "ts-node": {
     // these options are overrides used only by ts-node

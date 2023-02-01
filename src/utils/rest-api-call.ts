@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { ApiError } from '../types/error-types';
+import { ApiError } from '@/types';
 
 export async function restApiCall(
   apiKey: string,

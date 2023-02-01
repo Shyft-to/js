@@ -8,7 +8,7 @@ import { NodeWallet } from '@metaplex/js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { decode } from 'bs58';
 
-import { ShyftWallet } from './types/types';
+import { ShyftWallet } from '@/types';
 
 /**
  * This function accepts the connection to the user’s wallet,
