@@ -1,4 +1,4 @@
 export type ApiError = {
   success: boolean;
-  error: string | object;
+  error: string | object | any;
 };

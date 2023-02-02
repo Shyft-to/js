@@ -6,14 +6,14 @@ import { Nft } from '@/types';
 export class NftClient {
   constructor(private readonly config: ShyftConfig) {}
 
-  async getNftByMint(
-    network: WalletAdapterNetwork,
-    mint: string
-  ): Promise<Nft> {
+  async getNftByMint(input: {
+    network: WalletAdapterNetwork;
+    mint: string;
+  }): Promise<Nft> {
     try {
       const params = {
-        network,
-        token_address: mint,
+        network: input.network,
+        token_address: input.mint,
       };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
@@ -27,14 +27,14 @@ export class NftClient {
     }
   }
 
-  async getNftByOwner(
-    network: WalletAdapterNetwork,
-    owner: string
-  ): Promise<Nft[]> {
+  async getNftByOwner(input: {
+    network: WalletAdapterNetwork;
+    owner: string;
+  }): Promise<Nft[]> {
     try {
       const params = {
-        network,
-        address: owner,
+        network: input.network,
+        address: input.owner,
       };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',

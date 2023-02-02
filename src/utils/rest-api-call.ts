@@ -14,6 +14,9 @@ export async function restApiCall(
     const err = error as AxiosError;
     const apiError = err.response?.data as ApiError;
     if (typeof apiError.error === 'object') {
+      if ('message' in apiError.error) {
+        throw new Error(apiError.error['message'] as string);
+      }
       throw new Error(JSON.stringify(apiError.error));
     }
     throw apiError.error;
