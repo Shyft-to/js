@@ -1,7 +1,6 @@
 import { ShyftSettings } from '@/types';
-import { NftClient } from '../api/nft-client';
-import { WalletClient } from '../api/wallet-client';
-import { ShyftConfig } from './shyft-config';
+import { NftClient, WalletClient } from '@/api';
+import { ShyftConfig } from '@/utils';
 
 export class ShyftSdk {
   readonly config: ShyftConfig;

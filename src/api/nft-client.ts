@@ -1,6 +1,6 @@
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ShyftConfig } from '../utils/shyft-config';
-import { restApiCall } from '../utils/rest-api-call';
+import { ShyftConfig } from '@/utils';
+import { restApiCall } from '@/utils';
 import { Nft } from '@/types';
 
 export class NftClient {

@@ -1,7 +1,7 @@
 import { ParsedTransactionWithMeta } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ShyftConfig } from '../utils/shyft-config';
-import { restApiCall } from '../utils/rest-api-call';
+import { ShyftConfig } from '@/utils';
+import { restApiCall } from '@/utils';
 import {
   Domain,
   GroupNftsInCollection,
