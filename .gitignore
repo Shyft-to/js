@@ -3,4 +3,4 @@
 node_modules
 dist
 docs
-src/test.ts
+.env

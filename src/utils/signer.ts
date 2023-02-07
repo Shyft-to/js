@@ -5,10 +5,9 @@ import {
   Transaction,
 } from '@solana/web3.js';
 import { NodeWallet } from '@metaplex/js';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { decode } from 'bs58';
 
-import { ShyftWallet } from '@/types';
+import { Network, ShyftWallet } from '@/types';
 
 /**
  * This function accepts the connection to the user’s wallet,
@@ -24,7 +23,7 @@ import { ShyftWallet } from '@/types';
  */
 
 export async function confirmTransactionFromBackend(
-  network: WalletAdapterNetwork,
+  network: Network,
   encodedTransaction: string,
   privateKey: string
 ): Promise<string> {

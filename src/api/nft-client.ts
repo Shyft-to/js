@@ -1,15 +1,11 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
-import { Nft } from '@/types';
+import { Network, Nft } from '@/types';
 
 export class NftClient {
   constructor(private readonly config: ShyftConfig) {}
 
-  async getNftByMint(input: {
-    network: WalletAdapterNetwork;
-    mint: string;
-  }): Promise<Nft> {
+  async getNftByMint(input: { network: Network; mint: string }): Promise<Nft> {
     try {
       const params = {
         network: input.network,
@@ -28,7 +24,7 @@ export class NftClient {
   }
 
   async getNftByOwner(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     owner: string;
   }): Promise<Nft[]> {
     try {

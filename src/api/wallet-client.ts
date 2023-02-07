@@ -1,5 +1,4 @@
 import { ParsedTransactionWithMeta } from '@solana/web3.js';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
 import {
@@ -8,13 +7,14 @@ import {
   Portfolio,
   TokenBalance,
   ParsedTranaction,
+  Network,
 } from '@/types';
 
 export class WalletClient {
   constructor(private readonly config: ShyftConfig) {}
 
   async getBalance(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
   }): Promise<number> {
     try {
@@ -31,7 +31,7 @@ export class WalletClient {
   }
 
   async getTokenBalance(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
     token: string;
   }): Promise<Omit<TokenBalance, 'associated_token'>> {
@@ -52,7 +52,7 @@ export class WalletClient {
   }
 
   async getAllTokenBalance(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
   }): Promise<TokenBalance[]> {
     try {
@@ -69,7 +69,7 @@ export class WalletClient {
   }
 
   async getPortfolio(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
   }): Promise<Portfolio> {
     try {
@@ -88,7 +88,7 @@ export class WalletClient {
   }
 
   async getDomains(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
   }): Promise<Domain[]> {
     try {
@@ -108,7 +108,7 @@ export class WalletClient {
   }
 
   async resolveDomainByAddress(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     address: string;
   }): Promise<string> {
     try {
@@ -125,7 +125,7 @@ export class WalletClient {
   }
 
   async collections(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
   }): Promise<GroupNftsInCollection> {
     try {
@@ -146,7 +146,7 @@ export class WalletClient {
   }
 
   async transactionHistory(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
     limit?: number;
   }): Promise<ParsedTransactionWithMeta[]> {
@@ -169,7 +169,7 @@ export class WalletClient {
   }
 
   async transaction(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     txnSignature: string;
   }): Promise<ParsedTransactionWithMeta> {
     try {
@@ -190,7 +190,7 @@ export class WalletClient {
   }
 
   async parsedTransactionHistory(input: {
-    network: WalletAdapterNetwork;
+    network: Network;
     wallet: string;
     limit?: number;
   }): Promise<ParsedTranaction[]> {

@@ -5,7 +5,7 @@ export type CollectionInfo = {
   family?: string;
 };
 
-export interface Nft {
+export type Nft = {
   name: string;
   description: string;
   symbol: string;
@@ -27,7 +27,7 @@ export interface Nft {
   is_loaded_metadata: boolean;
   primary_sale_happened: boolean;
   is_mutable: boolean;
-}
+};
 
 type Creator = {
   address: string;
