@@ -1,4 +1,5 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-export const Network = { ...WalletAdapterNetwork };
-type ValueOf<T> = T[keyof T];
-export type Network = ValueOf<typeof Network>;
+export enum Network {
+  Mainnet = 'mainnet-beta',
+  Testnet = 'testnet',
+  Devnet = 'devnet',
+}

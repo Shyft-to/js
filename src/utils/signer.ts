@@ -3,8 +3,8 @@ import {
   Connection,
   Keypair,
   Transaction,
+  sendAndConfirmTransaction,
 } from '@solana/web3.js';
-import { NodeWallet } from '@metaplex/js';
 import { decode } from 'bs58';
 
 import { Network, ShyftWallet } from '@/types';
@@ -29,15 +29,15 @@ export async function confirmTransactionFromBackend(
 ): Promise<string> {
   const connection = new Connection(clusterApiUrl(network), 'confirmed');
   const feePayer = Keypair.fromSecretKey(decode(privateKey));
-  const wallet = new NodeWallet(feePayer);
   const recoveredTransaction = Transaction.from(
     Buffer.from(encodedTransaction, 'base64')
   );
-  const signedTx = await wallet.signTransaction(recoveredTransaction);
-  const confirmTransaction = await connection.sendRawTransaction(
-    signedTx.serialize()
+  const signature = await sendAndConfirmTransaction(
+    connection,
+    recoveredTransaction,
+    [feePayer]
   );
-  return confirmTransaction;
+  return signature;
 }
 
 /**
