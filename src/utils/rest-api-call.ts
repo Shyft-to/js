@@ -7,7 +7,7 @@ export async function restApiCall(
 ): Promise<any> {
   try {
     const baseURL = 'https://api.shyft.to/sol/v1/';
-    const headers = { 'x-api-key': apiKey };
+    const headers = { 'Access-Control-Allow-Origin': '*', 'x-api-key': apiKey };
     const { data } = await axios.request({ ...config, baseURL, headers });
     return data;
   } catch (error) {
