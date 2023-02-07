@@ -14,14 +14,18 @@ export class WalletClient {
   constructor(private readonly config: ShyftConfig) {}
 
   async getBalance(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
   }): Promise<number> {
     try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet: input.wallet,
+      };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/balance',
-        params: input,
+        params,
       });
       const balance = data.result.balance as number;
       return balance;
@@ -31,15 +35,20 @@ export class WalletClient {
   }
 
   async getTokenBalance(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
     token: string;
   }): Promise<Omit<TokenBalance, 'associated_token'>> {
     try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet: input.wallet,
+        token: input.token,
+      };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/token_balance',
-        params: input,
+        params,
       });
       const tokenBalances = data.result as Omit<
         TokenBalance,
@@ -52,14 +61,18 @@ export class WalletClient {
   }
 
   async getAllTokenBalance(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
   }): Promise<TokenBalance[]> {
     try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet: input.wallet,
+      };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/all_tokens',
-        params: input,
+        params,
       });
       const tokenBalances = data.result as TokenBalance[];
       return tokenBalances;
@@ -69,14 +82,18 @@ export class WalletClient {
   }
 
   async getPortfolio(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
   }): Promise<Portfolio> {
     try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet: input.wallet,
+      };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/get_portfolio',
-        params: input,
+        params,
       });
       const portfolio = data.result as Portfolio;
       console.log('portfolio', portfolio);
@@ -88,14 +105,18 @@ export class WalletClient {
   }
 
   async getDomains(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
   }): Promise<Domain[]> {
     try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet: input.wallet,
+      };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/get_domains',
-        params: input,
+        params,
       });
       const domains = data.result as Domain[];
       if (domains.length > 0) {
@@ -108,14 +129,18 @@ export class WalletClient {
   }
 
   async resolveDomainByAddress(input: {
-    network: Network;
+    network?: Network;
     address: string;
   }): Promise<string> {
     try {
+      const params = {
+        network: input.network ?? this.config.network,
+        address: input.address,
+      };
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/resolve_address',
-        params: input,
+        params,
       });
       const domain = data.result.name as string;
       return domain;
@@ -125,12 +150,12 @@ export class WalletClient {
   }
 
   async collections(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
   }): Promise<GroupNftsInCollection> {
     try {
       const params = {
-        network: input.network,
+        network: input.network ?? this.config.network,
         wallet_address: input.wallet,
       };
       const data = await restApiCall(this.config.apiKey, {
@@ -146,13 +171,13 @@ export class WalletClient {
   }
 
   async transactionHistory(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
     limit?: number;
   }): Promise<ParsedTransactionWithMeta[]> {
     try {
       const params = {
-        network: input.network,
+        network: input.network ?? this.config.network,
         wallet_address: input.wallet,
         tx_num: input.limit ? input.limit : 10,
       };
@@ -169,12 +194,12 @@ export class WalletClient {
   }
 
   async transaction(input: {
-    network: Network;
+    network?: Network;
     txnSignature: string;
   }): Promise<ParsedTransactionWithMeta> {
     try {
       const params = {
-        network: input.network,
+        network: input.network ?? this.config.network,
         txn_signature: input.txnSignature,
       };
       const data = await restApiCall(this.config.apiKey, {
@@ -190,13 +215,13 @@ export class WalletClient {
   }
 
   async parsedTransactionHistory(input: {
-    network: Network;
+    network?: Network;
     wallet: string;
     limit?: number;
   }): Promise<ParsedTranaction[]> {
     try {
       const params = {
-        network: input.network,
+        network: input.network ?? this.config.network,
         account: input.wallet,
         tx_num: input.limit ? input.limit : 10,
       };

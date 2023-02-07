@@ -5,10 +5,10 @@ import { Network, Nft } from '@/types';
 export class NftClient {
   constructor(private readonly config: ShyftConfig) {}
 
-  async getNftByMint(input: { network: Network; mint: string }): Promise<Nft> {
+  async getNftByMint(input: { network?: Network; mint: string }): Promise<Nft> {
     try {
       const params = {
-        network: input.network,
+        network: input.network ?? this.config.network,
         token_address: input.mint,
       };
       const data = await restApiCall(this.config.apiKey, {
@@ -24,12 +24,12 @@ export class NftClient {
   }
 
   async getNftByOwner(input: {
-    network: Network;
+    network?: Network;
     owner: string;
   }): Promise<Nft[]> {
     try {
       const params = {
-        network: input.network,
+        network: input.network ?? this.config.network,
         address: input.owner,
       };
       const data = await restApiCall(this.config.apiKey, {
