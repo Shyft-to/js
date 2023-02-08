@@ -1,8 +1,3 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
 # Shyft JS SDK [transaction-signer]
 
 This package is built on top of [@solana/web3.js](https://solana-labs.github.io/solana-web3.js) and [solana-wallet-adapter](https://github.com/solana-labs/wallet-adapter).
