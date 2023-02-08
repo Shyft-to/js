@@ -1,14 +1,14 @@
-# Shyft JS SDK [transaction-signer]
+# Shyft JS SDK
 
-This package is built on top of [@solana/web3.js](https://solana-labs.github.io/solana-web3.js) and [solana-wallet-adapter](https://github.com/solana-labs/wallet-adapter).
-You can sign & send transaction using this package.
+[Shyft](https://shyft.to) SDK is the mising piece of arsenal we needed in our Web3 development journey. It is the [ultimate Web3 development platform](https://shyft.to) wrapped inside an intuitive SDK to make development 10x easier and more efficient. Explore what super powers Shyft offers you [Docs](https://docs.shyft.to).
+
 
 ## Installation
 
 Install with npm & yarn
 
 ```bash
-  Coming soon...
+  npm install @shyft-to/js
 ```
 Install from GitHub
 
@@ -29,8 +29,8 @@ const { ShyftSdk, Network } = require('shyft-js');
 
 The Shyft SDK currently supports the following clients:
 
-- `wallet`: All Shyft Wallet API methods
-- `nft`: All Shyft NFT API methods
+- `wallet`: All Shyft Wallet APIs
+- `nft`: All Shyft NFT APIs
 
 ### Shyft NFT API
 The SDK currently supports the following NFT API endpoints under the shyft.nft namespace:
