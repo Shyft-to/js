@@ -23,8 +23,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "shyft-js",
-  "author": "impin2rex",
+  "name": "@shyft-to/js",
+  "author": "shyft-to",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
