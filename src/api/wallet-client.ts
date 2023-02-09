@@ -174,13 +174,17 @@ export class WalletClient {
     network?: Network;
     wallet: string;
     limit?: number;
+    beforeTxSignature?: string;
   }): Promise<ParsedTransactionWithMeta[]> {
     try {
       const params = {
         network: input.network ?? this.config.network,
-        wallet_address: input.wallet,
+        wallet: input.wallet,
         tx_num: input.limit ? input.limit : 10,
       };
+      if (input?.beforeTxSignature) {
+        params['before_tx_signature'] = input.beforeTxSignature;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/transaction_history',
@@ -218,6 +222,7 @@ export class WalletClient {
     network?: Network;
     wallet: string;
     limit?: number;
+    beforeTxSignature?: string;
   }): Promise<ParsedTranaction[]> {
     try {
       const params = {
@@ -225,6 +230,9 @@ export class WalletClient {
         account: input.wallet,
         tx_num: input.limit ? input.limit : 10,
       };
+      if (input?.beforeTxSignature) {
+        params['before_tx_signature'] = input.beforeTxSignature;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'wallet/parsed_transaction_history',
