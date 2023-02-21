@@ -46,6 +46,47 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 })();
 ```
 
+### Shyft Token API
+
+The SDK currently supports the following Token API endpoints under the shyft.token namespace:
+
+- `getInfo()`: This method returns you the information about an already launched Token.
+- `getgetOwners()`: Returns all owners hold the token, sorted by the amount they are holding (high to low).
+  > This method supports pagination and only works with mainnet-beta network.
+
+### Fetch info of a Fungible Token
+
+```typescript
+const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
+(async () => {
+  const token = await shyft.token.getInfo({
+    network: Network.Mainnet,
+    mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
+  });
+  console.log(token);
+})();
+```
+
+### Shyft CandyMachine API
+
+The SDK currently supports the following Candy Machine API endpoints under the shyft.candyMachine namespace:
+
+- `readMints()`: Get All NFT addresses minted using a particular candy machine by providing a Candy machine address.
+- `readNfts()`: Get All NFTs minted using a particular candy machine by providing a Candy machine address. Returns on-chain and off-chain NFT data. This is a paginated API.
+
+### Get All NFT addresses of a CM
+
+```typescript
+const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
+(async () => {
+  const mints = await shyftcandyMachine.readMints({
+    address: 'H2oYLkXdkX38eQ6VTqs26KAWAvEpYEiCtLt4knEUJxpu',
+    version: CandyMachineProgram.V2,
+  });
+  console.log(mints);
+})();
+```
+
 ### Shyft Wallet API
 
 The Wallet API in the SDK standardizes response types to reduce developer friction, but note this results in some differences compared to the Shyft REST endpoints:
