@@ -26,3 +26,11 @@ jobs:
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      
+      - name: 📖 Create the docs directory locally in CI
+        run: npm run prepare-doc
+      - name: Deploy docs to Github pages 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs
