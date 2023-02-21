@@ -3,9 +3,9 @@ export type TokenInfo = {
   symbol: string;
   image: string;
   address: string;
-  mintAuthority: string;
-  freezeAuthority: string;
-  currentSupply: number;
+  mint_authority: string;
+  freeze_authority: string;
+  current_supply: number;
   decimals: number;
 };
 

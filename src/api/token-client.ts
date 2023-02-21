@@ -1,7 +1,6 @@
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
 import { Network, TokenInfo, TokenOwners } from '@/types';
-import { Formatter } from '@/utils/formatter';
 
 export class TokenClient {
   constructor(private readonly config: ShyftConfig) {}
@@ -17,7 +16,7 @@ export class TokenClient {
         url: 'token/get_info',
         params,
       });
-      const tokenInfo = Formatter.camelCase(data.result) as TokenInfo;
+      const tokenInfo = data.result as TokenInfo;
       return tokenInfo;
     } catch (error) {
       throw error;
