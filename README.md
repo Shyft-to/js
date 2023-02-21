@@ -26,8 +26,35 @@ const { ShyftSdk, Network } = require('@shyft-to/js');
 
 The Shyft SDK currently supports the following clients:
 
-- `wallet`: All Shyft Wallet APIs
-- `nft`: All Shyft NFT APIs
+- `wallet`: Wallet APIs
+- `nft`: Shyft NFT APIs
+- `token`: Fungible tokens info
+- `candyMachine`: Candy Machine APIs
+
+### Shyft Wallet API
+
+The Wallet API in the SDK standardizes response types to reduce developer friction, but note this results in some differences compared to the Shyft REST endpoints:
+
+- `getBalance()`: Get wallet balance by providing address
+- `getTokenBalance()`: Get the balance of a particular token in a wallet
+- `getAllTokenBalance()`: Gets the balance of all the tokens in your wallet
+- `getPortfolio()`: Gets all the token deatils (fungible and non-fungible) from a wallet
+- `getDomains()`: Gets all the .sol domain addresses associated with a wallet
+- `resolveDomainByAddress()`: Resolves the given name account to the associated .sol domain address
+- `collections()`: For all the NFTs in a wallet, this method returns a list of collections and NFTs under those collections
+- `transactionHistory()`: Get the transaction history of your wallet
+- `transaction()`: Get particular transaction details from the transaction signature
+- `parsedTransactionHistory()`: Get the transaction history of your wallet in a nutshell
+
+### Fetch Wallet Balance
+
+```typescript
+const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
+(async () => {
+  const balance = await shyft.wallet.getBalance({ wallet: 'WALLET_ADDRESS' });
+  console.log(balance);
+})();
+```
 
 ### Shyft NFT API
 
@@ -84,31 +111,6 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
     version: CandyMachineProgram.V2,
   });
   console.log(mints);
-})();
-```
-
-### Shyft Wallet API
-
-The Wallet API in the SDK standardizes response types to reduce developer friction, but note this results in some differences compared to the Shyft REST endpoints:
-
-- `getBalance()`: Get wallet balance by providing address
-- `getTokenBalance()`: Get the balance of a particular token in a wallet
-- `getAllTokenBalance()`: Gets the balance of all the tokens in your wallet
-- `getPortfolio()`: Gets all the token deatils (fungible and non-fungible) from a wallet
-- `getDomains()`: Gets all the .sol domain addresses associated with a wallet
-- `resolveDomainByAddress()`: Resolves the given name account to the associated .sol domain address
-- `collections()`: For all the NFTs in a wallet, this method returns a list of collections and NFTs under those collections
-- `transactionHistory()`: Get the transaction history of your wallet
-- `transaction()`: Get particular transaction details from the transaction signature
-- `parsedTransactionHistory()`: Get the transaction history of your wallet in a nutshell
-
-### Fetch Wallet Balance
-
-```typescript
-const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
-(async () => {
-  const balance = await shyft.wallet.getBalance({ wallet: 'WALLET_ADDRESS' });
-  console.log(balance);
 })();
 ```
 
