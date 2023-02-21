@@ -54,5 +54,9 @@
     "@solana/web3.js": "^1.50.1",
     "axios": "^1.2.6",
     "bs58": "^5.0.0"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public"
   }
 }
