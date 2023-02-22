@@ -142,7 +142,7 @@ const encodedTransaction =
 
 ### Transaction signer usage (without private key)
 
-```typescript
+```tsx
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { confirmTxn, Network, ShyftWallet } from '@shyft-to/js';
 
@@ -150,9 +150,9 @@ const { connection } = useConnection();
 const { signTransaction, signAllTransactions } = useWallet();
 
 const wallet: ShyftWallet = {
-  signTransaction,
-  signAllTransactions,
-}
+  signTransaction: signTransaction!,
+  signAllTransactions: signAllTransactions!,
+};
 // Get using Shyft API
 const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr';
   async () => {
@@ -171,13 +171,12 @@ const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMw
 ```
 
 ### Frontend usage
-
-Follow [sample project](https://github.com/Shyft-to/community-projects/tree/main/shyft-signer-frontend).
+Use any starter from [here](https://github.com/solana-labs/wallet-adapter/tree/master/packages/starter) and implement the above code snippet or follow [Shyft sample project](https://github.com/Shyft-to/community-projects/tree/main/shyft-signer-react).
 
 ## Roadmap
 
-- Integrate sync APIs
-
+- Integrate NFT create
+- Marketplace client
 - More features
 
 ## About Us
