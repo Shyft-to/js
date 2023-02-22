@@ -4,6 +4,7 @@ import {
   Keypair,
   Transaction,
   sendAndConfirmTransaction,
+  Signer,
 } from '@solana/web3.js';
 import { decode } from 'bs58';
 
@@ -22,7 +23,7 @@ import { Network, ShyftWallet } from '@/types';
  * @returns transaction signature
  */
 
-export async function confirmTransactionFromBackend(
+export async function confirmTxnByPrivateKey(
   network: Network,
   encodedTransaction: string,
   privateKey: string
@@ -41,9 +42,8 @@ export async function confirmTransactionFromBackend(
 }
 
 /**
- * This function accepts connection, the encoded_transactions (an array of encoded_transaction) from the SHYFT API response and the wallet object.
- * Then all the transactions in the encoded_transactions array will be signed from the wallet in one go using the signAllTransactions() method.
- * The wallet object and the connection to the user’s wallet can be obtained in the same manner as shown in the previous step.
+ * This function accepts connection, the encoded_transaction from the SHYFT API response and the wallet object.
+ * The wallet object and the connection to the user’s wallet can be obtained.
  *
  * @param connection solana rpc connection
  * @param encodedTransaction serialized transaction (base64 string)
@@ -51,7 +51,7 @@ export async function confirmTransactionFromBackend(
  * @returns transaction signature
  */
 
-export async function confirmTransactionFromFrontend(
+export async function confirmTxn(
   connection: Connection,
   encodedTransaction: string,
   wallet: ShyftWallet
@@ -64,4 +64,34 @@ export async function confirmTransactionFromFrontend(
     signedTx.serialize()
   );
   return confirmTransaction;
+}
+
+/**
+ * This function accepts the encodedTransaction received
+ * in the response of the API call and takes an array of private keys,
+ * which can contain all the private keys required to partially sign the transaction.
+ * Could be useful when a transaction has required multiple signature to further proceed.
+ *
+ * @param encodedTransaction serialized transaction (base64 string)
+ * @param privateKeys private keys of wallet (array of string)
+ * @returns signed encoded transaction
+ */
+
+export async function signTxnByPrivateKeys(
+  encodedTransaction: string,
+  privateKeys: string[]
+): Promise<string> {
+  const recoveredTransaction = Transaction.from(
+    Buffer.from(encodedTransaction, 'base64')
+  );
+  const signers = privateKeys.map((privateKey) => {
+    const signer = Keypair.fromSecretKey(decode(privateKey)) as Signer;
+    return signer;
+  });
+  recoveredTransaction.partialSign(...signers);
+  const serializedTransaction = recoveredTransaction.serialize({
+    requireAllSignatures: false,
+  });
+  const transactionBase64 = serializedTransaction.toString('base64');
+  return transactionBase64;
 }

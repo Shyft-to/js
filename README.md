@@ -78,7 +78,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 The SDK currently supports the following Token API endpoints under the shyft.token namespace:
 
 - `getInfo()`: This method returns you the information about an already launched Token.
-- `getgetOwners()`: Returns all owners hold the token, sorted by the amount they are holding (high to low).
+- `getOwners()`: Returns all owners hold the token, sorted by the amount they are holding (high to low).
   > This method supports pagination and only works with mainnet-beta network.
 
 ### Fetch info of a Fungible Token
@@ -117,7 +117,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 ### Transaction signer usage (with private key)
 
 ```typescript
-import { confirmTransactionFromBackend, Network } from '@shyft-to/js';
+import { confirmTxnByPrivateKey, Network } from '@shyft-to/js';
 
 const network = Network.Devnet;
 const privateKey =
@@ -127,7 +127,7 @@ const encodedTransaction =
   '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr'(
     async () => {
       try {
-        const tx = confirmTransactionFromBackend(
+        const tx = confirmTxnByPrivateKey(
           network,
           privateKey,
           encodedTransaction
@@ -142,25 +142,25 @@ const encodedTransaction =
 
 ### Transaction signer usage (without private key)
 
-```typescript
+```tsx
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { confirmTransactionFromFrontend, Network, ShyftWallet } from '@shyft-to/js';
+import { confirmTxn, Network, ShyftWallet } from '@shyft-to/js';
 
 const { connection } = useConnection();
 const { signTransaction, signAllTransactions } = useWallet();
 
 const wallet: ShyftWallet = {
-  signTransaction,
-  signAllTransactions,
-}
+  signTransaction: signTransaction!,
+  signAllTransactions: signAllTransactions!,
+};
 // Get using Shyft API
 const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr';
   async () => {
     try {
-      const txnSignature = await confirmTransactionFromFrontend(
+      const txnSignature = await confirmTxn(
           connection,
           encodedTransaction,
-          shyftWallet
+          wallet
         );
       console.log(txnSignature);
     } catch (error) {
@@ -171,13 +171,12 @@ const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMw
 ```
 
 ### Frontend usage
-
-Follow [sample project](https://github.com/Shyft-to/community-projects/tree/main/shyft-signer-frontend).
+Use any starter from [here](https://github.com/solana-labs/wallet-adapter/tree/master/packages/starter) and implement the above code snippet or follow [Shyft sample project](https://github.com/Shyft-to/community-projects/tree/main/shyft-signer-react).
 
 ## Roadmap
 
-- Integrate sync APIs
-
+- Integrate NFT create
+- Marketplace client
 - More features
 
 ## About Us
