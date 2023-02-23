@@ -62,6 +62,9 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
 
 - `getNftByMint()`: Get NFT on-chain and off-chain data
 - `getNftByOwner()`: Get All NFTs held by a wallet address
+- `createFromMetadata()`: Create an NFT from an already uploaded metadata URI. The on-chain metadata of the NFT is fetched from the off-chain metadata present at the given URI.
+  > The metadata_uri should open a JSON document complying with Metaplex Non-Fungible Token Standard. If the JSON doesn't follow the Metaplex standard then the API returns an error.
+- `burn()`: Burn a particular NFT. It returns an encoded transaction which you can sign using the [tansaction signer](#how-to-sign-transaction-using-the-sdk).
 
 ### Fetch an NFT
 
@@ -114,10 +117,12 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 })();
 ```
 
+## How to sign transaction using the SDK?
+
 ### Transaction signer usage (with private keys)
 
 ```typescript
-import { confirmTxnByPrivateKey, Network } from '@shyft-to/js';
+import { confirmTxnByPrivateKeys, Network } from '@shyft-to/js';
 
 const network = Network.Devnet;
 const privateKeys = ['PRIVATE_KEY_ONE', 'PRIVATE_KEY_TWO'];
