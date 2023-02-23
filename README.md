@@ -64,7 +64,10 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
 - `getNftByOwner()`: Get All NFTs held by a wallet address
 - `createFromMetadata()`: Create an NFT from an already uploaded metadata URI. The on-chain metadata of the NFT is fetched from the off-chain metadata present at the given URI.
   > The metadata_uri should open a JSON document complying with Metaplex Non-Fungible Token Standard. If the JSON doesn't follow the Metaplex standard then the API returns an error.
-- `burn()`: Burn a particular NFT. It returns an encoded transaction which you can sign using the [tansaction signer](#how-to-sign-transaction-using-the-sdk).
+- `burn()`: Burn a particular NFT.
+- `transfer()`: Transfer an already minted NFT from one wallet to another.
+  > Optionally, you can transfer update authority to the new owner as well.
+- `transferMultiple()`: Transfer multiple NFTs from one wallet to another. It returns an encoded transaction which you can sign using the [tansaction signer](#how-to-sign-transaction-using-the-sdk).
 
 ### Fetch an NFT
 
