@@ -112,4 +112,56 @@ export class NftClient {
       throw error;
     }
   }
+
+  async transfer(input: {
+    network?: Network;
+    mint: string;
+    fromAddress: string;
+    toAddress: string;
+    transferAuthority?: boolean;
+  }): Promise<string> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        token_address: input.mint,
+        from_address: input.fromAddress,
+        to_address: input.toAddress,
+        transfer_authority: input?.transferAuthority ?? false,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/transfer_detach',
+        data: reqBody,
+      });
+      const encodedTransaction = data.result?.encoded_transaction as string;
+      return encodedTransaction;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async transferMultiple(input: {
+    network?: Network;
+    mints: string[];
+    fromAddress: string;
+    toAddress: string;
+  }): Promise<string[]> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        token_addresses: input.mints,
+        from_address: input.fromAddress,
+        to_address: input.toAddress,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/transfer_many',
+        data: reqBody,
+      });
+      const encodedTransactions = data.result?.encoded_transactions as string[];
+      return encodedTransactions;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

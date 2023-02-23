@@ -32,4 +32,16 @@ describe('read NFT test', () => {
     });
     expect(typeof encodedTxn).toBe('string');
   });
+
+  it('transfer multiple NFTs', async () => {
+    const encodedTxns = await shyft.nft.transferMultiple({
+      fromAddress: 'BFefyp7jNF5Xq2A4JDLLFFGpxLq5oPEFKBAQ46KJHW2R',
+      toAddress: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      mints: [
+        '8pNjm9UmY6RhGQaLuCdtDt6uXhqXg5rFQX9t2oWq3PL1',
+        'CHqQS4sZCqKvkvgsKnar5FB4aQ1Ps6mLxBfdNjRgHYqS',
+      ],
+    });
+    expect(Array.isArray(encodedTxns)).toBe(true);
+  });
 });
