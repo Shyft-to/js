@@ -22,3 +22,9 @@ export type TokenOwners = {
   limit: number;
   offset: number;
 };
+
+export type ServiceCharge = {
+  receiver: string;
+  token?: string;
+  amount: number;
+};
