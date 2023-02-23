@@ -114,25 +114,24 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 })();
 ```
 
-### Transaction signer usage (with private key)
+### Transaction signer usage (with private keys)
 
 ```typescript
 import { confirmTxnByPrivateKey, Network } from '@shyft-to/js';
 
 const network = Network.Devnet;
-const privateKey =
-  '5GGZQpoiDPRJLwMonq4ovBBKbxvNq76L3zgMXyiQ5grbPzgF3k35dkHuWwt3GmwVGZBXywXteJcJ53Emsda92D5v';
+const privateKeys = ['PRIVATE_KEY_ONE', 'PRIVATE_KEY_TWO'];
 // Get using Shyft API
 const encodedTransaction =
   '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr'(
     async () => {
       try {
-        const tx = confirmTxnByPrivateKey(
+        const txnSignature = await confirmTxnByPrivateKeys(
           network,
-          privateKey,
-          encodedTransaction
+          encodedTransaction,
+          privateKeys
         );
-        console.log(tx);
+        console.log(txnSignature);
       } catch (error) {
         throw new Error(error);
       }
@@ -171,6 +170,7 @@ const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMw
 ```
 
 ### Frontend usage
+
 Use any starter from [here](https://github.com/solana-labs/wallet-adapter/tree/master/packages/starter) and implement the above code snippet or follow [Shyft sample project](https://github.com/Shyft-to/community-projects/tree/main/shyft-signer-react).
 
 ## Roadmap
