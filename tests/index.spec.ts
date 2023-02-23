@@ -1,15 +1,24 @@
+import 'dotenv/config';
 import { Network } from '@/types';
 
-import { confirmTxnByPrivateKey } from '@/index';
+import { confirmTxnByPrivateKeys } from '@/index';
+
+const privateKeyOne = process.env.PRIVATE_KEY_ONE!;
+const privateKeyTwo = process.env.PRIVATE_KEY_TWO!;
 
 describe('test_cases', () => {
-  it('confirmTransactionFromBackend', () => {
-    expect(
-      confirmTxnByPrivateKey(
-        Network.Devnet,
-        '5GGZQpoiDPRJLwMonq4ovBBKbxvNq76L3zgMXyiQ5grbPzgF3k35dkHuWwt3GmwVGZBXywXteJcJ53Emsda92D5v',
-        '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr'
-      )
-    ).rejects.toThrowError();
+  it('confirmTxnByPrivateKeys', async () => {
+    try {
+      const encodedTransaction =
+        'AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABe6jnpzarNJhcjetQwpO8jt+dUkNvwNdYOvW8+F1JwyLUSQJVR5muXKjlhhfnLZsGMfaC8fHQPdFuePtHji6ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMBBg4Yyp9RxUce7b6XJTmDH3BTasbGTY2hJe2h0xJ16/4PFf03x94/U2O4SQL6IcF0eGlfrdVFrrC7W+y0oqGTUWP2QCwHlX8JKKwKpawHjfHTp/CXruh+Lt6Hx8xs+BZ7UD8rhkoj+/vES50L3NHADaMSD/rr7M930xhbQr97Wowskj4tcOi9OU6097ok44hG1gMMWwE6s7vbFR0A9X0vfGgjUDMi6Zhw2/SeeDCwVHDlyCObPJcP3vUbc57nNxGIKDGF94zrICEdXsZxdK9N2umeVr2b2ihcbGoGW3U1Iy4qvbHNawqriyYByMpMO1+rBn5lGLpAdFwXMPn8wPVDimGFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADH3q/GBPdI2uw94BoJBVvw0aFRw/HAWDgbwtE/uDNYyXJY9OJInxuz0QKRSODYMLWhOZ2v8QhASOe9jb6fhZC3BlsePRfEU4nVJ/awTDzVi4bHMaoP21SbbRvAP4KUYGp9UXGSxcUSGMyUw9SvF/WNruCJuh/UTj29mKAAAAAAbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpEtQg60AeD7LqLO6JSUu9JjePrIfls14iVS50u30DFyYHCAIAATQAAAAAYE0WAAAAAABSAAAAAAAAAAbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpDQIBDEMAAEAsB5V/CSisCqWsB43x06fwl67ofi7eh8fMbPgWe1A/AUAsB5V/CSisCqWsB43x06fwl67ofi7eh8fMbPgWe1A/CgcABQIBCA0MAA0DAQUCCQcBAAAAAAAAAAsGBwECAAIIqgIQCwAAAFBsYXkgYnV0dG9uCgAAAFlPTSBCdXR0b266AAAAaHR0cHM6Ly9nYXRld2F5LnBpbmF0YS5jbG91ZC9pcGZzL1FtZGlqYllna1JiR29ZUW96TDJHZ2pwYUZmVmhHY0xlUFlHcUpaTFBHVUhFWVc/X2dsPTEqd29qZnA5Kl9nYSpNVGcyTWpNME16WXdNeTR4TmpZeE56VXpNalUzKl9nYV81Uk1QWEcxNFRFKk1UWTNOekV6TlRFek5pNDBMakV1TVRZM056RXpOVEUzTmk0eU1DNHdMakEuBQABAgAAAEAsB5V/CSisCqWsB43x06fwl67ofi7eh8fMbPgWe1A/ATIsLagmF5c4a6vJhMr74YTUznxniMs9+z4QYlMJ1x2b+AAyAAABCwgDAQICAAcNCAoRAQEAAAAAAAAADQQECQYACgyAlpgAAAAAAAk=';
+      await confirmTxnByPrivateKeys(Network.Devnet, encodedTransaction, [
+        privateKeyOne,
+        privateKeyTwo,
+      ]);
+    } catch (e: any) {
+      expect(e.message).toBe(
+        'failed to send transaction: Transaction simulation failed: Blockhash not found'
+      );
+    }
   });
 });

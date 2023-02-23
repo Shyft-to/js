@@ -3,7 +3,6 @@ import {
   Connection,
   Keypair,
   Transaction,
-  sendAndConfirmTransaction,
   Signer,
 } from '@solana/web3.js';
 import { decode } from 'bs58';
@@ -19,24 +18,23 @@ import { Network, ShyftWallet } from '@/types';
  *
  * @param network solana rpc network (mainnet-beta/devnet/testnet)
  * @param encodedTransaction serialized transaction (base64 string)
- * @param privateKey private key of wallet (string)
+ * @param privateKeys private key of wallets (Array of strings)
  * @returns transaction signature
  */
 
-export async function confirmTxnByPrivateKey(
+export async function confirmTxnByPrivateKeys(
   network: Network,
   encodedTransaction: string,
-  privateKey: string
+  privateKeys: string[]
 ): Promise<string> {
   const connection = new Connection(clusterApiUrl(network), 'confirmed');
-  const feePayer = Keypair.fromSecretKey(decode(privateKey));
-  const recoveredTransaction = Transaction.from(
-    Buffer.from(encodedTransaction, 'base64')
+  const signedTxn = await partialSignTxnByPrivateKeys(
+    encodedTransaction,
+    privateKeys
   );
-  const signature = await sendAndConfirmTransaction(
-    connection,
-    recoveredTransaction,
-    [feePayer]
+
+  const signature = await connection.sendRawTransaction(
+    signedTxn.serialize({ requireAllSignatures: false })
   );
   return signature;
 }
@@ -56,9 +54,7 @@ export async function confirmTxn(
   encodedTransaction: string,
   wallet: ShyftWallet
 ): Promise<string> {
-  const recoveredTransaction = Transaction.from(
-    Buffer.from(encodedTransaction, 'base64')
-  );
+  const recoveredTransaction = getRawTransaction(encodedTransaction);
   const signedTx = await wallet.signTransaction(recoveredTransaction);
   const confirmTransaction = await connection.sendRawTransaction(
     signedTx.serialize()
@@ -74,24 +70,29 @@ export async function confirmTxn(
  *
  * @param encodedTransaction serialized transaction (base64 string)
  * @param privateKeys private keys of wallet (array of string)
- * @returns signed encoded transaction
+ * @returns Raw transaction
  */
 
-export async function signTxnByPrivateKeys(
+export async function partialSignTxnByPrivateKeys(
   encodedTransaction: string,
   privateKeys: string[]
-): Promise<string> {
-  const recoveredTransaction = Transaction.from(
-    Buffer.from(encodedTransaction, 'base64')
-  );
-  const signers = privateKeys.map((privateKey) => {
+): Promise<Transaction> {
+  const recoveredTransaction = getRawTransaction(encodedTransaction);
+  const signers = getSignersFromPrivateKeys(privateKeys);
+  recoveredTransaction.partialSign(...signers);
+  return recoveredTransaction;
+}
+
+function getSignersFromPrivateKeys(privateKeys: string[]): Signer[] {
+  return privateKeys.map((privateKey) => {
     const signer = Keypair.fromSecretKey(decode(privateKey)) as Signer;
     return signer;
   });
-  recoveredTransaction.partialSign(...signers);
-  const serializedTransaction = recoveredTransaction.serialize({
-    requireAllSignatures: false,
-  });
-  const transactionBase64 = serializedTransaction.toString('base64');
-  return transactionBase64;
+}
+
+function getRawTransaction(encodedTransaction: string): Transaction {
+  const recoveredTransaction = Transaction.from(
+    Buffer.from(encodedTransaction, 'base64')
+  );
+  return recoveredTransaction;
 }
