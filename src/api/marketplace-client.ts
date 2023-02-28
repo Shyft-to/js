@@ -1,6 +1,11 @@
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
-import { Marketplace, Network } from '@/types';
+import {
+  Marketplace,
+  MarketplaceStats,
+  Network,
+  TreasuryBalance,
+} from '@/types';
 
 const WRAPPED_SOL_ADDRESS = 'So11111111111111111111111111111111111111112';
 
@@ -126,6 +131,60 @@ export class MarketplaceClient {
       });
       const response = data.result as Marketplace;
       return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async treasuryBalance(input: {
+    network?: Network;
+    marketplaceAddress: string;
+  }): Promise<TreasuryBalance> {
+    try {
+      const params = {
+        network: input?.network ?? this.config.network,
+        marketplace_address: input.marketplaceAddress,
+      };
+
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'get',
+        url: 'marketplace/treasury_balance',
+        params,
+      });
+      const treasuryBalance = data.result as TreasuryBalance;
+      return treasuryBalance;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async stats(input: {
+    network?: Network;
+    marketplaceAddress: string;
+    startDate?: Date;
+    endDate?: Date;
+  }): Promise<MarketplaceStats> {
+    try {
+      const params = {
+        network: input?.network ?? this.config.network,
+        marketplace_address: input.marketplaceAddress,
+      };
+      if (input?.startDate) {
+        params['start_date'] = input.startDate;
+      }
+      if (input?.endDate) {
+        params['end_date'] = input.endDate;
+      }
+
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'get',
+        url: 'marketplace/stats',
+        params,
+      });
+      const stats = data.result as MarketplaceStats;
+      stats.start_date = new Date(stats.start_date);
+      stats.end_date = new Date(stats.end_date);
+      return stats;
     } catch (error) {
       throw error;
     }

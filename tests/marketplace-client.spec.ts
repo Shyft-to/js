@@ -32,4 +32,21 @@ describe('Marketplace test', () => {
     });
     expect(typeof address).toBe('string');
   });
+
+  it('fetch treasury balance of mp', async () => {
+    const treasuryBalance = await shyft.marketplace.treasuryBalance({
+      network: Network.Devnet,
+      marketplaceAddress: '6FWpMCyaNV979duL5vUkhgAo87Gozcb6aHK2BsbynPrL',
+    });
+    expect(typeof treasuryBalance).toBe('object');
+  });
+
+  it('fetch stats of mp', async () => {
+    const stats = await shyft.marketplace.stats({
+      network: Network.Devnet,
+      marketplaceAddress: '6FWpMCyaNV979duL5vUkhgAo87Gozcb6aHK2BsbynPrL',
+      startDate: new Date('2023-01-01T16:50:53.000Z'),
+    });
+    expect(typeof stats.start_date).toBe('object');
+  });
 });

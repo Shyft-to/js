@@ -12,3 +12,18 @@ export type Marketplace = {
   transaction_fee: number;
   authority: string;
 };
+
+export type TreasuryBalance = {
+  amount: number;
+  symbol: string;
+};
+
+export type MarketplaceStats = {
+  total_sales: number;
+  sales_volume: number;
+  total_sellers: number;
+  total_listings: number;
+  listed_volume: number;
+  start_date: Date;
+  end_date: Date;
+};
