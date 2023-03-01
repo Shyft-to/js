@@ -31,7 +31,7 @@ The Shyft SDK currently supports the following clients:
 - `token`: Fungible tokens info
 - `candyMachine`: Candy Machine APIs
 
-### Shyft Wallet API
+### Shyft Wallet APIs
 
 The Wallet API in the SDK standardizes response types to reduce developer friction, but note this results in some differences compared to the Shyft REST endpoints:
 
@@ -56,7 +56,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 })();
 ```
 
-### Shyft NFT API
+### Shyft NFT APIs
 
 The SDK currently supports the following NFT API endpoints under the shyft.nft namespace:
 
@@ -79,7 +79,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 })();
 ```
 
-### Shyft Token API
+### Shyft Token APIs
 
 The SDK currently supports the following Token API endpoints under the shyft.token namespace:
 
@@ -100,7 +100,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 })();
 ```
 
-### Shyft CandyMachine API
+### Shyft CandyMachine APIs
 
 The SDK currently supports the following Candy Machine API endpoints under the shyft.candyMachine namespace:
 
@@ -118,6 +118,64 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
   });
   console.log(mints);
 })();
+```
+
+### Shyft Marketplace APIs
+
+Now SDK supports all marketplace APIs. Possible to perform each operation on marketplace from SDK.
+
+Marketplace namespace:
+
+- `create()`: Create your own on-chain NFT marketplace
+- `update()`: Update an already created on-chain marketplace.
+- `find()`: Find information about your previous or current Solana marketplaces. This API fetches a marketplace's information from the blockchain.
+- `treasuryBalance()`: Check the fund balance in the marketplace treasury account.
+- `stats()`: Fetches detailed statistics of a marketplace.
+- `withdrawFee()`: Withdraw the transaction fees that got deposited in the marketplace treasury as a result of the sales transactions that happened in your marketplace. The withdrawn amount will go into the marketplace's fee recipient account.
+
+* `listing`: A sub-namespace to list, unlist, buy, check active listings and many more.
+  - `active()`: Get details of all the active listings in a marketplace.
+  - `detail()`: Get details of a particular listing in a marketplace.
+  - `bySeller()`: Get all the listings created by a particular seller (wallet address) in a marketplace.
+  - `activeSellers()`: Fetches a list of all the sellers (wallet addresses) who presently have active listings in the marketplace.
+  - `list()`: List an NFT for sale in the marketplace.
+  - `unlist()`: Unlist an already listed NFT. This operation will make the NFT unavailable for sale, and nobody would be able to buy this NFT until it is listed back again.
+  - `buy()`: Buy the listed NFT from the marketplace
+
+### Create a marketplace
+
+```typescript
+const { encoded_transaction } = await shyft.marketplace.create({
+  creatorWallet: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+});
+console.log(encoded_transaction);
+```
+
+### List an NFT on a marketplace
+
+```typescript
+const { encoded_transaction } = await shyft.marketplace.listing.list({
+  marketplaceAddress: 'dKtXyGgDGCyXiWtj9mbXUXk7ww996Uyc46CVt3ukJwV',
+  nftAddress: '7Ros6azxoYakj3agxZetDwTWySftQeYXRXAKYWgXTWvw',
+  price: 50,
+  sellerWallet: '8hDQqsj9o2LwMk2FPBs7Rz5jPuzqKpRvkeeo6hMJm5Cv',
+  isGasLess: true,
+});
+console.log(encoded_transaction);
+```
+
+### Fetch active listings on a marketplace
+
+```typescript
+const activeListings = await shyft.marketplace.listing.active({
+  network: Network.Mainnet,
+  marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
+  sortBy: 'price',
+  sortOrder: 'desc',
+  page: 1,
+  size: 2,
+});
+console.log(activeListings);
 ```
 
 ## How to sign transaction using the SDK?
