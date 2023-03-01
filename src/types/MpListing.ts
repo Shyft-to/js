@@ -28,3 +28,25 @@ export type ActiveListings = {
   total_data: number;
   total_page: number;
 };
+
+export type NftListResponse = {
+  network: Network;
+  marketplace_address: string;
+  seller_address: string;
+  price: number;
+  nft_address: string;
+  list_state: string;
+  currency_symbol: string;
+  encoded_transaction: string;
+};
+
+export type NftBuyResponse = {
+  network: Network;
+  marketplace_address: string;
+  seller_address: string;
+  price: number;
+  nft_address: string;
+  currency_symbol: string;
+  buyer_address: string;
+  encoded_transaction: string;
+};

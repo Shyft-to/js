@@ -1,6 +1,13 @@
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
-import { ActiveListings, ListedNftDetail, Network } from '@/types';
+import {
+  ActiveListings,
+  ListedNftDetail,
+  Network,
+  NftBuyResponse,
+  NftListResponse,
+  ServiceCharge,
+} from '@/types';
 
 export class MpListingClient {
   constructor(private readonly config: ShyftConfig) {}
@@ -109,6 +116,105 @@ export class MpListingClient {
       });
       const sellers = data.result as string[];
       return sellers;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async list(input: {
+    network?: Network;
+    marketplaceAddress: string;
+    nftAddress: string;
+    price: number;
+    sellerWallet: string;
+    isGasLess?: boolean;
+    serviceCharge?: ServiceCharge;
+  }): Promise<NftListResponse> {
+    try {
+      const reqBody = {
+        network: input?.network ?? this.config.network,
+        marketplace_address: input.marketplaceAddress,
+        nft_address: input.nftAddress,
+        price: input.price,
+        seller_wallet: input.sellerWallet,
+      };
+
+      if (input?.isGasLess) {
+        reqBody['on_the_house'] = input.isGasLess;
+      }
+
+      if (input?.serviceCharge) {
+        reqBody['service_charge'] = input.serviceCharge;
+      }
+
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'marketplace/list',
+        data: reqBody,
+      });
+      const response = data.result as NftListResponse;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async unlist(input: {
+    network?: Network;
+    marketplaceAddress: string;
+    listState: string;
+    sellerWallet: string;
+  }): Promise<string> {
+    try {
+      const reqBody = {
+        network: input?.network ?? this.config.network,
+        marketplace_address: input.marketplaceAddress,
+        list_state: input.listState,
+        seller_wallet: input.sellerWallet,
+      };
+
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'marketplace/unlist',
+        data: reqBody,
+      });
+      const encodedTransaction = data.result.encoded_transaction as string;
+      return encodedTransaction;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async buy(input: {
+    network?: Network;
+    marketplaceAddress: string;
+    nftAddress: string;
+    price: number;
+    sellerWallet: string;
+    buyerWallet: string;
+    serviceCharge?: ServiceCharge;
+  }): Promise<NftBuyResponse> {
+    try {
+      const reqBody = {
+        network: input?.network ?? this.config.network,
+        marketplace_address: input.marketplaceAddress,
+        nft_address: input.nftAddress,
+        price: input.price,
+        seller_address: input.sellerWallet,
+        buyer_wallet: input.buyerWallet,
+      };
+
+      if (input?.serviceCharge) {
+        reqBody['service_charge'] = input.serviceCharge;
+      }
+
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'marketplace/buy',
+        data: reqBody,
+      });
+      const response = data.result as NftBuyResponse;
+      return response;
     } catch (error) {
       throw error;
     }
