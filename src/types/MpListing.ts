@@ -1,3 +1,4 @@
+import { StringDate } from '.';
 import { Network } from './Network';
 import { Nft } from './Nft';
 
@@ -16,12 +17,13 @@ export type ListedNftDetail = {
   nft: Nft;
   list_state: string;
   status: NftStatus;
-  created_at: Date;
+  created_at: StringDate;
   receipt: string;
+  cancelled_at?: StringDate;
 };
 
 export type ActiveListings = {
-  data: ListedNftDetail[];
+  data: Omit<ListedNftDetail, 'cancelled_at'>[];
   page: number;
   size: number;
   total_data: number;

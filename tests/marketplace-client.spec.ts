@@ -47,11 +47,11 @@ describe('Marketplace test', () => {
       marketplaceAddress: '6FWpMCyaNV979duL5vUkhgAo87Gozcb6aHK2BsbynPrL',
       startDate: new Date('2023-01-01T16:50:53.000Z'),
     });
-    expect(typeof stats.start_date).toBe('object');
+    expect(typeof stats.start_date).toBe('string');
   });
 
   it('fetch active listing', async () => {
-    const activeListings = await shyft.marketplace.listing.activeListingV2({
+    const activeListings = await shyft.marketplace.listing.active({
       network: Network.Mainnet,
       marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
     });

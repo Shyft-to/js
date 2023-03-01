@@ -174,12 +174,6 @@ export class MarketplaceClient {
         network: input?.network ?? this.config.network,
         marketplace_address: input.marketplaceAddress,
       };
-      if (input?.startDate) {
-        params['start_date'] = input.startDate;
-      }
-      if (input?.endDate) {
-        params['end_date'] = input.endDate;
-      }
 
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
@@ -187,8 +181,6 @@ export class MarketplaceClient {
         params,
       });
       const stats = data.result as MarketplaceStats;
-      stats.start_date = new Date(stats.start_date);
-      stats.end_date = new Date(stats.end_date);
       return stats;
     } catch (error) {
       throw error;
