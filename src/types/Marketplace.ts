@@ -27,3 +27,10 @@ export type MarketplaceStats = {
   start_date: Date;
   end_date: Date;
 };
+
+export type WithdrawFeeTxn = {
+  from: string;
+  to: string;
+  amount: number;
+  encoded_transaction: string;
+};

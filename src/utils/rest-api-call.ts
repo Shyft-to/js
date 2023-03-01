@@ -1,12 +1,13 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { ApiError } from '@/types';
+import { ApiError, ApiVersion } from '@/types';
 
 export async function restApiCall(
   apiKey: string,
-  config: AxiosRequestConfig
+  config: AxiosRequestConfig,
+  version: ApiVersion = 'v1'
 ): Promise<any> {
   try {
-    const baseURL = 'https://api.shyft.to/sol/v1/';
+    const baseURL = `https://api.shyft.to/sol/${version}/`;
     const headers = { 'Access-Control-Allow-Origin': '*', 'x-api-key': apiKey };
     const { data } = await axios.request({ ...config, baseURL, headers });
     return data;

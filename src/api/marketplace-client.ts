@@ -5,12 +5,17 @@ import {
   MarketplaceStats,
   Network,
   TreasuryBalance,
+  WithdrawFeeTxn,
 } from '@/types';
+import { MpListingClient } from './mp-listing-client';
 
 const WRAPPED_SOL_ADDRESS = 'So11111111111111111111111111111111111111112';
 
 export class MarketplaceClient {
-  constructor(private readonly config: ShyftConfig) {}
+  readonly listing: MpListingClient;
+  constructor(private readonly config: ShyftConfig) {
+    this.listing = new MpListingClient(this.config);
+  }
 
   async create(input: {
     network?: Network;
@@ -185,6 +190,32 @@ export class MarketplaceClient {
       stats.start_date = new Date(stats.start_date);
       stats.end_date = new Date(stats.end_date);
       return stats;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async withdrawFee(input: {
+    network?: Network;
+    marketplaceAddress: string;
+    authorityWallet: string;
+    amount: number;
+  }): Promise<WithdrawFeeTxn> {
+    try {
+      const reqBody = {
+        network: input?.network ?? this.config.network,
+        marketplace_address: input.marketplaceAddress,
+        authority_wallet: input.authorityWallet,
+        amount: input.amount,
+      };
+
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'marketplace/withdraw_fee',
+        data: reqBody,
+      });
+      const withdrawFeeTxn = data.result as WithdrawFeeTxn;
+      return withdrawFeeTxn;
     } catch (error) {
       throw error;
     }

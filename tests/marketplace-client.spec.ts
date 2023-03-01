@@ -49,4 +49,12 @@ describe('Marketplace test', () => {
     });
     expect(typeof stats.start_date).toBe('object');
   });
+
+  it('fetch active listing', async () => {
+    const activeListings = await shyft.marketplace.listing.activeListingV2({
+      network: Network.Mainnet,
+      marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
+    });
+    expect(typeof activeListings).toBe('object');
+  });
 });
