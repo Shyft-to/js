@@ -54,6 +54,10 @@ describe('Marketplace test', () => {
     const activeListings = await shyft.marketplace.listing.active({
       network: Network.Mainnet,
       marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
+      sortBy: 'price',
+      sortOrder: 'desc',
+      page: 1,
+      size: 2,
     });
     expect(typeof activeListings).toBe('object');
   });

@@ -2,6 +2,8 @@ import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
 import {
   ActiveListings,
+  ActiveListingSortBy,
+  ActiveListingSortOrder,
   ListedNftDetail,
   Network,
   NftBuyResponse,
@@ -15,12 +17,36 @@ export class MpListingClient {
   async active(input: {
     network?: Network;
     marketplaceAddress: string;
+    sellerAddress?: string;
+    collectionAddress?: string;
+    sortBy?: ActiveListingSortBy;
+    sortOrder?: ActiveListingSortOrder;
+    page?: number;
+    size?: number;
   }): Promise<ActiveListings> {
     try {
       const params = {
         network: input?.network ?? this.config.network,
         marketplace_address: input.marketplaceAddress,
       };
+      if (input?.sellerAddress) {
+        params['seller_address'] = input.sellerAddress;
+      }
+      if (input?.collectionAddress) {
+        params['collection_address'] = input.collectionAddress;
+      }
+      if (input?.sortBy) {
+        params['sort_by'] = input.sortBy;
+      }
+      if (input?.sortOrder) {
+        params['sort_order'] = input.sortOrder;
+      }
+      if (input?.page) {
+        params['page'] = input.page;
+      }
+      if (input?.size) {
+        params['size'] = input.size;
+      }
 
       const data = await restApiCall(
         this.config.apiKey,
@@ -99,7 +125,7 @@ export class MpListingClient {
     }
   }
 
-  async sellers(input: {
+  async activeSellers(input: {
     network?: Network;
     marketplaceAddress: string;
   }): Promise<string[]> {

@@ -50,3 +50,6 @@ export type NftBuyResponse = {
   buyer_address: string;
   encoded_transaction: string;
 };
+
+export type ActiveListingSortBy = 'list_date' | 'price';
+export type ActiveListingSortOrder = 'asc' | 'desc';
