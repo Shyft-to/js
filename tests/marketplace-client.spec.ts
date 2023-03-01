@@ -70,4 +70,35 @@ describe('Marketplace test', () => {
     });
     expect(typeof listings[0].created_at).toBe('object');
   });
+
+  it('list', async () => {
+    const { encoded_transaction } = await shyft.marketplace.listing.list({
+      marketplaceAddress: 'dKtXyGgDGCyXiWtj9mbXUXk7ww996Uyc46CVt3ukJwV',
+      nftAddress: '7Ros6azxoYakj3agxZetDwTWySftQeYXRXAKYWgXTWvw',
+      price: 1,
+      sellerWallet: '8hDQqsj9o2LwMk2FPBs7Rz5jPuzqKpRvkeeo6hMJm5Cv',
+    });
+    expect(typeof encoded_transaction).toBe('string');
+  });
+
+  it('unlist', async () => {
+    const encodedTransaction = await shyft.marketplace.listing.unlist({
+      marketplaceAddress: '5p4Bua5tSsSo1RJ94H1w5DiMSPfWcvMvnMVjPpZ6sJUb',
+      listState: '9hXPhRfAYsR9fYcuPcDS36wimTRthVVjmX9NKgxub65G',
+      sellerWallet: 'AaYFExyZuMHbJHzjimKyQBAH1yfA9sKTxSzBc6Nr5X4s',
+    });
+    expect(typeof encodedTransaction).toBe('string');
+  });
+
+  it('buy', async () => {
+    const { encoded_transaction } = await shyft.marketplace.listing.buy({
+      network: Network.Mainnet,
+      marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
+      nftAddress: 'A6v4ucyJ2sYnn4HiSnw4Z8mYhzQosRhE5tsH4NXM5v2N',
+      sellerWallet: '4AQHWYvT647XtdoW7KcVzjEwG3ZqmMDhBpZ316yJWrTp',
+      buyerWallet: 'Bme4LRYLq199vosFJcP2YrHSduMj27tmqdTNadYDma9A',
+      price: 250,
+    });
+    expect(typeof encoded_transaction).toBe('string');
+  });
 });
