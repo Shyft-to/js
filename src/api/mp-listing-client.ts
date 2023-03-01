@@ -25,6 +25,9 @@ export class MpListingClient {
         'v2'
       );
       const listedNfts = data.result as ActiveListings;
+      listedNfts.data.forEach((x) => {
+        x.created_at = new Date(x.created_at);
+      });
       return listedNfts;
     } catch (error) {
       throw error;
@@ -48,8 +51,12 @@ export class MpListingClient {
         url: 'marketplace/list_details',
         params,
       });
-      const listedNfts = data.result as Omit<ListedNftDetail, 'status'>;
-      return listedNfts;
+      const listedNft = data.result as Omit<ListedNftDetail, 'status'>;
+      listedNft.created_at = new Date(listedNft.created_at);
+      if (listedNft?.cancelled_at) {
+        listedNft.cancelled_at = new Date(listedNft.cancelled_at);
+      }
+      return listedNft;
     } catch (error) {
       throw error;
     }
@@ -73,6 +80,12 @@ export class MpListingClient {
         params,
       });
       const listedNfts = data.result as Omit<ListedNftDetail, 'status'>[];
+      listedNfts.forEach((x) => {
+        x.created_at = new Date(x.created_at);
+        if (x?.cancelled_at) {
+          x.cancelled_at = new Date(x.cancelled_at);
+        }
+      });
       return listedNfts;
     } catch (error) {
       throw error;

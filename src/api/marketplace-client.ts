@@ -181,6 +181,8 @@ export class MarketplaceClient {
         params,
       });
       const stats = data.result as MarketplaceStats;
+      stats.start_date = new Date(stats.start_date);
+      stats.end_date = new Date(stats.end_date);
       return stats;
     } catch (error) {
       throw error;

@@ -47,7 +47,7 @@ describe('Marketplace test', () => {
       marketplaceAddress: '6FWpMCyaNV979duL5vUkhgAo87Gozcb6aHK2BsbynPrL',
       startDate: new Date('2023-01-01T16:50:53.000Z'),
     });
-    expect(typeof stats.start_date).toBe('string');
+    expect(typeof stats.start_date).toBe('object');
   });
 
   it('fetch active listing', async () => {
@@ -56,5 +56,14 @@ describe('Marketplace test', () => {
       marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
     });
     expect(typeof activeListings).toBe('object');
+  });
+
+  it('fetch seller listings of mp', async () => {
+    const listings = await shyft.marketplace.listing.bySeller({
+      network: Network.Mainnet,
+      marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
+      sellerAddress: '2ds8Azc8EC1MNyUWKBQrTsTKutyxg1wSvVFB9tthmd1J',
+    });
+    expect(typeof listings[0].created_at).toBe('object');
   });
 });

@@ -1,4 +1,3 @@
-import { StringDate } from '.';
 import { Network } from './Network';
 import { Nft } from './Nft';
 
@@ -17,9 +16,9 @@ export type ListedNftDetail = {
   nft: Nft;
   list_state: string;
   status: NftStatus;
-  created_at: StringDate;
+  created_at: Date;
   receipt: string;
-  cancelled_at?: StringDate;
+  cancelled_at?: Date;
 };
 
 export type ActiveListings = {

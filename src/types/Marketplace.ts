@@ -1,5 +1,3 @@
-import { StringDate } from ".";
-
 export type Marketplace = {
   network: string;
   address: string;
@@ -26,8 +24,8 @@ export type MarketplaceStats = {
   total_sellers: number;
   total_listings: number;
   listed_volume: number;
-  start_date: StringDate;
-  end_date: StringDate;
+  start_date: Date;
+  end_date: Date;
 };
 
 export type WithdrawFeeTxn = {
