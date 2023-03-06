@@ -178,6 +178,27 @@ const activeListings = await shyft.marketplace.listing.active({
 console.log(activeListings);
 ```
 
+### Transaction APIs
+
+Get parsed transaction and history easily.
+
+Transaction namespace:
+
+- `raw()`: Get raw transaction for a given txn signature.
+- `parsed()`: Get parsed transaction details for a given txn signature. Read more on [parsed transaction structure](https://docs.shyft.to/start-hacking/transactions/parsed-transaction-structure)
+- `history()`: Fetches a list of parsed transactions for an on-chain account. The response returns the transactions with the latest transactions first. The response can have results of a maximum of 10 transactions in 1 single call.
+
+### Fetch transaction history
+
+```typescript
+const transactions = await shyft.transaction.history({
+  network: Network.Devnet,
+  account: 'Apeng15Pm8EjpAcaAXpNUxZjS2jMmGqikfs281Fz9hNj',
+  enableRaw: true,
+});
+console.dir(transactions, { depth: null });
+```
+
 ## How to sign transaction using the SDK?
 
 ### Transaction signer usage (with private keys)
