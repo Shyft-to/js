@@ -1,3 +1,5 @@
+import { ParsedTransactionWithMeta } from '@solana/web3.js';
+
 enum TxnAction {
   NFT_MINT = 'NFT_MINT',
   TOKEN_MINT = 'TOKEN_MINT',
@@ -26,7 +28,7 @@ type Action = {
   conditions?: Condition[];
 };
 
-type ActionSummary = Omit<Omit<Action, 'indices'>, 'name'>;
+type ActionBrief = Omit<Omit<Action, 'indices'>, 'name'>;
 
 type ProtocolDetails = {
   name: string;
@@ -36,8 +38,45 @@ export type ParsedTranaction = {
   timestamp?: string;
   fee?: number;
   fee_payer: string;
-  actions?: ActionSummary[];
+  actions?: ActionBrief[];
   signatures: string[];
   protocols?: Map<string, ProtocolDetails>;
   signers: string[];
 };
+
+type EasyProtocol = {
+  address: string;
+  name: string;
+};
+
+type SimplifiedTxnInfo = {
+  timestamp: string;
+  fee: number;
+  fee_payer: string;
+  signatures: string[];
+  signers: string[];
+  type: string;
+  protocol: EasyProtocol;
+};
+
+type ActionSummary<T> = {
+  info: T;
+  source_protocol: string;
+  parent_protocol?: string;
+  type: string;
+  tags?: string[];
+};
+
+type NeatActionSummary<T> = Omit<ActionSummary<T>, 'tags'>;
+
+export type ParsedTxnSummary = SimplifiedTxnInfo & {
+  actions: NeatActionSummary<any>[];
+};
+
+export type RawTransaction = ParsedTransactionWithMeta & {
+  parsed: ParsedTxnSummary;
+};
+
+export type TransactionHistory = (ParsedTxnSummary & {
+  raw?: ParsedTransactionWithMeta;
+})[];
