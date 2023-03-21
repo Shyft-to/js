@@ -204,16 +204,16 @@ console.dir(transactions, { depth: null });
 ### Transaction signer usage (with private keys)
 
 ```typescript
-import { confirmTxnByPrivateKeys, Network } from '@shyft-to/js';
+import { signAndSendTransactionWithPrivateKeys, Network } from '@shyft-to/js';
 
 const network = Network.Devnet;
 const privateKeys = ['PRIVATE_KEY_ONE', 'PRIVATE_KEY_TWO'];
 // Get using Shyft API
 const encodedTransaction =
   '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr'(
-    async () => {
+    (async () => {
       try {
-        const txnSignature = await confirmTxnByPrivateKeys(
+        const txnSignature = await signAndSendTransactionWithPrivateKeys(
           network,
           encodedTransaction,
           privateKeys
@@ -230,20 +230,16 @@ const encodedTransaction =
 
 ```tsx
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { confirmTxn, Network, ShyftWallet } from '@shyft-to/js';
+import { signAndSendTransaction, Network, ShyftWallet } from '@shyft-to/js';
 
 const { connection } = useConnection();
-const { signTransaction, signAllTransactions } = useWallet();
+const wallet = useWallet();
 
-const wallet: ShyftWallet = {
-  signTransaction: signTransaction!,
-  signAllTransactions: signAllTransactions!,
-};
 // Get using Shyft API
 const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr';
-  async () => {
+  (async () => {
     try {
-      const txnSignature = await confirmTxn(
+      const txnSignature = await signAndSendTransaction(
           connection,
           encodedTransaction,
           wallet
