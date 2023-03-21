@@ -22,13 +22,13 @@ import { Network, ShyftWallet } from '@/types';
  * @returns transaction signature
  */
 
-export async function confirmTxnByPrivateKeys(
+export async function signAndSendTransactionWithPrivateKeys(
   network: Network,
   encodedTransaction: string,
   privateKeys: string[]
 ): Promise<string> {
   const connection = new Connection(clusterApiUrl(network), 'confirmed');
-  const signedTxn = await partialSignTxnByPrivateKeys(
+  const signedTxn = await partialSignTransactionWithPrivateKeys(
     encodedTransaction,
     privateKeys
   );
@@ -45,17 +45,17 @@ export async function confirmTxnByPrivateKeys(
  *
  * @param connection solana rpc connection
  * @param encodedTransaction serialized transaction (base64 string)
- * @param wallet wallet address
+ * @param wallet wallet
  * @returns transaction signature
  */
 
-export async function confirmTxn(
+export async function signAndSendTransaction(
   connection: Connection,
   encodedTransaction: string,
   wallet: ShyftWallet
 ): Promise<string> {
   const recoveredTransaction = getRawTransaction(encodedTransaction);
-  const signedTx = await wallet.signTransaction(recoveredTransaction);
+  const signedTx = await wallet.signTransaction!(recoveredTransaction);
   const confirmTransaction = await connection.sendRawTransaction(
     signedTx.serialize()
   );
@@ -73,7 +73,7 @@ export async function confirmTxn(
  * @returns Raw transaction
  */
 
-export async function partialSignTxnByPrivateKeys(
+export async function partialSignTransactionWithPrivateKeys(
   encodedTransaction: string,
   privateKeys: string[]
 ): Promise<Transaction> {
