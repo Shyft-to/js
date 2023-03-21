@@ -30,6 +30,7 @@ The Shyft SDK currently supports the following clients:
 - `nft`: Shyft NFT APIs
 - `token`: Fungible tokens info
 - `candyMachine`: Candy Machine APIs
+- `marketplace`: Marketplace APIs
 
 ### Shyft Wallet APIs
 
