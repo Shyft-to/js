@@ -31,6 +31,7 @@ The Shyft SDK currently supports the following clients:
 - `token`: Fungible tokens info
 - `candyMachine`: Candy Machine APIs
 - `marketplace`: Marketplace APIs
+- `transaction`: Transation APIs
 
 ### Shyft Wallet APIs
 
@@ -69,6 +70,7 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
 - `transfer()`: Transfer an already minted NFT from one wallet to another.
   > Optionally, you can transfer update authority to the new owner as well.
 - `transferMultiple()`: Transfer multiple NFTs from one wallet to another. It returns an encoded transaction which you can sign using the [tansaction signer](#how-to-sign-transaction-using-the-sdk).
+- `createV2()`: Creating an NFT, and is just 1 simple API call, which internally does all the heavy lifting for you.
 
 ### Fetch an NFT
 
@@ -230,27 +232,27 @@ const encodedTransaction =
 ### Transaction signer usage (without private key)
 
 ```tsx
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { signAndSendTransaction, Network, ShyftWallet } from '@shyft-to/js';
 
 const { connection } = useConnection();
 const wallet = useWallet();
 
 // Get using Shyft API
-const encodedTransaction = '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr';
-  (async () => {
-    try {
-      const txnSignature = await signAndSendTransaction(
-          connection,
-          encodedTransaction,
-          wallet
-        );
-      console.log(txnSignature);
-    } catch (error) {
-      throw new Error(error);
-    }
+const encodedTransaction =
+  '5eG1aSjNoPmScw84G1d7f9n2fgmWabtQEgRjTUXvpTrRH1qduEMwUvUFYiS8px22JNedkWFTUWj9PrRyq1MyessunKC8Mjyq3hH5WZkM15D3gsooH8hsFegyYRBmccLBTEnPph6fExEySkJwsfH6oGC62VmDDCpWyPHZLYv52e4qtUb1TBE6SgXE6FX3TFqrX5HApSkb9ZaCSz21FyyEbXtrmMxBQE1CR7BTyadWL1Vy9SLfo9tnsVpHHDHthFRr';
+(async () => {
+  try {
+    const txnSignature = await signAndSendTransaction(
+      connection,
+      encodedTransaction,
+      wallet
+    );
+    console.log(txnSignature);
+  } catch (error) {
+    throw new Error(error);
   }
-)();
+})();
 ```
 
 ### Frontend usage
