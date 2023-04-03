@@ -1,6 +1,7 @@
+import FormData from 'form-data';
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
-import { Network, Nft, ServiceCharge } from '@/types';
+import { Attribute, Network, Nft, ServiceCharge } from '@/types';
 
 export class NftClient {
   constructor(private readonly config: ShyftConfig) {}
@@ -160,6 +161,74 @@ export class NftClient {
       });
       const encodedTransactions = data.result?.encoded_transactions as string[];
       return encodedTransactions;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createV2(input: {
+    network?: Network;
+    creatorWallet: string;
+    name: string;
+    symbol: string;
+    description?: string;
+    attributes?: Attribute[];
+    externalUrl?: string;
+    maxSupply?: number;
+    royalty?: number;
+    collectionAddress?: string;
+    feePayer?: string;
+    image: File;
+    data?: File;
+  }): Promise<{ encoded_transaction: string; mint: string }> {
+    try {
+      let data = new FormData();
+      data.append('network', input.network ?? this.config.network);
+      data.append('creator_wallet', input.creatorWallet);
+      data.append('name', input.name);
+      data.append('symbol', input.symbol);
+      if (input?.description) {
+        data.append('description', input.description);
+      }
+      if (input?.attributes) {
+        data.append('attributes', JSON.stringify(input.attributes));
+      }
+      if (input?.externalUrl) {
+        data.append('external_url', input.externalUrl);
+      }
+      if (input?.maxSupply) {
+        data.append('max_supply', input.maxSupply.toString());
+      }
+      if (input?.royalty) {
+        data.append('royalty', input.royalty.toString());
+      }
+      if (input?.collectionAddress) {
+        data.append('collection_address', input.collectionAddress);
+      }
+      if (input?.feePayer) {
+        data.append('fee_payer', input.feePayer);
+      }
+      data.append('image', input.image);
+      if (input?.data) {
+        data.append('data', input.data);
+      }
+
+      const response = await restApiCall(
+        this.config.apiKey,
+        {
+          method: 'post',
+          url: 'nft/create',
+          maxBodyLength: Infinity,
+          data,
+        },
+        'v2'
+      );
+
+      const result = response.result as {
+        encoded_transaction: string;
+        mint: string;
+      };
+      return result;
     } catch (error) {
       throw error;
     }
