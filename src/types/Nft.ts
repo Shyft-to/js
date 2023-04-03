@@ -73,3 +73,8 @@ export type NftMetadata = {
   collectionDetails: object | null;
   uses: object | null;
 };
+
+export type Attribute = {
+  trait_type: string;
+  value: string | number;
+};
