@@ -90,6 +90,11 @@ The SDK currently supports the following Token API endpoints under the shyft.tok
 - `getInfo()`: This method returns you the information about an already launched Token.
 - `getOwners()`: Returns all owners hold the token, sorted by the amount they are holding (high to low).
   > This method supports pagination and only works with mainnet-beta network.
+- `create()`: Create your own fungible tokens.
+- `mint()`: This API lets you mint and create new units of your Fungible Token. This will increase the total supply of the token. In order to mint a token, you need to create it first.
+- `burn()`: This API lets you burn or decrease the supply of your Fungible Tokens.
+- `transfer()`: Transfer already minted tokens from one wallet to another wallet address. This does not change the total supply of the token.
+- `airdrop()`: Airdrop any SPL-20 token to the accounts of your choice, from 1 source account.
 
 ### Fetch info of a Fungible Token
 
@@ -98,7 +103,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 (async () => {
   const token = await shyft.token.getInfo({
     network: Network.Mainnet,
-    mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
+    tokenAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
   });
   console.log(token);
 })();
