@@ -5,6 +5,11 @@ export type CollectionInfo = {
   family?: string;
 };
 
+export type NftFile = {
+  uri: string;
+  type: string;
+};
+
 export type Nft = {
   name: string;
   description: string;
@@ -22,7 +27,7 @@ export type Nft = {
   creators: Creator[];
   collection: CollectionInfo;
   attributes_array: any;
-  files: any;
+  files: NftFile[];
   external_url: string;
   is_loaded_metadata: boolean;
   primary_sale_happened: boolean;

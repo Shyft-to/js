@@ -6,6 +6,7 @@ import {
   CandyMachineClient,
   MarketplaceClient,
   TransactionClient,
+  StorageClient,
 } from '@/api';
 import { ShyftConfig } from '@/utils';
 
@@ -17,6 +18,7 @@ export class ShyftSdk {
   readonly candyMachine: CandyMachineClient;
   readonly marketplace: MarketplaceClient;
   readonly transaction: TransactionClient;
+  readonly storage: StorageClient;
   constructor(settings: ShyftSettings) {
     this.config = new ShyftConfig(settings);
     this.wallet = new WalletClient(this.config);
@@ -25,5 +27,6 @@ export class ShyftSdk {
     this.candyMachine = new CandyMachineClient(this.config);
     this.marketplace = new MarketplaceClient(this.config);
     this.transaction = new TransactionClient(this.config);
+    this.storage = new StorageClient(this.config);
   }
 }

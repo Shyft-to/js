@@ -12,4 +12,4 @@ export * from './Token';
 export * from './CandyMachine';
 export * from './Marketplace';
 export * from './MpListing';
-export * from './Uploader';
+export * from './Storage';

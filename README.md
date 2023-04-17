@@ -32,6 +32,7 @@ The Shyft SDK currently supports the following clients:
 - `candyMachine`: Candy Machine APIs
 - `marketplace`: Marketplace APIs
 - `transaction`: Transation APIs
+- `storage`: Storage APIs such as uploading asset or metadata and get IPFS uri.
 
 ### Shyft Wallet APIs
 
@@ -200,6 +201,35 @@ const transactions = await shyft.transaction.history({
   enableRaw: true,
 });
 console.dir(transactions, { depth: null });
+```
+
+### Storage APIs
+
+Your gateway to decentralized storage
+
+Storage namespace:
+
+- `uploadAsset()`: Upload anything to decentralized storage. Call the API with file: anything as form-data.
+  > Note: For IPFS, you will get the same id on uploading same content.
+- `createMetadata()`: This lets you create an NFT metadata JSON file on decentralized storage (IPFS).
+
+### Create NFT Metadata
+
+```typescript
+const { uri } = await shyft.storage.createMetadata({
+  creator: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+  image:
+    'https://nftstorage.link/ipfs/bafkreiajrjd7xozubfr7qk6xdktlo3k66jg6jkeamgjugd2p3w5w2pifve',
+  name: 'Nirvana',
+  symbol: 'NVN',
+  description: 'This is a test NFT',
+  attributes: [
+    { trait_type: 'anger', value: 0 },
+    { trait_type: 'calmness', value: 100 },
+  ],
+  sellerFeeBasisPoints: 500,
+});
+console.log(uri);
 ```
 
 ## How to sign transaction using the SDK?
