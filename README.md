@@ -33,6 +33,7 @@ The Shyft SDK currently supports the following clients:
 - `marketplace`: Marketplace APIs
 - `transaction`: Transation APIs
 - `storage`: Storage APIs such as uploading asset or metadata and get IPFS uri.
+- `semiCustodialWallet`: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps.
 
 ### Shyft Wallet APIs
 
@@ -236,6 +237,17 @@ const { uri } = await shyft.storage.createMetadata({
 });
 console.log(uri);
 ```
+
+### Semi Custodial Wallet APIs
+
+A type of wallet where Shyft holds half of your private keys while the other half is with the client or the end user.
+
+semicustodial namespace:
+
+- `create()`: We create a standard Solana wallet using keypair.generate(). The private key is then encrypted with the provided password and random encryption parameters. In order to decrypt the key, we need the same password and the same encryption parameters.
+  > Shyft never ever stores or logs your password at any time. This can be confirmed with our open source code.
+- `getKeypair()`: Get keypair of created semi custodial wallet.
+- `changePassword()`: Change password of semi custodial wallet.
 
 ## How to sign transaction using the SDK?
 
