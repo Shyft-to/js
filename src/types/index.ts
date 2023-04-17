@@ -1,3 +1,5 @@
+import { from } from 'form-data';
+
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
 export type ApiVersion = 'v1' | 'v2';
@@ -13,3 +15,4 @@ export * from './CandyMachine';
 export * from './Marketplace';
 export * from './MpListing';
 export * from './Storage';
+export * from './SemiCustodialWallet';
