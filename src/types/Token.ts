@@ -28,3 +28,19 @@ export type ServiceCharge = {
   token?: string;
   amount: number;
 };
+
+export type TokenTransferTo = {
+  toAddress: string;
+  amount: number;
+};
+
+export type TokenApiResponse = {
+  encoded_transaction: string;
+  mint: string;
+  signers: string[];
+};
+
+export type AirdropTokenResponse = {
+  encoded_transaction: string[];
+  signer: string;
+};
