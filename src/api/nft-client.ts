@@ -114,6 +114,34 @@ export class NftClient {
     }
   }
 
+  async burnMany(input: {
+    network?: Network;
+    wallet: string;
+    mints: string[];
+    close?: boolean;
+  }): Promise<string[]> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        wallet: input.wallet,
+        nft_addresses: input.mints,
+      };
+      if (input?.close) {
+        reqBody['close_accounts'] = input.close;
+      }
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'delete',
+        url: 'nft/burn_many',
+        data: reqBody,
+      });
+      const encodedTransactions = data.result?.encoded_transaction
+        .encoded_transactions as string[];
+      return encodedTransactions;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async transfer(input: {
     network?: Network;
     mint: string;
@@ -159,7 +187,8 @@ export class NftClient {
         url: 'nft/transfer_many',
         data: reqBody,
       });
-      const encodedTransactions = data.result?.encoded_transactions as string[];
+      const encodedTransactions = data.result?.encoded_transaction
+        .encoded_transactions as string[];
       return encodedTransactions;
     } catch (error) {
       throw error;
