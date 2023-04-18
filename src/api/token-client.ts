@@ -78,7 +78,7 @@ export class TokenClient {
       }
       data.append('name', input.name);
       if (input.symbol.length > 10) {
-        throw new Error('Max length allowed 10: name');
+        throw new Error('Max length allowed 10: symbol');
       }
       data.append('symbol', input.symbol);
       data.append('file', input.image);

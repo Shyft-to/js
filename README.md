@@ -69,10 +69,16 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
 - `createFromMetadata()`: Create an NFT from an already uploaded metadata URI. The on-chain metadata of the NFT is fetched from the off-chain metadata present at the given URI.
   > The metadata_uri should open a JSON document complying with Metaplex Non-Fungible Token Standard. If the JSON doesn't follow the Metaplex standard then the API returns an error.
 - `burn()`: Burn a particular NFT.
+- `burnMany()`: Burn as many NFTs from a wallet as you want. This API endpoint returns one or multiple encoded transaction strings, which have to be signed by the NFT owner's wallet and submitted to the blockchain for successful burns.
 - `transfer()`: Transfer an already minted NFT from one wallet to another.
   > Optionally, you can transfer update authority to the new owner as well.
 - `transferMultiple()`: Transfer multiple NFTs from one wallet to another. It returns an encoded transaction which you can sign using the [tansaction signer](#how-to-sign-transaction-using-the-sdk).
 - `createV2()`: Creating an NFT, and is just 1 simple API call, which internally does all the heavy lifting for you.
+- `updateV2()`: This call allows an external wallet to pay the gas fee for updating NFT on behalf of the NFT update authority.
+
+* `collection`: A sub-namespace to get NFTs and other interesting insights over NFT collections.
+  - `getNfts()`: Get on-chain metadata for NFTs in a collection. This API supports pagination support, with a default page size of 10 and maximum 50 allowed.
+    > This method supports pagination and only works with mainnet-beta network.
 
 ### Fetch an NFT
 
