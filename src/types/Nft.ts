@@ -83,3 +83,11 @@ export type Attribute = {
   trait_type: string;
   value: string | number;
 };
+
+export type CollectionNfts = {
+  nfts: Nft[];
+  total_count: number;
+  total_pages: number;
+  page: number;
+  size: number;
+};

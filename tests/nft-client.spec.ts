@@ -115,4 +115,14 @@ describe('read NFT test', () => {
     console.log(encodedTransactions);
     expect(encodedTransactions.length).toBe(2);
   }, 50000);
+
+  it('fetch collection nfts', async () => {
+    const collectionNfts = await shyft.nft.collection.getNfts({
+      network: Network.Mainnet,
+      collectionAddress: '86vgk5fUs47pXrvh6iGdud2kg5XyBHV2XiZ16JPwCLKi',
+      page: 1,
+      size: 5,
+    });
+    expect(collectionNfts.nfts.length).toBe(5);
+  }, 50000);
 });

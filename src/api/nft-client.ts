@@ -1,10 +1,13 @@
 import FormData from 'form-data';
-import { ShyftConfig } from '@/utils';
-import { restApiCall } from '@/utils';
+import { ShyftConfig, restApiCall } from '@/utils';
 import { Attribute, Network, Nft, ServiceCharge } from '@/types';
+import { CollectionClient } from './collection-client';
 
 export class NftClient {
-  constructor(private readonly config: ShyftConfig) {}
+  readonly collection: CollectionClient;
+  constructor(private readonly config: ShyftConfig) {
+    this.collection = new CollectionClient(this.config);
+  }
 
   async getNftByMint(input: { network?: Network; mint: string }): Promise<Nft> {
     try {
@@ -134,8 +137,7 @@ export class NftClient {
         url: 'nft/burn_many',
         data: reqBody,
       });
-      const encodedTransactions = data.result?.encoded_transaction
-        .encoded_transactions as string[];
+      const encodedTransactions = data.result?.encoded_transactions as string[];
       return encodedTransactions;
     } catch (error) {
       throw error;
