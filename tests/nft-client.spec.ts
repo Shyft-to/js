@@ -67,4 +67,26 @@ describe('read NFT test', () => {
     console.log(encoded_transaction);
     expect(typeof mint).toBe('string');
   }, 50000);
+
+  it('update NFT', async () => {
+    const { mint, encoded_transaction } = await shyft.nft.updateV2({
+      mint: 'FJwWVYH1UyL8PGwwnVcABviGJ8pfwwxSAbLNGkkWxjKP',
+      updateAuthority: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      name: 'JS ME',
+      symbol: 'JSME',
+      description: 'Test',
+      attributes: [
+        {
+          trait_type: 'sunday',
+          value: 2,
+        },
+      ],
+      image: createReadStream(
+        resolve(__dirname, '../assets/shyft_logo.png')
+      ) as unknown as File,
+    });
+    console.log(mint);
+    console.log(encoded_transaction);
+    expect(typeof mint).toBe('string');
+  }, 50000);
 });

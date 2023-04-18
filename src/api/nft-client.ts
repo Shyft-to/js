@@ -233,4 +233,78 @@ export class NftClient {
       throw error;
     }
   }
+
+  async updateV2(input: {
+    network?: Network;
+    mint: string;
+    updateAuthority: string;
+    name?: string;
+    symbol?: string;
+    description?: string;
+    attributes?: Attribute[];
+    royalty?: number;
+    image?: File;
+    data?: File;
+    feePayer?: string;
+    serviceCharge?: ServiceCharge;
+  }): Promise<{ encoded_transaction: string; mint: string }> {
+    try {
+      let data = new FormData();
+      data.append('network', input.network ?? this.config.network);
+      data.append('token_address', input.mint);
+      data.append('update_authority_address', input.updateAuthority);
+      if (input?.name) {
+        if (input.name.length > 32) {
+          throw new Error('Max length allowed 32: name');
+        }
+        data.append('name', input.name);
+      }
+      if (input?.symbol) {
+        if (input.symbol.length > 10) {
+          throw new Error('Max length allowed 10: symbol');
+        }
+        data.append('symbol', input.symbol);
+      }
+      if (input?.description) {
+        data.append('description', input.description);
+      }
+      if (input?.attributes) {
+        data.append('attributes', JSON.stringify(input.attributes));
+      }
+      if (input?.royalty) {
+        data.append('royalty', input.royalty.toString());
+      }
+      if (input?.image) {
+        data.append('image', input.image);
+      }
+      if (input?.data) {
+        data.append('data', input.data);
+      }
+      if (input?.feePayer) {
+        data.append('fee_payer', input.feePayer);
+      }
+      if (input?.serviceCharge) {
+        data.append('service_charge', input.serviceCharge);
+      }
+
+      const response = await restApiCall(
+        this.config.apiKey,
+        {
+          method: 'post',
+          url: 'nft/update',
+          maxBodyLength: Infinity,
+          data,
+        },
+        'v2'
+      );
+
+      const result = {
+        encoded_transaction: response.result as string,
+        mint: input.mint,
+      };
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
