@@ -84,12 +84,23 @@
 </blockquote>
 </li>
 <li><code>burn()</code>: Burn a particular NFT.</li>
+<li><code>burnMany()</code>: Burn as many NFTs from a wallet as you want. This API endpoint returns one or multiple encoded transaction strings, which have to be signed by the NFT owner&#39;s wallet and submitted to the blockchain for successful burns.</li>
 <li><code>transfer()</code>: Transfer an already minted NFT from one wallet to another.<blockquote>
 <p>Optionally, you can transfer update authority to the new owner as well.</p>
 </blockquote>
 </li>
 <li><code>transferMultiple()</code>: Transfer multiple NFTs from one wallet to another. It returns an encoded transaction which you can sign using the <a href="#how-to-sign-transaction-using-the-sdk">tansaction signer</a>.</li>
 <li><code>createV2()</code>: Creating an NFT, and is just 1 simple API call, which internally does all the heavy lifting for you.</li>
+<li><code>updateV2()</code>: This call allows an external wallet to pay the gas fee for updating NFT on behalf of the NFT update authority.</li>
+</ul>
+<ul>
+<li><code>collection</code>: A sub-namespace to get NFTs and other interesting insights over NFT collections.<ul>
+<li><code>getNfts()</code>: Get on-chain metadata for NFTs in a collection. This API supports pagination support, with a default page size of 10 and maximum 50 allowed.<blockquote>
+<p>This method supports pagination and only works with mainnet-beta network.</p>
+</blockquote>
+</li>
+</ul>
+</li>
 </ul>
 
 <a href="#fetch-an-nft" id="fetch-an-nft" style="color: inherit; text-decoration: none;">
@@ -307,6 +318,7 @@
 <li class="tsd-kind-type-alias"><a href="types/ApiVersion.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Api<wbr/>Version</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Attribute.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Attribute</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CollectionInfo.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Collection<wbr/>Info</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CollectionNfts.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Collection<wbr/>Nfts</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Domain.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Domain</a></li>
 <li class="tsd-kind-type-alias"><a href="types/GroupNftsInCollection.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Group<wbr/>Nfts<wbr/>In<wbr/>Collection</a></li>
 <li class="tsd-kind-type-alias"><a href="types/IpfsUploadResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Ipfs<wbr/>Upload<wbr/>Response</a></li>
