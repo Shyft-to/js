@@ -34,7 +34,7 @@ export type Nft = {
   is_mutable: boolean;
 };
 
-type Creator = {
+export type Creator = {
   address: string;
   verified: boolean;
   share: number;
