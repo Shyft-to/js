@@ -217,4 +217,50 @@ export class CandyMachineClient {
       throw error;
     }
   }
+
+  async monitor(input: {
+    network?: Network;
+    candyMachine: string;
+  }): Promise<boolean> {
+    try {
+      const reqBody = {
+        network: input?.network ?? this.config.network,
+        address: input.candyMachine,
+      };
+
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'candy_machine/monitor',
+        data: reqBody,
+      });
+
+      const isMonitored = response.success as boolean;
+      return isMonitored;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async unmonitor(input: {
+    network?: Network;
+    candyMachine: string;
+  }): Promise<boolean> {
+    try {
+      const reqBody = {
+        network: input?.network ?? this.config.network,
+        address: input.candyMachine,
+      };
+
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'delete',
+        url: 'candy_machine/unmonitor',
+        data: reqBody,
+      });
+
+      const isUnmonitored = response.success as boolean;
+      return isUnmonitored;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

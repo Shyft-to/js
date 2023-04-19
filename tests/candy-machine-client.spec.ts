@@ -103,4 +103,18 @@ describe('candy machine test', () => {
       signers: expect.any(Array),
     });
   }, 50000);
+
+  it('monitor a candy machine', async () => {
+    const response = await shyft.candyMachine.monitor({
+      candyMachine: '4tqTNb1uzRS3TakYpmnwbJzikyJ1iNB8BJ13v5ekdX56',
+    });
+    expect(response).toBe(true);
+  }, 50000);
+
+  it('unmonitor a candy machine', async () => {
+    const response = await shyft.candyMachine.unmonitor({
+      candyMachine: '4tqTNb1uzRS3TakYpmnwbJzikyJ1iNB8BJ13v5ekdX56',
+    });
+    expect(response).toBe(true);
+  }, 50000);
 });

@@ -125,6 +125,8 @@ The SDK currently supports the following Candy Machine API endpoints under the s
 - `create()`: Create Candy Machine.
 - `insert()`: Insert Items in Candy Machine.
 - `mint()`: Mint NFTs from Candy Machine.
+- `monitor()`: All mints from candy machine are watched and updated real time.
+- `unmonitor()`: Stop monitoring candy machine.
 
 ### Get All NFT addresses of a CM
 
