@@ -7,6 +7,7 @@ import {
   MarketplaceClient,
   TransactionClient,
   StorageClient,
+  CallbackClient,
 } from '@/api';
 import { ShyftConfig } from '@/utils';
 import { SemiCustodialWalletClient } from '@/api/semi-custodial-wallet-client';
@@ -21,6 +22,7 @@ export class ShyftSdk {
   readonly transaction: TransactionClient;
   readonly storage: StorageClient;
   readonly semiCustodialWallet: SemiCustodialWalletClient;
+  readonly callback: CallbackClient;
   constructor(settings: ShyftSettings) {
     this.config = new ShyftConfig(settings);
     this.wallet = new WalletClient(this.config);
@@ -31,5 +33,6 @@ export class ShyftSdk {
     this.transaction = new TransactionClient(this.config);
     this.storage = new StorageClient(this.config);
     this.semiCustodialWallet = new SemiCustodialWalletClient(this.config);
+    this.callback = new CallbackClient(this.config);
   }
 }

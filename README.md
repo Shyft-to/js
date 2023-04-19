@@ -34,6 +34,7 @@ The Shyft SDK currently supports the following clients:
 - `transaction`: Transation APIs
 - `storage`: Storage APIs such as uploading asset or metadata and get IPFS uri.
 - `semiCustodialWallet`: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps.
+- `callback`: Get real time updates on addresses for your users.
 
 ### Shyft Wallet APIs
 
@@ -254,6 +255,17 @@ semicustodial namespace:
   > Shyft never ever stores or logs your password at any time. This can be confirmed with our open source code.
 - `getKeypair()`: Get keypair of created semi custodial wallet.
 - `changePassword()`: Change password of semi custodial wallet.
+
+### Callbacks
+
+Get real time updates on addresses for your users. Follow [docs](https://docs.shyft.to/start-hacking/callbacks) to know about callbacks.
+
+callback namespace:
+
+- `register()`: Register a callback.
+- `update()`: Update a callback.
+- `remove()`: Remove a callback.
+- `list()`: Returns a list of all the callbacks registered for a user.
 
 ## How to sign transaction using the SDK?
 
