@@ -16,3 +16,4 @@ export * from './Marketplace';
 export * from './MpListing';
 export * from './Storage';
 export * from './SemiCustodialWallet';
+export * from './Callback';
