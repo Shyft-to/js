@@ -91,3 +91,8 @@ export type CollectionNfts = {
   page: number;
   size: number;
 };
+
+export type NftMintAndOwner = {
+  nft_address: string;
+  owner: string;
+};

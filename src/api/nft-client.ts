@@ -1,6 +1,12 @@
 import FormData from 'form-data';
 import { ShyftConfig, restApiCall } from '@/utils';
-import { Attribute, Network, Nft, ServiceCharge } from '@/types';
+import {
+  Attribute,
+  Network,
+  Nft,
+  NftMintAndOwner,
+  ServiceCharge,
+} from '@/types';
 import { CollectionClient } from './collection-client';
 
 export class NftClient {
@@ -43,6 +49,30 @@ export class NftClient {
       });
       const nft = data.result as Nft[];
       return nft;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getOwners(input: {
+    network?: Network;
+    mints: string[];
+  }): Promise<NftMintAndOwner[]> {
+    try {
+      if (input.mints.length < 1 || input.mints.length > 10) {
+        throw new Error('allowed between 1 to 10: mints');
+      }
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        nft_addresses: input.mints,
+      };
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/get_owners',
+        data: reqBody,
+      });
+      const nftMintsAndOwners = response.result as NftMintAndOwner[];
+      return nftMintsAndOwners;
     } catch (error) {
       throw error;
     }

@@ -2,7 +2,7 @@ import { createReadStream } from 'fs';
 import { resolve } from 'path';
 import 'dotenv/config';
 import { ShyftSdk } from '@/index';
-import { Network } from '@/types';
+import { Network, NftMintAndOwner } from '@/types';
 
 const shyft = new ShyftSdk({
   apiKey: process.env.API_KEY as string,
@@ -124,5 +124,21 @@ describe('read NFT test', () => {
       size: 5,
     });
     expect(collectionNfts.nfts.length).toBe(5);
+  }, 50000);
+
+  it('fetch nfts owners', async () => {
+    const mintsAndOwners = await shyft.nft.getOwners({
+      network: Network.Devnet,
+      mints: [
+        'B9YonmJk175GfFCDMMKWDc18YpFgmHCmj2HQNkvvjeVw',
+        'BxMqbSQaccjZn2bVD13PzyP8DJ3BW3u1dEiD9WQmysGW',
+        '85q1xdTVMAF8S1MEF6yuJaSnyFhDjzVg8rgyppdt6bLn',
+      ],
+    });
+    expect(mintsAndOwners.length).toBe(3);
+    expect(mintsAndOwners[0]).toMatchObject<NftMintAndOwner>({
+      nft_address: expect.any(String),
+      owner: expect.any(String),
+    });
   }, 50000);
 });
