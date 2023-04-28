@@ -119,9 +119,6 @@ export class WalletClient {
         params,
       });
       const domains = data.result as Domain[];
-      if (domains.length > 0) {
-        throw new Error('Not found any domain');
-      }
       return domains;
     } catch (error) {
       throw error;
