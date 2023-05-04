@@ -219,8 +219,7 @@ export class NftClient {
         url: 'nft/transfer_many',
         data: reqBody,
       });
-      const encodedTransactions = data.result?.encoded_transaction
-        .encoded_transactions as string[];
+      const encodedTransactions = data.result.encoded_transactions as string[];
       return encodedTransactions;
     } catch (error) {
       throw error;
