@@ -38,7 +38,9 @@ export class WalletClient {
     network?: Network;
     wallet: string;
     token: string;
-  }): Promise<Omit<TokenBalance, 'associated_token'>> {
+  }): Promise<
+    Omit<TokenBalance, 'associated_account'> & { isFrozen: boolean }
+  > {
     try {
       const params = {
         network: input.network ?? this.config.network,
@@ -50,10 +52,7 @@ export class WalletClient {
         url: 'wallet/token_balance',
         params,
       });
-      const tokenBalances = data.result as Omit<
-        TokenBalance,
-        'associated_token'
-      >;
+      const tokenBalances = data.result;
       return tokenBalances;
     } catch (error) {
       throw error;
