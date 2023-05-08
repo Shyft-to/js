@@ -1,5 +1,8 @@
 # Shyft JS SDK
 
+| [ ![MIT License ](https://img.shields.io/npm/l/@shyft-to/js?registry_uri=https%3A%2F%2Fregistry.npmjs.com&style=plastic) ](https://github.com/Shyft-to/js/blob/main/LICENSE) | [ ![Typescript ](https://img.shields.io/npm/types/@shyft-to/js?style=plastic) ](https://www.npmjs.com/package/@shyft-to/js) | [ ![npm version ](https://img.shields.io/npm/v/@shyft-to/js?style=plastic) ](https://www.npmjs.com/package/@shyft-to/js) | [ ![Weekly Downloads ](https://img.shields.io/npm/dw/@shyft-to/js?style=plastic) ](https://www.npmjs.com/package/@shyft-to/js) | [ ![Typedoc ](https://img.shields.io/static/v1?label=Typedoc&message=0.24&color=blueviolet&style=plastic) ](https://shyft-to.github.io/js) |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+
 [Shyft](https://shyft.to) SDK is the mising piece of arsenal we needed in our Web3 development journey. It is the [ultimate Web3 development platform](https://shyft.to) wrapped inside an intuitive SDK to make development 10x easier and more efficient. Explore what super powers Shyft offers you [Docs](https://docs.shyft.to).
 
 ## Installation
