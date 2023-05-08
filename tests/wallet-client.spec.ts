@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { ShyftSdk } from '@/index';
-import { Network, Domain } from '@/types';
+import { Network, Domain, TokenBalance } from '@/types';
 
 const shyft = new ShyftSdk({
   apiKey: process.env.API_KEY as string,
@@ -25,6 +25,21 @@ describe('wallet client tests', () => {
         address: expect.any(String),
         name: expect.any(String),
       });
+    });
+  });
+
+  it('token balance check', async () => {
+    const tokenBalance = await shyft.wallet.getTokenBalance({
+      wallet: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      token: '1C3n35poNbm2di6W8YTKjG2BmhaFxmTtbScy1ox2xvY',
+    });
+    expect(tokenBalance).toMatchObject<
+      Omit<TokenBalance, 'associated_account'> & { isFrozen: boolean }
+    >({
+      address: expect.any(String),
+      balance: expect.any(Number),
+      info: expect.any(Object),
+      isFrozen: expect.any(Boolean),
     });
   });
 });
