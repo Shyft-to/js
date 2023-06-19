@@ -95,8 +95,6 @@ export class WalletClient {
         params,
       });
       const portfolio = data.result as Portfolio;
-      console.log('portfolio', portfolio);
-
       return portfolio;
     } catch (error) {
       throw error;
