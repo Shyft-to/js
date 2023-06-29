@@ -24,8 +24,7 @@ describe('candy machine test', () => {
 
   it('candy machine nft read', async () => {
     const mints = await shyft.candyMachine.readNfts({
-      address: 'H2oYLkXdkX38eQ6VTqs26KAWAvEpYEiCtLt4knEUJxpu',
-      version: CandyMachineProgram.V2,
+      address: 'CZ7zmhqpUSFAtaW7BsyXmgsRaLjKBb6gWHiEnNFE9DNj',
     });
     expect(typeof mints).toBe('object');
   }, 50000);
