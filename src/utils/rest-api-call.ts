@@ -20,6 +20,12 @@ export async function restApiCall(
       }
       throw new Error(JSON.stringify(apiError.error));
     }
+    if (typeof apiError.error === 'string') {
+      throw new Error(apiError.error);
+    }
+    if (typeof apiError['message'] === 'string') {
+      throw new Error(apiError['message']);
+    }
     throw apiError.error;
   }
 }
