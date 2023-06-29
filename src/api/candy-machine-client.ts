@@ -24,14 +24,16 @@ export class CandyMachineClient {
   async readMints(input: {
     network?: Network;
     address: string;
-    version: CandyMachineProgram;
+    version?: CandyMachineProgram;
   }): Promise<string[]> {
     try {
       const params = {
         network: input?.network ?? this.config.network,
         address: input.address,
-        version: input.version,
       };
+      if (input.version) {
+        params['version'] = input.version;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'candy_machine/nft_addresses',
@@ -47,7 +49,7 @@ export class CandyMachineClient {
   async readNfts(input: {
     network?: Network;
     address: string;
-    version: CandyMachineProgram;
+    version?: CandyMachineProgram;
     page?: number;
     size?: number;
   }): Promise<PaginatedNftResponse> {
@@ -55,13 +57,15 @@ export class CandyMachineClient {
       const params = {
         network: input?.network ?? this.config.network,
         address: input.address,
-        version: input.version,
       };
-      if (input?.page) {
+      if (input.page) {
         params['page'] = input.page;
       }
-      if (input?.size) {
+      if (input.size) {
         params['size'] = input.size;
+      }
+      if (input.version) {
+        params['version'] = input.version;
       }
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
