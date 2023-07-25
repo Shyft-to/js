@@ -44,6 +44,7 @@ The Shyft SDK currently supports the following clients:
 The Wallet API in the SDK standardizes response types to reduce developer friction, but note this results in some differences compared to the Shyft REST endpoints:
 
 - `getBalance()`: Get wallet balance by providing address
+- `sendSol()`: Transfer SOL from one wallet to another
 - `getTokenBalance()`: Get the balance of a particular token in a wallet
 - `getAllTokenBalance()`: Gets the balance of all the tokens in your wallet
 - `getPortfolio()`: Gets all the token deatils (fungible and non-fungible) from a wallet

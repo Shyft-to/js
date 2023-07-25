@@ -34,6 +34,31 @@ export class WalletClient {
     }
   }
 
+  async sendSol(input: {
+    network?: Network;
+    fromAddress: string;
+    toAddress: string;
+    amount: number;
+  }): Promise<string> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        from_address: input.fromAddress,
+        to_address: input.toAddress,
+        amount: input.amount,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'wallet/send_sol',
+        data: reqBody,
+      });
+      const encodedTransaction = data.result.encoded_transaction as string;
+      return encodedTransaction;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getTokenBalance(input: {
     network?: Network;
     wallet: string;

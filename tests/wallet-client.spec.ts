@@ -15,6 +15,15 @@ describe('wallet client tests', () => {
     expect(typeof balance).toBe('number');
   });
 
+  it('send SOL check', async () => {
+    const encodedTransaction = await shyft.wallet.sendSol({
+      fromAddress: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+      toAddress: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      amount: 1,
+    });
+    expect(typeof encodedTransaction).toBe('string');
+  });
+
   it('get domains test', async () => {
     const domains = await shyft.wallet.getDomains({
       network: Network.Mainnet,
