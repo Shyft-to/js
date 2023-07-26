@@ -1,8 +1,12 @@
 import { ShyftConfig, restApiCall, CaseConverter } from '@/utils';
 import {
+  CNftBurnResponse,
   CNftMintResponse,
+  CNftTransferManyResp,
+  CNftTransferResponse,
   CreateMerkleTreeResponse,
   Network,
+  Nft,
   ValidDepthSizePair,
 } from '@/types';
 
@@ -58,7 +62,7 @@ export class CompressedNftClient {
     isMutable?: boolean;
     receiver?: string;
     feePayer?: string;
-  }) {
+  }): Promise<CNftMintResponse> {
     try {
       const reqBody = {
         network: input.network ?? this.config.network,
@@ -93,6 +97,118 @@ export class CompressedNftClient {
         data: reqBody,
       });
       const response = data.result as CNftMintResponse;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async transfer(input: {
+    network?: Network;
+    mint: string;
+    fromAddress: string;
+    toAddress: string;
+  }): Promise<CNftTransferResponse> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        nft_address: input.mint,
+        sender: input.fromAddress,
+        receiver: input.toAddress,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/compressed/transfer',
+        data: reqBody,
+      });
+      const response = data.result as CNftTransferResponse;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async transferMany(input: {
+    network?: Network;
+    mints: string[];
+    fromAddress: string;
+    toAddress: string;
+  }): Promise<CNftTransferManyResp> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        nft_addresses: input.mints,
+        from_address: input.fromAddress,
+        to_address: input.toAddress,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/compressed/transfer_many',
+        data: reqBody,
+      });
+      const response = data.result as CNftTransferManyResp;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async burn(input: {
+    network?: Network;
+    walletAddress: string;
+    mint: string;
+  }): Promise<CNftBurnResponse> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        wallet_address: input.walletAddress,
+        nft_address: input.mint,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'delete',
+        url: 'nft/compressed/burn',
+        data: reqBody,
+      });
+      const response = data.result as CNftBurnResponse;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async read(input: { network?: Network; mint: string }): Promise<Nft> {
+    try {
+      const params = {
+        network: input.network ?? this.config.network,
+        nft_address: input.mint,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'get',
+        url: 'nft/compressed/read',
+        params,
+      });
+      const response = data.result as Nft;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async readAll(input: {
+    network?: Network;
+    walletAddress: string;
+  }): Promise<Nft[]> {
+    try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet_address: input.walletAddress,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'get',
+        url: 'nft/compressed/read_all',
+        params,
+      });
+      const response = data.result.nfts as Nft[];
       return response;
     } catch (error) {
       throw error;
