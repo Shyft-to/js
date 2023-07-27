@@ -108,11 +108,23 @@
 <li><code>updateV2()</code>: This call allows an external wallet to pay the gas fee for updating NFT on behalf of the NFT update authority.</li>
 </ul>
 <ul>
-<li><code>collection</code>: A sub-namespace to get NFTs and other interesting insights over NFT collections.<ul>
+<li><p><code>collection</code>: A sub-namespace to get NFTs and other interesting insights over NFT collections.</p>
+<ul>
 <li><code>getNfts()</code>: Get on-chain metadata for NFTs in a collection. This API supports pagination support, with a default page size of 10 and maximum 50 allowed.<blockquote>
 <p>This method supports pagination and only works with mainnet-beta network.</p>
 </blockquote>
 </li>
+</ul>
+</li>
+<li><p><code>compressed</code>: A sub-namespace to create, read, transfer and burn compressed NFTs.</p>
+<ul>
+<li><code>createMerkleTree()</code>: Creates a merkle tree.</li>
+<li><code>mint()</code>: Allows you to mint cNFTs.</li>
+<li><code>transfer()</code>: Transfer an already minted cNFT from one wallet to another.</li>
+<li><code>transferMany()</code>: Transfer multiple cNFTs from one wallet to another.</li>
+<li><code>burn()</code>: Burn a particular cNFT.</li>
+<li><code>read()</code>: Returns on-chain and off-chain cNFT data.</li>
+<li><code>readAll()</code>: Returns on-chain and off-chain data of all cNFTs in the wallet.</li>
 </ul>
 </li>
 </ul>
@@ -121,6 +133,12 @@
   <h3>Fetch an NFT</h3>
 </a>
 <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">shyft</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">ShyftSdk</span><span class="hl-0">({ </span><span class="hl-3">apiKey:</span><span class="hl-0"> </span><span class="hl-1">&#39;YOUR_API_KEY&#39;</span><span class="hl-0">, </span><span class="hl-3">network:</span><span class="hl-0"> </span><span class="hl-3">Network</span><span class="hl-0">.</span><span class="hl-3">Devnet</span><span class="hl-0"> });</span><br/><span class="hl-0">(</span><span class="hl-4">async</span><span class="hl-0"> () </span><span class="hl-4">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">nft</span><span class="hl-0"> = </span><span class="hl-2">await</span><span class="hl-0"> </span><span class="hl-3">shyft</span><span class="hl-0">.</span><span class="hl-3">nft</span><span class="hl-0">.</span><span class="hl-6">getNftByMint</span><span class="hl-0">({ </span><span class="hl-3">mint:</span><span class="hl-0"> </span><span class="hl-1">&#39;NFT_MINT&#39;</span><span class="hl-0"> });</span><br/><span class="hl-0">  </span><span class="hl-3">console</span><span class="hl-0">.</span><span class="hl-6">log</span><span class="hl-0">(</span><span class="hl-3">nft</span><span class="hl-0">);</span><br/><span class="hl-0">})();</span>
+</code></pre>
+
+<a href="#mint-a-compressed-nft-✨" id="mint-a-compressed-nft-✨" style="color: inherit; text-decoration: none;">
+  <h3>Mint a compressed NFT ✨</h3>
+</a>
+<pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">mintResponse</span><span class="hl-0"> = </span><span class="hl-2">await</span><span class="hl-0"> </span><span class="hl-3">shyft</span><span class="hl-0">.</span><span class="hl-3">nft</span><span class="hl-0">.</span><span class="hl-3">compressed</span><span class="hl-0">.</span><span class="hl-6">mint</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-3">creatorWallet:</span><span class="hl-0"> </span><span class="hl-1">&#39;2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-3">merkleTree:</span><span class="hl-0"> </span><span class="hl-1">&#39;DwoJS9LVDVL55Qa2TwvGG8MqNB5He4JtbnrHQ7JCrkcP&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-3">metadataUri:</span><br/><span class="hl-0">    </span><span class="hl-1">&#39;https://nftstorage.link/ipfs/bafkreigjxlfjhnpync5qmgv73yi4lqz4e65axwgpgqumvbopgvdrkwjpcm&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-3">collectionAddress:</span><span class="hl-0"> </span><span class="hl-1">&#39;DgXdP7xA31HEviRKw6pk9Xj342dEWy8HFn1yjcsXZ9M9&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-3">receiver:</span><span class="hl-0"> </span><span class="hl-1">&#39;5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><span class="hl-3">console</span><span class="hl-0">.</span><span class="hl-6">log</span><span class="hl-0">(</span><span class="hl-3">mintResponse</span><span class="hl-0">);</span>
 </code></pre>
 
 <a href="#shyft-token-apis" id="shyft-token-apis" style="color: inherit; text-decoration: none;">
@@ -350,6 +368,10 @@
 <li class="tsd-kind-type-alias"><a href="types/ApiVersion.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Api<wbr/>Version</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Attribute.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Attribute</a></li>
 <li class="tsd-kind-type-alias"><a href="types/BulkItemSettings.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Bulk<wbr/>Item<wbr/>Settings</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CNftBurnResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Burn<wbr/>Response</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CNftMintResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Mint<wbr/>Response</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CNftTransferManyResp.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Transfer<wbr/>Many<wbr/>Resp</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CNftTransferResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Transfer<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CallBack.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Call<wbr/>Back</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CandyMachineGroup.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Candy<wbr/>Machine<wbr/>Group</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CandyMachineGuard.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Candy<wbr/>Machine<wbr/>Guard</a></li>
@@ -357,6 +379,7 @@
 <li class="tsd-kind-type-alias"><a href="types/CollectionInfo.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Collection<wbr/>Info</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CollectionNfts.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Collection<wbr/>Nfts</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CreateCandyMachineResp.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Create<wbr/>Candy<wbr/>Machine<wbr/>Resp</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CreateMerkleTreeResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Create<wbr/>Merkle<wbr/>Tree<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Creator.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Creator</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Domain.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Domain</a></li>
 <li class="tsd-kind-type-alias"><a href="types/GroupNftsInCollection.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Group<wbr/>Nfts<wbr/>In<wbr/>Collection</a></li>
@@ -387,6 +410,7 @@
 <li class="tsd-kind-type-alias"><a href="types/TokenTransferTo.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Token<wbr/>Transfer<wbr/>To</a></li>
 <li class="tsd-kind-type-alias"><a href="types/TransactionHistory.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Transaction<wbr/>History</a></li>
 <li class="tsd-kind-type-alias"><a href="types/TreasuryBalance.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Treasury<wbr/>Balance</a></li>
+<li class="tsd-kind-type-alias"><a href="types/ValidDepthSizePair.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Valid<wbr/>Depth<wbr/>Size<wbr/>Pair</a></li>
 <li class="tsd-kind-type-alias"><a href="types/WalletKeypair.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Wallet<wbr/>Keypair</a></li>
 <li class="tsd-kind-type-alias"><a href="types/WithRequired.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>With<wbr/>Required</a></li>
 <li class="tsd-kind-type-alias"><a href="types/WithdrawFeeTxn.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Withdraw<wbr/>Fee<wbr/>Txn</a></li>
