@@ -8,11 +8,14 @@ import {
   ServiceCharge,
 } from '@/types';
 import { CollectionClient } from './collection-client';
+import { CompressedNftClient } from './compressed-nft-client';
 
 export class NftClient {
   readonly collection: CollectionClient;
+  readonly compressed: CompressedNftClient;
   constructor(private readonly config: ShyftConfig) {
     this.collection = new CollectionClient(this.config);
+    this.compressed = new CompressedNftClient(this.config);
   }
 
   async getNftByMint(input: { network?: Network; mint: string }): Promise<Nft> {
