@@ -83,8 +83,18 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
 - `updateV2()`: This call allows an external wallet to pay the gas fee for updating NFT on behalf of the NFT update authority.
 
 * `collection`: A sub-namespace to get NFTs and other interesting insights over NFT collections.
+
   - `getNfts()`: Get on-chain metadata for NFTs in a collection. This API supports pagination support, with a default page size of 10 and maximum 50 allowed.
     > This method supports pagination and only works with mainnet-beta network.
+
+* `compressed`: A sub-namespace to create, read, transfer and burn compressed NFTs.
+  - `createMerkleTree()`: Creates a merkle tree.
+  - `mint()`: Allows you to mint cNFTs.
+  - `transfer()`: Transfer an already minted cNFT from one wallet to another.
+  - `transferMany()`: Transfer multiple cNFTs from one wallet to another.
+  - `burn()`: Burn a particular cNFT.
+  - `read()`: Returns on-chain and off-chain cNFT data.
+  - `readAll()`: Returns on-chain and off-chain data of all cNFTs in the wallet.
 
 ### Fetch an NFT
 
@@ -94,6 +104,20 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
   const nft = await shyft.nft.getNftByMint({ mint: 'NFT_MINT' });
   console.log(nft);
 })();
+```
+
+### Mint a compressed NFT ✨
+
+```typescript
+const mintResponse = await shyft.nft.compressed.mint({
+  creatorWallet: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+  merkleTree: 'DwoJS9LVDVL55Qa2TwvGG8MqNB5He4JtbnrHQ7JCrkcP',
+  metadataUri:
+    'https://nftstorage.link/ipfs/bafkreigjxlfjhnpync5qmgv73yi4lqz4e65axwgpgqumvbopgvdrkwjpcm',
+  collectionAddress: 'DgXdP7xA31HEviRKw6pk9Xj342dEWy8HFn1yjcsXZ9M9',
+  receiver: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+});
+console.log(mintResponse);
 ```
 
 ### Shyft Token APIs
