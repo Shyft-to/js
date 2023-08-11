@@ -19,6 +19,7 @@ export class MpListingClient {
     marketplaceAddress: string;
     sellerAddress?: string;
     collectionAddress?: string;
+    nftAddress?: string;
     sortBy?: ActiveListingSortBy;
     sortOrder?: ActiveListingSortOrder;
     page?: number;
@@ -34,6 +35,9 @@ export class MpListingClient {
       }
       if (input?.collectionAddress) {
         params['collection_address'] = input.collectionAddress;
+      }
+      if (input?.nftAddress) {
+        params['nft_address'] = input.nftAddress;
       }
       if (input?.sortBy) {
         params['sort_by'] = input.sortBy;
