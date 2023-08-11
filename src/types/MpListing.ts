@@ -18,7 +18,9 @@ export type ListedNftDetail = {
   status: NftStatus;
   created_at: Date;
   receipt: string;
+  purchase_receipt?: string;
   cancelled_at?: Date;
+  purchased_at?: Date;
 };
 
 export type ActiveListings = {
