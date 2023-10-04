@@ -70,6 +70,7 @@ const shyft = new ShyftSdk({ apiKey: 'YOUR_API_KEY', network: Network.Devnet });
 The SDK currently supports the following NFT API endpoints under the shyft.nft namespace:
 
 - `getNftByMint()`: Get NFT on-chain and off-chain data.
+- `getNftsByMintAddresses()`: Get multiple NFTs on-chain and off-chain data.
 - `getNftByOwner()`: Get All NFTs held by a wallet address.
 - `getOwners()`: Returns NFT Owners for the provided NFT mint address list.
 - `createFromMetadata()`: Create an NFT from an already uploaded metadata URI. The on-chain metadata of the NFT is fetched from the off-chain metadata present at the given URI.
@@ -185,6 +186,7 @@ Marketplace namespace:
 - `withdrawFee()`: Withdraw the transaction fees that got deposited in the marketplace treasury as a result of the sales transactions that happened in your marketplace. The withdrawn amount will go into the marketplace's fee recipient account.
 
 * `listing`: A sub-namespace to list, unlist, buy, check active listings and many more.
+
   - `active()`: Get details of all the active listings in a marketplace.
   - `detail()`: Get details of a particular listing in a marketplace.
   - `bySeller()`: Get all the listings created by a particular seller (wallet address) in a marketplace.
@@ -192,6 +194,12 @@ Marketplace namespace:
   - `list()`: List an NFT for sale in the marketplace.
   - `unlist()`: Unlist an already listed NFT. This operation will make the NFT unavailable for sale, and nobody would be able to buy this NFT until it is listed back again.
   - `buy()`: Buy the listed NFT from the marketplace
+
+* `bidding`: A sub-namespace to bid, cancel bid, accept bid, check active bids and many more.
+  - `active()`: Get details of all the active bids in a marketplace.
+  - `bid()`: Bid on an NFT for sale in the marketplace.
+  - `cancelBid()`: Cancel the existing bid.
+  - `acceptBid()`: NFT owner can accept the bid, the owner gets the bid amount and the bidder receives the NFT.
 
 ### Create a marketplace
 
@@ -300,6 +308,8 @@ callback namespace:
 - `update()`: Update a callback.
 - `remove()`: Remove a callback.
 - `list()`: Returns a list of all the callbacks registered for a user.
+- `addAddresses()`: Add Addresses in Callback.
+- `removeAddresses()`: Remove Addresses from callback.
 
 ## How to sign transaction using the SDK?
 

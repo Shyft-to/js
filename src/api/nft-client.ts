@@ -18,12 +18,23 @@ export class NftClient {
     this.compressed = new CompressedNftClient(this.config);
   }
 
-  async getNftByMint(input: { network?: Network; mint: string }): Promise<Nft> {
+  async getNftByMint(input: {
+    network?: Network;
+    mint: string;
+    refresh?: boolean;
+    tokenRecord?: boolean;
+  }): Promise<Nft> {
     try {
       const params = {
         network: input.network ?? this.config.network,
         token_address: input.mint,
       };
+      if (input.refresh) {
+        params['refresh'] = input.refresh;
+      }
+      if (input.tokenRecord) {
+        params['token_record'] = input.tokenRecord;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'nft/read',
@@ -31,6 +42,41 @@ export class NftClient {
       });
       const nft = data.result as Nft;
       return nft;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getNftsByMintAddresses(input: {
+    network?: Network;
+    mints: string[];
+    refresh?: boolean;
+    tokenRecord?: boolean;
+  }): Promise<Nft[]> {
+    try {
+      if (input.mints.length === 0) {
+        throw new Error('At least one mint address is required');
+      }
+      if (input.mints.length > 10) {
+        throw new Error('Allowed between 1 to 10: mints');
+      }
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        token_addresses: input.mints,
+      };
+      if (input.refresh) {
+        reqBody['refresh'] = input.refresh;
+      }
+      if (input.tokenRecord) {
+        reqBody['token_record'] = input.tokenRecord;
+      }
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/read_selected',
+        data: reqBody,
+      });
+      const nfts = data.result as Nft[];
+      return nfts;
     } catch (error) {
       throw error;
     }

@@ -1,3 +1,4 @@
+import { TransactionVersion } from '@solana/web3.js';
 import { Network } from './Network';
 import { Nft } from './Nft';
 
@@ -24,7 +25,10 @@ export type ListedNftDetail = {
 };
 
 export type ActiveListings = {
-  data: Omit<ListedNftDetail, 'cancelled_at'>[];
+  data: Omit<
+    ListedNftDetail,
+    'cancelled_at' | 'purchased_at' | 'purchase_receipt'
+  >[];
   page: number;
   size: number;
   total_data: number;
@@ -48,9 +52,11 @@ export type NftBuyResponse = {
   seller_address: string;
   price: number;
   nft_address: string;
+  purchase_receipt?: string;
   currency_symbol: string;
   buyer_address: string;
   encoded_transaction: string;
+  transaction_version: TransactionVersion;
 };
 
 export type ActiveListingSortBy = 'list_date' | 'price';

@@ -101,4 +101,45 @@ describe('Marketplace test', () => {
     });
     expect(typeof encoded_transaction).toBe('string');
   });
+
+  it('bid', async () => {
+    const { encoded_transaction } = await shyft.marketplace.bidding.bid({
+      marketplaceAddress: '5LSMwR5GLr4WjDHS5FoUXQCN5osZYHRoDGjmcEsS843B',
+      nftAddress: 'FSwx4c1qhuwr3YpBHHCneWkvo2R9uPuHoqjfr6qgixTh',
+      price: 0.2,
+      buyerWallet: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+    });
+    expect(typeof encoded_transaction).toBe('string');
+  });
+
+  it('cancel bid', async () => {
+    const encodedTransaction = await shyft.marketplace.bidding.cancelBid({
+      marketplaceAddress: '5LSMwR5GLr4WjDHS5FoUXQCN5osZYHRoDGjmcEsS843B',
+      bidState: 'Eqqwo4QTACNbvHMEHLyiTEdsc4qhNXts5effHCoqpg4e',
+      buyerWallet: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
+    });
+    expect(typeof encodedTransaction).toBe('string');
+  });
+
+  it('fetch active bids', async () => {
+    const activeBidsResponse = await shyft.marketplace.bidding.active({
+      network: Network.Devnet,
+      marketplaceAddress: '5LSMwR5GLr4WjDHS5FoUXQCN5osZYHRoDGjmcEsS843B',
+      sortBy: 'bid_date',
+      sortOrder: 'desc',
+      page: 1,
+      size: 2,
+    });
+    expect(typeof activeBidsResponse).toBe('object');
+  });
+
+  it('accept bid', async () => {
+    const response = await shyft.marketplace.bidding.acceptBid({
+      network: Network.Devnet,
+      marketplaceAddress: '5LSMwR5GLr4WjDHS5FoUXQCN5osZYHRoDGjmcEsS843B',
+      bidState: '3NNNdECW5qskMUev1bkcDeXAhbQ4Aeb2tj578KWbu7BJ',
+      sellerWallet: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
+    });
+    expect(typeof response.encoded_transaction).toBe('string');
+  });
 });

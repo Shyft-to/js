@@ -14,6 +14,7 @@ export * from './Token';
 export * from './CandyMachine';
 export * from './Marketplace';
 export * from './MpListing';
+export * from './MpBidding';
 export * from './Storage';
 export * from './SemiCustodialWallet';
 export * from './Callback';

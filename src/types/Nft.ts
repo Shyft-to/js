@@ -10,6 +10,16 @@ export type NftFile = {
   type: string;
 };
 
+type TokenRecordData = {
+  address: string;
+  key: string;
+  state: string;
+  rule_set_revision: number | null;
+  delegate: string;
+  token_delegate_role: string;
+  locked_transfer: string;
+};
+
 export type Nft = {
   name: string;
   description: string;
@@ -32,6 +42,10 @@ export type Nft = {
   is_loaded_metadata: boolean;
   primary_sale_happened: boolean;
   is_mutable: boolean;
+  token_standard: string;
+  is_compressed: boolean;
+  merkle_tree: string;
+  token_record?: TokenRecordData;
 };
 
 export type Creator = {
