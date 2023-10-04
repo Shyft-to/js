@@ -335,15 +335,17 @@ const shyft = new ShyftSdk({
   network: Network.Mainnet,
 });
 
-const response = await shyft.rpc.getAssetsByGroup({
-  groupKey: 'collection',
-  groupValue: 'BxWpbnau1LfemNAoXuAe9Pbft59yz2egTxaMWtncGRfN',
-  sortBy: { sortBy: 'created', sortDirection: 'asc' },
-  page: 1,
-  limit: 1000,
-});
-const assets = response.items;
-console.log(assets);
+(async () => {
+  const response = await shyft.rpc.getAssetsByGroup({
+    groupKey: 'collection',
+    groupValue: 'BxWpbnau1LfemNAoXuAe9Pbft59yz2egTxaMWtncGRfN',
+    sortBy: { sortBy: 'created', sortDirection: 'asc' },
+    page: 1,
+    limit: 1000,
+  });
+  const assets = response.items;
+  console.log(assets);
+})();
 ```
 
 ## How to sign transaction using the SDK?
