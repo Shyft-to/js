@@ -8,13 +8,16 @@ import {
   WithdrawFeeTxn,
 } from '@/types';
 import { MpListingClient } from './mp-listing-client';
+import { MpBiddingClient } from './mp-bidding-client';
 
 const WRAPPED_SOL_ADDRESS = 'So11111111111111111111111111111111111111112';
 
 export class MarketplaceClient {
   readonly listing: MpListingClient;
+  readonly bidding: MpBiddingClient;
   constructor(private readonly config: ShyftConfig) {
     this.listing = new MpListingClient(this.config);
+    this.bidding = new MpBiddingClient(this.config);
   }
 
   async create(input: {
