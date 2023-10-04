@@ -114,6 +114,54 @@ export class CallbackClient {
     }
   }
 
+  async addAddresses(input: {
+    id: string;
+    addresses: string[];
+  }): Promise<Omit<CallBack, 'callback_url' | 'enable_raw'>> {
+    try {
+      const reqBody = {
+        id: input.id,
+        addresses: input.addresses,
+      };
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'callback/add-addresses',
+        data: reqBody,
+      });
+      const callback = response.result as Omit<
+        CallBack,
+        'callback_url' | 'enable_raw'
+      >;
+      return callback;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async removeAddresses(input: {
+    id: string;
+    addresses: string[];
+  }): Promise<Omit<CallBack, 'callback_url' | 'enable_raw'>> {
+    try {
+      const reqBody = {
+        id: input.id,
+        addresses: input.addresses,
+      };
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'callback/remove-addresses',
+        data: reqBody,
+      });
+      const callback = response.result as Omit<
+        CallBack,
+        'callback_url' | 'enable_raw'
+      >;
+      return callback;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   private isValidUrl(url: string) {
     try {
       new URL(url);
