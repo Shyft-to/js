@@ -1,3 +1,4 @@
+import { TransactionVersion } from '@solana/web3.js';
 import { Network } from './Network';
 import { Nft } from './Nft';
 
@@ -51,6 +52,7 @@ export type NftBuyResponse = {
   currency_symbol: string;
   buyer_address: string;
   encoded_transaction: string;
+  transaction_version: TransactionVersion;
 };
 
 export type ActiveListingSortBy = 'list_date' | 'price';
