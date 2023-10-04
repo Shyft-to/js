@@ -38,6 +38,7 @@ The Shyft SDK currently supports the following clients:
 - `storage`: Storage APIs such as uploading asset or metadata and get IPFS uri.
 - `semiCustodialWallet`: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps.
 - `callback`: Get real time updates on addresses for your users.
+- `rpc`: [Get access to DAS API (currently only works with `mainnet-beta` cluster) 🆕](#rpc)
 
 ### Shyft Wallet APIs
 
@@ -310,6 +311,40 @@ callback namespace:
 - `list()`: Returns a list of all the callbacks registered for a user.
 - `addAddresses()`: Add Addresses in Callback.
 - `removeAddresses()`: Remove Addresses from callback.
+
+### RPC
+
+Access the new Solana DAS (Digital Asset Standard) API.
+
+rpc namespace:
+
+- `getAsset()`: Get an asset by its ID.
+- `getAssetProof()`: Get a merkle proof for a compressed asset by its ID.
+- `getAssetsByGroup()`: Get a list of assets by a group key and value. An example presented [here](#fetch-assets-of-a-collection).
+- `getAssetsByOwner()`: Get a list of assets owned by an address.
+- `getAssetsByCreator()`: Get a list of assets created by an address.
+- `getAssetsByAuthority()`: Get a list of assets with a specific authority.
+
+#### Fetch assets of a collection
+
+```typescript
+import { ShyftSdk, Network } from '@shyft-to/js';
+
+const shyft = new ShyftSdk({
+  apiKey: 'YOUR_API_KEY',
+  network: Network.Mainnet,
+});
+
+const response = await shyft.rpc.getAssetsByGroup({
+  groupKey: 'collection',
+  groupValue: 'BxWpbnau1LfemNAoXuAe9Pbft59yz2egTxaMWtncGRfN',
+  sortBy: { sortBy: 'created', sortDirection: 'asc' },
+  page: 1,
+  limit: 1000,
+});
+const assets = response.items;
+console.log(assets);
+```
 
 ## How to sign transaction using the SDK?
 

@@ -19,3 +19,4 @@ export * from './Storage';
 export * from './SemiCustodialWallet';
 export * from './Callback';
 export * from './CompressedNft';
+export * from './DAS';
