@@ -6,3 +6,4 @@ export * from './marketplace-client';
 export * from './transaction-client';
 export * from './storage-client';
 export * from './callback-client';
+export * from './rpc-client';

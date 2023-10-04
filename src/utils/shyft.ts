@@ -8,12 +8,16 @@ import {
   TransactionClient,
   StorageClient,
   CallbackClient,
+  RpcClient,
 } from '@/api';
 import { ShyftConfig } from '@/utils';
 import { SemiCustodialWalletClient } from '@/api/semi-custodial-wallet-client';
+import { Connection } from '@solana/web3.js';
+import { shyftClusterApiUrl } from './utility';
 
 export class ShyftSdk {
   readonly config: ShyftConfig;
+  readonly connection: Connection;
   readonly wallet: WalletClient;
   readonly nft: NftClient;
   readonly token: TokenClient;
@@ -23,8 +27,12 @@ export class ShyftSdk {
   readonly storage: StorageClient;
   readonly semiCustodialWallet: SemiCustodialWalletClient;
   readonly callback: CallbackClient;
+  readonly rpc: RpcClient;
   constructor(settings: ShyftSettings) {
     this.config = new ShyftConfig(settings);
+    this.connection = new Connection(
+      shyftClusterApiUrl(this.config.apiKey, this.config.network)
+    );
     this.wallet = new WalletClient(this.config);
     this.nft = new NftClient(this.config);
     this.token = new TokenClient(this.config);
@@ -34,5 +42,6 @@ export class ShyftSdk {
     this.storage = new StorageClient(this.config);
     this.semiCustodialWallet = new SemiCustodialWalletClient(this.config);
     this.callback = new CallbackClient(this.config);
+    this.rpc = new RpcClient(this.connection);
   }
 }
