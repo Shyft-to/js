@@ -91,6 +91,7 @@
 <p>The SDK currently supports the following NFT API endpoints under the shyft.nft namespace:</p>
 <ul>
 <li><code>getNftByMint()</code>: Get NFT on-chain and off-chain data.</li>
+<li><code>getNftsByMintAddresses()</code>: Get multiple NFTs on-chain and off-chain data.</li>
 <li><code>getNftByOwner()</code>: Get All NFTs held by a wallet address.</li>
 <li><code>getOwners()</code>: Returns NFT Owners for the provided NFT mint address list.</li>
 <li><code>createFromMetadata()</code>: Create an NFT from an already uploaded metadata URI. The on-chain metadata of the NFT is fetched from the off-chain metadata present at the given URI.<blockquote>
@@ -198,7 +199,8 @@
 <li><code>withdrawFee()</code>: Withdraw the transaction fees that got deposited in the marketplace treasury as a result of the sales transactions that happened in your marketplace. The withdrawn amount will go into the marketplace&#39;s fee recipient account.</li>
 </ul>
 <ul>
-<li><code>listing</code>: A sub-namespace to list, unlist, buy, check active listings and many more.<ul>
+<li><p><code>listing</code>: A sub-namespace to list, unlist, buy, check active listings and many more.</p>
+<ul>
 <li><code>active()</code>: Get details of all the active listings in a marketplace.</li>
 <li><code>detail()</code>: Get details of a particular listing in a marketplace.</li>
 <li><code>bySeller()</code>: Get all the listings created by a particular seller (wallet address) in a marketplace.</li>
@@ -206,6 +208,14 @@
 <li><code>list()</code>: List an NFT for sale in the marketplace.</li>
 <li><code>unlist()</code>: Unlist an already listed NFT. This operation will make the NFT unavailable for sale, and nobody would be able to buy this NFT until it is listed back again.</li>
 <li><code>buy()</code>: Buy the listed NFT from the marketplace</li>
+</ul>
+</li>
+<li><p><code>bidding</code>: A sub-namespace to bid, cancel bid, accept bid, check active bids and many more.</p>
+<ul>
+<li><code>active()</code>: Get details of all the active bids in a marketplace.</li>
+<li><code>bid()</code>: Bid on an NFT for sale in the marketplace.</li>
+<li><code>cancelBid()</code>: Cancel the existing bid.</li>
+<li><code>acceptBid()</code>: NFT owner can accept the bid, the owner gets the bid amount and the bidder receives the NFT.</li>
 </ul>
 </li>
 </ul>
@@ -288,6 +298,8 @@
 <li><code>update()</code>: Update a callback.</li>
 <li><code>remove()</code>: Remove a callback.</li>
 <li><code>list()</code>: Returns a list of all the callbacks registered for a user.</li>
+<li><code>addAddresses()</code>: Add Addresses in Callback.</li>
+<li><code>removeAddresses()</code>: Remove Addresses from callback.</li>
 </ul>
 
 <a href="#how-to-sign-transaction-using-the-sdk" id="how-to-sign-transaction-using-the-sdk" style="color: inherit; text-decoration: none;">
@@ -360,13 +372,17 @@
 <li class="tsd-kind-class"><a href="classes/ShyftSdk.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg>Shyft<wbr/>Sdk</a></li>
 <li class="tsd-kind-interface"><a href="interfaces/ShyftWallet.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg>Shyft<wbr/>Wallet</a></li>
 <li class="tsd-kind-interface"><a href="interfaces/SignerWalletAdapterProps.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Signer<wbr/>Wallet<wbr/>Adapter<wbr/>Props</a></li>
-<li class="tsd-kind-type-alias"><a href="types/ActiveListingSortBy.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg>Active<wbr/>Listing<wbr/>Sort<wbr/>By</a></li>
+<li class="tsd-kind-type-alias"><a href="types/ActiveBids.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg>Active<wbr/>Bids</a></li>
+<li class="tsd-kind-type-alias"><a href="types/ActiveListingSortBy.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Active<wbr/>Listing<wbr/>Sort<wbr/>By</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ActiveListingSortOrder.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Active<wbr/>Listing<wbr/>Sort<wbr/>Order</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ActiveListings.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Active<wbr/>Listings</a></li>
 <li class="tsd-kind-type-alias"><a href="types/AirdropTokenResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Airdrop<wbr/>Token<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ApiError.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Api<wbr/>Error</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ApiVersion.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Api<wbr/>Version</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Attribute.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Attribute</a></li>
+<li class="tsd-kind-type-alias"><a href="types/Bid.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Bid</a></li>
+<li class="tsd-kind-type-alias"><a href="types/BidsSortOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Bids<wbr/>Sort<wbr/>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/BidsSortOrder.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Bids<wbr/>Sort<wbr/>Order</a></li>
 <li class="tsd-kind-type-alias"><a href="types/BulkItemSettings.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Bulk<wbr/>Item<wbr/>Settings</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CNftBurnResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Burn<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CNftMintResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Mint<wbr/>Response</a></li>
@@ -391,6 +407,7 @@
 <li class="tsd-kind-type-alias"><a href="types/MarketplaceStats.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Marketplace<wbr/>Stats</a></li>
 <li class="tsd-kind-type-alias"><a href="types/MintCandyMachineResp.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Mint<wbr/>Candy<wbr/>Machine<wbr/>Resp</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Nft.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Nft</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NftBidResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Nft<wbr/>Bid<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/NftBuyResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Nft<wbr/>Buy<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/NftFile.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Nft<wbr/>File</a></li>
 <li class="tsd-kind-type-alias"><a href="types/NftListResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Nft<wbr/>List<wbr/>Response</a></li>
