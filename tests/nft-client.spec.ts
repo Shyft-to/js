@@ -25,6 +25,21 @@ describe('read NFT test', () => {
     expect(typeof nft).toBe('object');
   });
 
+  it('read selected NFTs', async () => {
+    const nfts = await shyft.nft.getNftsByMintAddresses({
+      network: Network.Mainnet,
+      mints: [
+        '3nd5gaYmu1oVdqthPrv8SWzvBaHgWPjn2npAGwPjhuQz',
+        'FW5peLvKtJhCykHqfA2E1GDGVCLsJrJYKkWPKXa8SZuL',
+        'Dx2XXfTUoTRsqRrBmB4dESraEeQy8Uby2XsLCtHW7GNS',
+      ],
+      tokenRecord: true,
+    });
+    console.log(nfts);
+
+    expect(Array.isArray(nfts)).toBe(true);
+  });
+
   it('create NFT', async () => {
     const response = await shyft.nft.createFromMetadata({
       receiver: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
@@ -184,8 +199,9 @@ describe('read NFT test', () => {
 
   it('compressed NFT transfer', async () => {
     const transferResponse = await shyft.nft.compressed.transfer({
-      mint: 'FvYX8Lho2GEUNppXD8mrwYdXoNHPuqU54kYSTFXLnHwa',
-      fromAddress: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+      network: Network.Mainnet,
+      mint: '4J6rpfVt3x6VKFTCvbuXy4LLz6CegYCQf7717kgyARbw',
+      fromAddress: '6YGVd8wdF76bbnZzNej6Ft6jgdYojakeLGSraXBm2jMq',
       toAddress: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
     });
 
@@ -199,11 +215,11 @@ describe('read NFT test', () => {
     const transferResponse = await shyft.nft.compressed.transferMany({
       network: Network.Mainnet,
       mints: [
-        'B1KpC7P66MUitUBjSEDtV1CM1rbYaEnRfpDjh7cB8QNf',
-        '2ZBoTyJhmdWg8eNmxzcoRBopUyFAoV7XCnWW5WFMaTzv',
-        '85hcC9Ga4r3cffpSWmSN81Lf6knyejeNmfd2Kj3UbTn7',
+        '4J6rpfVt3x6VKFTCvbuXy4LLz6CegYCQf7717kgyARbw',
+        'JE37Hwx9URg2YKRGxC8vMNGs8CExS5KzB7VvJ9PjS3Y9',
+        'JDyXQ6Y6GAahgXPNN5LwTvyyGWpkNfiYy2KPQQ6WJrjs',
       ],
-      fromAddress: '4u5iyKLBpHDMeyzjgLVQjEo2KLjiaGe7zRMib8J8Se4a',
+      fromAddress: '6YGVd8wdF76bbnZzNej6Ft6jgdYojakeLGSraXBm2jMq',
       toAddress: 'BFefyp7jNF5Xq2A4JDLLFFGpxLq5oPEFKBAQ46KJHW2R',
     });
 
@@ -215,8 +231,8 @@ describe('read NFT test', () => {
   it('burn compressed NFT', async () => {
     const burnResponse = await shyft.nft.compressed.burn({
       network: Network.Mainnet,
-      mint: 'B1KpC7P66MUitUBjSEDtV1CM1rbYaEnRfpDjh7cB8QNf',
-      walletAddress: '4u5iyKLBpHDMeyzjgLVQjEo2KLjiaGe7zRMib8J8Se4a',
+      mint: 'JDyXQ6Y6GAahgXPNN5LwTvyyGWpkNfiYy2KPQQ6WJrjs',
+      walletAddress: '6YGVd8wdF76bbnZzNej6Ft6jgdYojakeLGSraXBm2jMq',
     });
 
     expect(burnResponse).toMatchObject<CNftBurnResponse>({
@@ -236,8 +252,8 @@ describe('read NFT test', () => {
 
   it('fetch all cNFTs by a owner address', async () => {
     const cNFTs = await shyft.nft.compressed.readAll({
-      network: Network.Mainnet,
-      walletAddress: '4u5iyKLBpHDMeyzjgLVQjEo2KLjiaGe7zRMib8J8Se4a',
+      network: Network.Devnet,
+      walletAddress: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
     });
 
     expect(typeof cNFTs).toBe('object');
