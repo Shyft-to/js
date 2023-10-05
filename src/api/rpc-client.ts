@@ -136,4 +136,24 @@ export class RpcClient {
       throw new Error(`Error in getAssetsByAuthority: ${error}`);
     }
   }
+
+  async searchAssets(
+    params: DAS.SearchAssetsRequest
+  ): Promise<DAS.GetAssetResponseList> {
+    try {
+      const data = await rpcCall(this.connection, {
+        data: {
+          jsonrpc: '2.0',
+          id: this.id,
+          method: 'searchAssets',
+          params: params,
+        },
+      });
+
+      const result = data.result;
+      return result as DAS.GetAssetResponseList;
+    } catch (error) {
+      throw new Error(`Error in searchAssets: ${error}`);
+    }
+  }
 }
