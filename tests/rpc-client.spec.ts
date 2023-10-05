@@ -61,4 +61,14 @@ describe('rpc test', () => {
     });
     expect(Array.isArray(response.items)).toBe(true);
   }, 50000);
+
+  it('searchAssets', async () => {
+    const response = await shyft.rpc.searchAssets({
+      ownerAddress: 'EevH3LPRexR2431NSF6bCpBbPdQ2ViHbM1p84zujiEUs',
+      creatorAddress: '2MiXcXedQeRc3bD5gTdvFsvLVi8pTyp298VdYNNghiN8',
+      page: 1,
+      limit: 10,
+    });
+    expect(Array.isArray(response.items)).toBe(true);
+  }, 50000);
 });

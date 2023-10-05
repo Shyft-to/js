@@ -324,6 +324,7 @@ rpc namespace:
 - `getAssetsByOwner()`: Get a list of assets owned by an address.
 - `getAssetsByCreator()`: Get a list of assets created by an address.
 - `getAssetsByAuthority()`: Get a list of assets with a specific authority.
+- `searchAssets()`: Search for assets by a variety of parameters.
 
 #### Fetch assets of a collection
 
