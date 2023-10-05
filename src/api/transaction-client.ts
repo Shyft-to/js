@@ -56,8 +56,10 @@ export class TransactionClient {
       account: input.account,
     };
     if (input?.txNum) {
-      if (input.txNum > 10 || input.txNum < 1)
-        throw new Error("'txNum' should not be greater than 10 or less than 1");
+      if (input.txNum > 100 || input.txNum < 1)
+        throw new Error(
+          "'txNum' should not be greater than 100 or less than 1"
+        );
       params['tx_num'] = input.txNum;
     }
     if (input?.beforeTxSignature) {
