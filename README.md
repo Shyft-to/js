@@ -95,6 +95,7 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
   - `transfer()`: Transfer an already minted cNFT from one wallet to another.
   - `transferMany()`: Transfer multiple cNFTs from one wallet to another.
   - `burn()`: Burn a particular cNFT.
+  - `burnMany()`: Bulk burn wallet cNFTs.
   - `read()`: Returns on-chain and off-chain cNFT data.
   - `readAll()`: Returns on-chain and off-chain data of all cNFTs in the wallet.
 

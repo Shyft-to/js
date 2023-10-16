@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import 'dotenv/config';
 import { ShyftSdk } from '@/index';
 import {
+  CNftBurnManyResp,
   CNftBurnResponse,
   CNftMintResponse,
   CNftTransferManyResp,
@@ -258,4 +259,20 @@ describe('read NFT test', () => {
 
     expect(typeof cNFTs).toBe('object');
   }, 50000);
+
+  it('burn many compressed NFTs', async () => {
+    const burnResponse = await shyft.nft.compressed.burnMany({
+      network: Network.Mainnet,
+      mints: [
+        'B1KpC7P66MUitUBjSEDtV1CM1rbYaEnRfpDjh7cB8QNf',
+        '2ZBoTyJhmdWg8eNmxzcoRBopUyFAoV7XCnWW5WFMaTzv',
+        '85hcC9Ga4r3cffpSWmSN81Lf6knyejeNmfd2Kj3UbTn7',
+      ],
+      walletAddress: '4u5iyKLBpHDMeyzjgLVQjEo2KLjiaGe7zRMib8J8Se4a',
+    });
+
+    expect(burnResponse).toMatchObject<CNftBurnManyResp>({
+      encoded_transactions: expect.any(Array),
+    });
+  });
 });
