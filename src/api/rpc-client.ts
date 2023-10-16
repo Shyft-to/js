@@ -29,7 +29,9 @@ export class RpcClient {
           params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetResponse;
     } catch (error) {
@@ -49,7 +51,9 @@ export class RpcClient {
           params: params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetProofResponse;
     } catch (error) {
@@ -69,7 +73,9 @@ export class RpcClient {
           params: params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetResponseList;
     } catch (error) {
@@ -89,7 +95,9 @@ export class RpcClient {
           params: params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetResponseList;
     } catch (error) {
@@ -109,7 +117,9 @@ export class RpcClient {
           params: params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetResponseList;
     } catch (error) {
@@ -129,7 +139,9 @@ export class RpcClient {
           params: params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetResponseList;
     } catch (error) {
@@ -149,7 +161,9 @@ export class RpcClient {
           params: params,
         },
       });
-
+      if (data['error']) {
+        return data['error'];
+      }
       const result = data.result;
       return result as DAS.GetAssetResponseList;
     } catch (error) {
