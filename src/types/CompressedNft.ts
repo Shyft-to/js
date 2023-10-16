@@ -36,3 +36,4 @@ export type CNftMintResponse = CommonTxnResponse & { mint: string };
 export type CNftTransferResponse = CommonTxnResponse;
 export type CNftBurnResponse = CommonTxnResponse;
 export type CNftTransferManyResp = { encoded_transactions: string[] };
+export type CNftBurnManyResp = { encoded_transactions: string[] };

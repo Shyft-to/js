@@ -1,5 +1,6 @@
 import { ShyftConfig, restApiCall, CaseConverter } from '@/utils';
 import {
+  CNftBurnManyResp,
   CNftBurnResponse,
   CNftMintResponse,
   CNftTransferManyResp,
@@ -170,6 +171,29 @@ export class CompressedNftClient {
         data: reqBody,
       });
       const response = data.result as CNftBurnResponse;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async burnMany(input: {
+    network?: Network;
+    mints: string[];
+    walletAddress: string;
+  }): Promise<CNftBurnManyResp> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        nft_addresses: input.mints,
+        wallet_address: input.walletAddress,
+      };
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'delete',
+        url: 'nft/compressed/burn_many',
+        data: reqBody,
+      });
+      const response = data.result as CNftBurnManyResp;
       return response;
     } catch (error) {
       throw error;
