@@ -255,6 +255,7 @@ describe('read NFT test', () => {
     const cNFTs = await shyft.nft.compressed.readAll({
       network: Network.Devnet,
       walletAddress: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+      collection: '5wwUuKaTrLWygZEQ1tCRC1uJFthG5pa17ArwpwApNAiw',
     });
 
     expect(typeof cNFTs).toBe('object');

@@ -48,6 +48,14 @@ export type Nft = {
   token_record?: TokenRecordData;
 };
 
+export type PaginatedNfts = {
+  nfts: Nft[];
+  total_count: number;
+  page: number;
+  size: number;
+  total_pages: number;
+};
+
 export type Creator = {
   address: string;
   verified: boolean;
