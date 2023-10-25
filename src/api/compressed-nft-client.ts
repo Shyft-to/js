@@ -8,8 +8,10 @@ import {
   CreateMerkleTreeResponse,
   Network,
   Nft,
+  PaginatedNfts,
   ValidDepthSizePair,
 } from '@/types';
+import { isNumber } from 'lodash';
 
 export class CompressedNftClient {
   private caseConverter: CaseConverter;
@@ -221,18 +223,73 @@ export class CompressedNftClient {
   async readAll(input: {
     network?: Network;
     walletAddress: string;
+    collection?: string;
+    refresh?: boolean;
   }): Promise<Nft[]> {
     try {
       const params = {
         network: input.network ?? this.config.network,
         wallet_address: input.walletAddress,
       };
+      if (input.collection) {
+        params['collection'] = input.collection;
+      }
+      if (input.refresh) {
+        params['refresh'] = input.refresh;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'get',
         url: 'nft/compressed/read_all',
         params,
       });
       const response = data.result.nfts as Nft[];
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async readAllV2(input: {
+    network?: Network;
+    walletAddress: string;
+    collection?: string;
+    refresh?: boolean;
+    page?: number;
+    size?: number;
+  }): Promise<PaginatedNfts> {
+    try {
+      const params = {
+        network: input.network ?? this.config.network,
+        wallet_address: input.walletAddress,
+      };
+      if (input.collection) {
+        params['collection'] = input.collection;
+      }
+      if (input.refresh) {
+        params['refresh'] = input.refresh;
+      }
+      if (isNumber(input?.page)) {
+        if (input.page < 1) {
+          throw new Error('should not be less than 1: size');
+        }
+        params['page'] = input.page;
+      }
+      if (isNumber(input?.size)) {
+        if (input.size > 50 || input.size < 1) {
+          throw new Error('allowed between 1 to 50: size');
+        }
+        params['size'] = input.size;
+      }
+      const data = await restApiCall(
+        this.config.apiKey,
+        {
+          method: 'get',
+          url: 'nft/compressed/read_all',
+          params,
+        },
+        'v2'
+      );
+      const response = data.result as PaginatedNfts;
       return response;
     } catch (error) {
       throw error;
