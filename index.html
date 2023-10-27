@@ -129,6 +129,7 @@
 <li><code>read()</code>: Returns on-chain and off-chain cNFT data.</li>
 <li><code>readAll()</code>: Returns on-chain and off-chain data of all cNFTs in the wallet.</li>
 <li><code>readAllV2()</code>: A paginated version of Read All Compressed NFTs API, returns the list of cNFTs in a wallet. A maximum of 50 NFTs are returned in a single API request.</li>
+<li><code>readSelected()</code>: Returns on-chain and off-chain data of selected compressed NFTs.</li>
 </ul>
 </li>
 </ul>
@@ -250,6 +251,7 @@
 <li><code>raw()</code>: Get raw transaction for a given txn signature.</li>
 <li><code>parsed()</code>: Get parsed transaction details for a given txn signature. Read more on <a href="https://docs.shyft.to/start-hacking/transactions/parsed-transaction-structure">parsed transaction structure</a></li>
 <li><code>history()</code>: Fetches a list of parsed transactions for an on-chain account. The response returns the transactions with the latest transactions first. The response can have results of a maximum of 10 transactions in 1 single call.</li>
+<li><code>parseSelected()</code>: Allows to retrieve specific transactions from a dataset by providing their unique transaction signatures.</li>
 </ul>
 
 <a href="#fetch-transaction-history" id="fetch-transaction-history" style="color: inherit; text-decoration: none;">
@@ -423,6 +425,8 @@
 <li class="tsd-kind-type-alias"><a href="types/CNftTransferManyResp.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Transfer<wbr/>Many<wbr/>Resp</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CNftTransferResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>CNft<wbr/>Transfer<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CallBack.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Call<wbr/>Back</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CallbackEncoding.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Callback<wbr/>Encoding</a></li>
+<li class="tsd-kind-type-alias"><a href="types/CallbackType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Callback<wbr/>Type</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CandyMachineGroup.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Candy<wbr/>Machine<wbr/>Group</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CandyMachineGuard.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Candy<wbr/>Machine<wbr/>Guard</a></li>
 <li class="tsd-kind-type-alias"><a href="types/CandyMachineItem.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Candy<wbr/>Machine<wbr/>Item</a></li>
