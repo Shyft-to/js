@@ -1,6 +1,12 @@
 import { ShyftConfig } from '@/utils';
 import { restApiCall } from '@/utils';
-import { Network, TxnAction, CallBack } from '@/types';
+import {
+  Network,
+  TxnAction,
+  CallBack,
+  CallbackType,
+  CallbackEncoding,
+} from '@/types';
 
 export class CallbackClient {
   constructor(private readonly config: ShyftConfig) {}
@@ -11,7 +17,10 @@ export class CallbackClient {
     callbackUrl: string;
     events?: TxnAction[];
     enableRaw?: boolean;
-  }): Promise<Omit<CallBack, 'enable_raw'>> {
+    enableEvents?: boolean;
+    type?: CallbackType;
+    encoding?: CallbackEncoding;
+  }): Promise<Omit<CallBack, 'created_at' | 'updated_at'>> {
     try {
       if (!this.isValidUrl(input.callbackUrl)) {
         throw new Error(`not a valid URL: ${input.callbackUrl}`);
@@ -26,6 +35,15 @@ export class CallbackClient {
       }
       if (input?.enableRaw) {
         reqBody['enable_raw'] = input.enableRaw;
+      }
+      if (input?.enableEvents) {
+        reqBody['enable_events'] = input.enableEvents;
+      }
+      if (input?.type) {
+        reqBody['type'] = input.type;
+      }
+      if (input?.encoding) {
+        reqBody['encoding'] = input.encoding;
       }
       const response = await restApiCall(this.config.apiKey, {
         method: 'post',
@@ -63,7 +81,21 @@ export class CallbackClient {
     callbackUrl: string;
     events?: TxnAction[];
     enableRaw?: boolean;
-  }): Promise<Omit<CallBack, 'callback_url' | 'enable_raw'>> {
+    enableEvents?: boolean;
+    type?: CallbackType;
+    encoding?: CallbackEncoding;
+  }): Promise<
+    Omit<
+      CallBack,
+      | 'callback_url'
+      | 'enable_raw'
+      | 'enable_events'
+      | 'type'
+      | 'encoding'
+      | 'created_at'
+      | 'updated_at'
+    >
+  > {
     try {
       if (!this.isValidUrl(input.callbackUrl)) {
         throw new Error(`not a valid URL: ${input.callbackUrl}`);
@@ -79,6 +111,15 @@ export class CallbackClient {
       }
       if (input?.enableRaw) {
         reqBody['enable_raw'] = input.enableRaw;
+      }
+      if (input?.enableEvents) {
+        reqBody['enable_events'] = input.enableEvents;
+      }
+      if (input?.type) {
+        reqBody['type'] = input.type;
+      }
+      if (input?.encoding) {
+        reqBody['encoding'] = input.encoding;
       }
       const response = await restApiCall(this.config.apiKey, {
         method: 'post',
@@ -106,6 +147,11 @@ export class CallbackClient {
           callback_url: callback?.callback_url,
           events: callback?.events,
           enable_raw: callback?.enable_raw,
+          enable_events: callback?.enable_events,
+          type: callback?.type,
+          encoding: callback?.encoding,
+          created_at: new Date(callback.created_at),
+          updated_at: new Date(callback.updated_at),
         } as CallBack;
       });
       return callbacks;

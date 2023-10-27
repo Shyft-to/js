@@ -50,6 +50,7 @@ export class TransactionClient {
     txNum?: number;
     beforeTxSignature?: string;
     enableRaw?: boolean;
+    enableEvents?: boolean;
   }): Promise<TransactionHistory> {
     const params = {
       network: input.network ?? this.config.network,
@@ -68,11 +69,46 @@ export class TransactionClient {
     if (input?.enableRaw) {
       params['enable_raw'] = input.enableRaw;
     }
+    if (input?.enableEvents) {
+      params['enable_events'] = input.enableEvents;
+    }
 
     const data = await restApiCall(this.config.apiKey, {
       method: 'get',
       url: 'transaction/history',
       params,
+    });
+    const transactions = data.result as TransactionHistory;
+    return transactions;
+  }
+
+  async parseSelected(input: {
+    network?: Network;
+    transactionSignatues: string[];
+    enableRaw?: boolean;
+    enableEvents?: boolean;
+  }): Promise<TransactionHistory> {
+    if (
+      input.transactionSignatues.length > 50 ||
+      input.transactionSignatues.length < 1
+    ) {
+      throw new Error('allowed between 1 to 50: transactionSignatues');
+    }
+    const reqBody = {
+      network: input.network ?? this.config.network,
+      transaction_signatures: input.transactionSignatues,
+    };
+    if (input?.enableRaw) {
+      reqBody['enable_raw'] = input.enableRaw;
+    }
+    if (input?.enableEvents) {
+      reqBody['enable_events'] = input.enableEvents;
+    }
+
+    const data = await restApiCall(this.config.apiKey, {
+      method: 'post',
+      url: 'transaction/parse_selected',
+      data: reqBody,
     });
     const transactions = data.result as TransactionHistory;
     return transactions;
