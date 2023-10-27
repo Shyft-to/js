@@ -99,6 +99,7 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
   - `read()`: Returns on-chain and off-chain cNFT data.
   - `readAll()`: Returns on-chain and off-chain data of all cNFTs in the wallet.
   - `readAllV2()`: A paginated version of Read All Compressed NFTs API, returns the list of cNFTs in a wallet. A maximum of 50 NFTs are returned in a single API request.
+  - `readSelected()`: Returns on-chain and off-chain data of selected compressed NFTs.
 
 ### Fetch an NFT
 
@@ -249,6 +250,7 @@ Transaction namespace:
 - `raw()`: Get raw transaction for a given txn signature.
 - `parsed()`: Get parsed transaction details for a given txn signature. Read more on [parsed transaction structure](https://docs.shyft.to/start-hacking/transactions/parsed-transaction-structure)
 - `history()`: Fetches a list of parsed transactions for an on-chain account. The response returns the transactions with the latest transactions first. The response can have results of a maximum of 10 transactions in 1 single call.
+- `parseSelected()`: Allows to retrieve specific transactions from a dataset by providing their unique transaction signatures.
 
 ### Fetch transaction history
 
