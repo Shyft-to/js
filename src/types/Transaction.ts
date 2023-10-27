@@ -134,8 +134,11 @@ type ActionSummary<T> = {
 
 type NeatActionSummary<T> = Omit<ActionSummary<T>, 'tags'>;
 
+type Event = { name: string; data: any };
+
 export type ParsedTxnSummary = SimplifiedTxnInfo & {
   actions: NeatActionSummary<any>[];
+  events?: Array<Event>;
 };
 
 export type RawTransaction = ParsedTransactionWithMeta & {

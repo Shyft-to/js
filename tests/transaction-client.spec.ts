@@ -27,11 +27,25 @@ describe('Transaction client test', () => {
 
   it('fetch transaction history', async () => {
     const transactions = await shyft.transaction.history({
-      network: Network.Devnet,
-      account: 'Apeng15Pm8EjpAcaAXpNUxZjS2jMmGqikfs281Fz9hNj',
-      enableRaw: true,
+      network: Network.Mainnet,
+      account: 'JCFRaPv7852ESRwJJGRy2mysUMydXZgVVhrMLmExvmVp',
+      enableRaw: false,
+      enableEvents: true,
     });
-    console.dir(transactions[0].raw, { depth: null });
+    console.dir(transactions[0].events, { depth: null });
+    expect(typeof transactions).toBe('object');
+  });
+
+  it('selected transactions fetch', async () => {
+    const transactions = await shyft.transaction.parseSelected({
+      network: Network.Mainnet,
+      transactionSignatues: [
+        '67BJFsmeLhpPWLonvXyi46dh4UszCHZCWecUznfAdGX2KGEJxxGCoTiKAixMgZsBJBGTUQsDNHf697BQLceRdfd9',
+        '4NcmYNHKAdTFnm8y78wQoKMmGCedhTVFrWeHdEGYaThY4AYQ96fbeADY48B7XSgDz6RCZUDqnNPVWay34M18yXmg',
+      ],
+      enableRaw: false,
+      enableEvents: true,
+    });
     expect(typeof transactions).toBe('object');
   });
 });
