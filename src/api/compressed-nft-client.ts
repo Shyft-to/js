@@ -296,6 +296,34 @@ export class CompressedNftClient {
     }
   }
 
+  async readSelected(input: {
+    network?: Network;
+    mints: string[];
+    refresh?: boolean;
+  }): Promise<Nft[]> {
+    try {
+      if (input.mints.length > 10 || input.mints.length < 1) {
+        throw new Error('allowed between 1 to 10: mints');
+      }
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        nft_addresses: input.mints,
+      };
+      if (input.refresh) {
+        reqBody['refresh'] = input.refresh;
+      }
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/compressed/read_selected',
+        data: reqBody,
+      });
+      const response = data.result as Nft[];
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static isValidDepthSizePair(obj: any): obj is ValidDepthSizePair {
     if (!obj || typeof obj !== 'object') {
       return false;
