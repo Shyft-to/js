@@ -252,6 +252,8 @@
 <li><code>parsed()</code>: Get parsed transaction details for a given txn signature. Read more on <a href="https://docs.shyft.to/start-hacking/transactions/parsed-transaction-structure">parsed transaction structure</a></li>
 <li><code>history()</code>: Fetches a list of parsed transactions for an on-chain account. The response returns the transactions with the latest transactions first. The response can have results of a maximum of 10 transactions in 1 single call.</li>
 <li><code>parseSelected()</code>: Allows to retrieve specific transactions from a dataset by providing their unique transaction signatures.</li>
+<li><code>send()</code>: Lets you submit your signed transaction into the Solana blockchain, via Shyft&#39;s dedicated RPC node, which reduces the risk of transaction drop to near 0.</li>
+<li><code>sendMany()</code>: Lets you send bulk transactions to Solana blockchain, via Shyft&#39;s dedicated RPC node.</li>
 </ul>
 
 <a href="#fetch-transaction-history" id="fetch-transaction-history" style="color: inherit; text-decoration: none;">
@@ -457,6 +459,7 @@
 <li class="tsd-kind-type-alias"><a href="types/ParsedTxnSummary.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Parsed<wbr/>Txn<wbr/>Summary</a></li>
 <li class="tsd-kind-type-alias"><a href="types/Portfolio.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Portfolio</a></li>
 <li class="tsd-kind-type-alias"><a href="types/RawTransaction.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Raw<wbr/>Transaction</a></li>
+<li class="tsd-kind-type-alias"><a href="types/SendTransactionResp.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Send<wbr/>Transaction<wbr/>Resp</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ServiceCharge.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Service<wbr/>Charge</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ShyftSettings.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Shyft<wbr/>Settings</a></li>
 <li class="tsd-kind-type-alias"><a href="types/TokenApiResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Token<wbr/>Api<wbr/>Response</a></li>
@@ -466,6 +469,7 @@
 <li class="tsd-kind-type-alias"><a href="types/TokenTransferTo.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Token<wbr/>Transfer<wbr/>To</a></li>
 <li class="tsd-kind-type-alias"><a href="types/TransactionHistory.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Transaction<wbr/>History</a></li>
 <li class="tsd-kind-type-alias"><a href="types/TreasuryBalance.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Treasury<wbr/>Balance</a></li>
+<li class="tsd-kind-type-alias"><a href="types/TxnCommitment.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Txn<wbr/>Commitment</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ValidDepthSizePair.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Valid<wbr/>Depth<wbr/>Size<wbr/>Pair</a></li>
 <li class="tsd-kind-type-alias"><a href="types/WalletKeypair.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Wallet<wbr/>Keypair</a></li>
 <li class="tsd-kind-type-alias"><a href="types/WithRequired.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>With<wbr/>Required</a></li>
