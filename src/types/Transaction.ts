@@ -148,3 +148,18 @@ export type RawTransaction = ParsedTransactionWithMeta & {
 export type TransactionHistory = (ParsedTxnSummary & {
   raw?: ParsedTransactionWithMeta;
 })[];
+
+export type TxnCommitment = 'processed' | 'confirmed' | 'finalized';
+
+type RpcError = {
+  code: number;
+  message: string;
+  data: any;
+};
+
+export type SendTransactionResp = {
+  id: number | string;
+  signature: string;
+  error?: RpcError;
+  status: TxnCommitment | null;
+};
