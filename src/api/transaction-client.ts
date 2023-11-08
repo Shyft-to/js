@@ -4,7 +4,9 @@ import {
   Network,
   ParsedTxnSummary,
   RawTransaction,
+  SendTransactionResp,
   TransactionHistory,
+  TxnCommitment,
 } from '@/types';
 
 export class TransactionClient {
@@ -112,5 +114,51 @@ export class TransactionClient {
     });
     const transactions = data.result as TransactionHistory;
     return transactions;
+  }
+
+  async send(input: {
+    network?: Network;
+    encodedTransaction: string;
+  }): Promise<string> {
+    const reqBody = {
+      network: input.network ?? this.config.network,
+      encoded_transaction: input.encodedTransaction,
+    };
+
+    const data = await restApiCall(this.config.apiKey, {
+      method: 'post',
+      url: 'transaction/send_txn',
+      data: reqBody,
+    });
+    const result = data.result?.signature as string;
+    return result;
+  }
+
+  async sendMany(input: {
+    network?: Network;
+    encodedTransactions: string[];
+    commitment?: TxnCommitment;
+  }): Promise<SendTransactionResp[]> {
+    if (
+      input.encodedTransactions.length > 50 ||
+      input.encodedTransactions.length < 1
+    ) {
+      throw new Error('allowed between 1 to 50: encodedTransactions');
+    }
+    const reqBody = {
+      network: input.network ?? this.config.network,
+      encoded_transactions: input.encodedTransactions,
+    };
+    if (input?.commitment) {
+      reqBody['commitment'] = input.commitment;
+    }
+
+    const data = await restApiCall(this.config.apiKey, {
+      method: 'post',
+      url: 'transaction/send_many_txns',
+      data: reqBody,
+    });
+    const result = data.result as SendTransactionResp[];
+    return result;
   }
 }

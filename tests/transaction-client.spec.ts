@@ -48,4 +48,25 @@ describe('Transaction client test', () => {
     });
     expect(typeof transactions).toBe('object');
   });
+
+  it('send transaction', async () => {
+    const signature = await shyft.transaction.send({
+      network: Network.Devnet,
+      encodedTransaction:
+        'ASCtcU9uCq3n1RanzUG0kn4tBX0jMBYJks1yruGSEpFR1zMKrTb6q4qttUGrx3Uq2/lCAbKCG6vZEvkwN9Q3xgkBAAEDGMqfUcVHHu2+lyU5gx9wU2rGxk2NoSXtodMSdev+DxVALAeVfwkorAqlrAeN8dOn8Jeu6H4u3ofHzGz4FntQPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWbWegET0pqstGQTS3s/zFAzsKX+EefI3qVuRYc29tMYBAgIAAQwCAAAAQEIPAAAAAAA=',
+    });
+    expect(typeof signature).toBe('string');
+  });
+
+  it('send multiple transactions', async () => {
+    const response = await shyft.transaction.sendMany({
+      network: Network.Devnet,
+      encodedTransactions: [
+        'AflRiSHDT+mkiqNqJ6MsY5cqITOcZ37+txZQqqYzazphSa/VBhFcFibFzi2rQ8IsaQkgBDHznqabolOzA/mNlAUBAAEDGMqfUcVHHu2+lyU5gx9wU2rGxk2NoSXtodMSdev+DxVALAeVfwkorAqlrAeN8dOn8Jeu6H4u3ofHzGz4FntQPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR9uaAIxMGKAuXPKB9d9mAA3oMZ/GRc3kbW+YxugY/jcBAgIAAQwCAAAAMBsPAAAAAAA=',
+        'AW+cdqIs1kmQzpWS9YjXdx8eHqqv8IQsurH88P54ZUvbdysyCnsEpxEt2Y2xZ8+yCP/jj8hFyih8NZiWUqnb3QUBAAEDGMqfUcVHHu2+lyU5gx9wU2rGxk2NoSXtodMSdev+DxVALAeVfwkorAqlrAeN8dOn8Jeu6H4u3ofHzGz4FntQPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR9uaAIxMGKAuXPKB9d9mAA3oMZ/GRc3kbW+YxugY/jcBAgIAAQwCAAAAQEIPAAAAAAA=',
+      ],
+      commitment: 'confirmed',
+    });
+    expect(typeof response).toBe('object');
+  });
 });

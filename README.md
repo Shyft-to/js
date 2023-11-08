@@ -251,6 +251,8 @@ Transaction namespace:
 - `parsed()`: Get parsed transaction details for a given txn signature. Read more on [parsed transaction structure](https://docs.shyft.to/start-hacking/transactions/parsed-transaction-structure)
 - `history()`: Fetches a list of parsed transactions for an on-chain account. The response returns the transactions with the latest transactions first. The response can have results of a maximum of 10 transactions in 1 single call.
 - `parseSelected()`: Allows to retrieve specific transactions from a dataset by providing their unique transaction signatures.
+- `send()`: Lets you submit your signed transaction into the Solana blockchain, via Shyft's dedicated RPC node, which reduces the risk of transaction drop to near 0.
+- `sendMany()`: Lets you send bulk transactions to Solana blockchain, via Shyft's dedicated RPC node.
 
 ### Fetch transaction history
 
