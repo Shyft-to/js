@@ -45,6 +45,7 @@ export type Nft = {
   token_standard: string;
   is_compressed: boolean;
   merkle_tree: string;
+  is_burnt: boolean;
   token_record?: TokenRecordData;
 };
 
