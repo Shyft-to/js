@@ -9,6 +9,7 @@ import {
   StorageClient,
   CallbackClient,
   RpcClient,
+  TxnRelayerClient,
 } from '@/api';
 import { ShyftConfig } from '@/utils';
 import { SemiCustodialWalletClient } from '@/api/semi-custodial-wallet-client';
@@ -24,6 +25,7 @@ export class ShyftSdk {
   readonly candyMachine: CandyMachineClient;
   readonly marketplace: MarketplaceClient;
   readonly transaction: TransactionClient;
+  readonly txnRelayer: TxnRelayerClient;
   readonly storage: StorageClient;
   readonly semiCustodialWallet: SemiCustodialWalletClient;
   readonly callback: CallbackClient;
@@ -39,6 +41,7 @@ export class ShyftSdk {
     this.candyMachine = new CandyMachineClient(this.config);
     this.marketplace = new MarketplaceClient(this.config);
     this.transaction = new TransactionClient(this.config);
+    this.txnRelayer = new TxnRelayerClient(this.config);
     this.storage = new StorageClient(this.config);
     this.semiCustodialWallet = new SemiCustodialWalletClient(this.config);
     this.callback = new CallbackClient(this.config);

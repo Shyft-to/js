@@ -35,9 +35,10 @@ The Shyft SDK currently supports the following clients:
 - `candyMachine`: Candy Machine APIs
 - `marketplace`: Marketplace APIs
 - `transaction`: Transation APIs
-- `storage`: Storage APIs such as uploading asset or metadata and get IPFS uri.
-- `semiCustodialWallet`: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps.
-- `callback`: Get real time updates on addresses for your users.
+- `txnRelayer`: Transaction Relayer, allows you to seamlessly enable gas-less transactions for your users
+- `storage`: Storage APIs such as uploading asset or metadata and get IPFS uri
+- `semiCustodialWallet`: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps
+- `callback`: Get real time updates on addresses for your users
 - `rpc`: [Get access to DAS API (currently only works with `mainnet-beta` cluster) 🆕](#rpc)
 
 ### Shyft Wallet APIs
@@ -264,6 +265,16 @@ const transactions = await shyft.transaction.history({
 });
 console.dir(transactions, { depth: null });
 ```
+
+### Transaction Relayer APIs
+
+It first creates a custodial wallet which gets mapped to your Shyft API key. On creation, it returns the wallet address associated with you SHYFT API key. You have to use this wallet address as,fee_payer while constructing your transactions. Then, you can send the transactions that need to be signed on the relayer’s sign endpoint. Relayer will retrieve the credentials associated with your API key, sign the transaction and send it to the blockchain.
+
+Txn Relayer namespace:
+
+- `getOrCreate()`: Get or create a new transaction relayer.
+- `sign()`: Sign and send a transaction using the relayer. Takes `encoded_transaction` and network as input request parameters.
+- `signMany()`: Sign and send multiple transactions using the relayer. Takes `encoded_transactions` and network as input request parameters.
 
 ### Storage APIs
 
