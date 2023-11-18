@@ -56,9 +56,10 @@
 <li><code>candyMachine</code>: Candy Machine APIs</li>
 <li><code>marketplace</code>: Marketplace APIs</li>
 <li><code>transaction</code>: Transation APIs</li>
-<li><code>storage</code>: Storage APIs such as uploading asset or metadata and get IPFS uri.</li>
-<li><code>semiCustodialWallet</code>: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps.</li>
-<li><code>callback</code>: Get real time updates on addresses for your users.</li>
+<li><code>txnRelayer</code>: Transaction Relayer, allows you to seamlessly enable gas-less transactions for your users</li>
+<li><code>storage</code>: Storage APIs such as uploading asset or metadata and get IPFS uri</li>
+<li><code>semiCustodialWallet</code>: A simple in-app crypto wallet to securely and quickly onboard non-native crypto users to web3 dApps</li>
+<li><code>callback</code>: Get real time updates on addresses for your users</li>
 <li><code>rpc</code>: <a href="#rpc">Get access to DAS API (currently only works with <code>mainnet-beta</code> cluster) 🆕</a></li>
 </ul>
 
@@ -261,6 +262,17 @@
 </a>
 <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">transactions</span><span class="hl-0"> = </span><span class="hl-2">await</span><span class="hl-0"> </span><span class="hl-3">shyft</span><span class="hl-0">.</span><span class="hl-3">transaction</span><span class="hl-0">.</span><span class="hl-6">history</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-3">network:</span><span class="hl-0"> </span><span class="hl-3">Network</span><span class="hl-0">.</span><span class="hl-3">Devnet</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-3">account:</span><span class="hl-0"> </span><span class="hl-1">&#39;Apeng15Pm8EjpAcaAXpNUxZjS2jMmGqikfs281Fz9hNj&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-3">enableRaw:</span><span class="hl-0"> </span><span class="hl-4">true</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><span class="hl-3">console</span><span class="hl-0">.</span><span class="hl-6">dir</span><span class="hl-0">(</span><span class="hl-3">transactions</span><span class="hl-0">, { </span><span class="hl-3">depth:</span><span class="hl-0"> </span><span class="hl-4">null</span><span class="hl-0"> });</span>
 </code></pre>
+
+<a href="#transaction-relayer-apis" id="transaction-relayer-apis" style="color: inherit; text-decoration: none;">
+  <h3>Transaction Relayer APIs</h3>
+</a>
+<p>It first creates a custodial wallet which gets mapped to your Shyft API key. On creation, it returns the wallet address associated with you SHYFT API key. You have to use this wallet address as,fee_payer while constructing your transactions. Then, you can send the transactions that need to be signed on the relayer’s sign endpoint. Relayer will retrieve the credentials associated with your API key, sign the transaction and send it to the blockchain.</p>
+<p>Txn Relayer namespace:</p>
+<ul>
+<li><code>getOrCreate()</code>: Get or create a new transaction relayer.</li>
+<li><code>sign()</code>: Sign and send a transaction using the relayer. Takes <code>encoded_transaction</code> and network as input request parameters.</li>
+<li><code>signMany()</code>: Sign and send multiple transactions using the relayer. Takes <code>encoded_transactions</code> and network as input request parameters.</li>
+</ul>
 
 <a href="#storage-apis" id="storage-apis" style="color: inherit; text-decoration: none;">
   <h3>Storage APIs</h3>
