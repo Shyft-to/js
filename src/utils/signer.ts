@@ -4,6 +4,7 @@ import {
   Keypair,
   Transaction,
   Signer,
+  VersionedTransaction,
 } from '@solana/web3.js';
 import { decode } from 'bs58';
 
@@ -33,9 +34,7 @@ export async function signAndSendTransactionWithPrivateKeys(
     privateKeys
   );
 
-  const signature = await connection.sendRawTransaction(
-    signedTxn.serialize({ requireAllSignatures: false })
-  );
+  const signature = await connection.sendRawTransaction(signedTxn.serialize());
   return signature;
 }
 
@@ -76,10 +75,14 @@ export async function signAndSendTransaction(
 export async function partialSignTransactionWithPrivateKeys(
   encodedTransaction: string,
   privateKeys: string[]
-): Promise<Transaction> {
+): Promise<Transaction | VersionedTransaction> {
   const recoveredTransaction = getRawTransaction(encodedTransaction);
   const signers = getSignersFromPrivateKeys(privateKeys);
-  recoveredTransaction.partialSign(...signers);
+  if (recoveredTransaction instanceof VersionedTransaction) {
+    recoveredTransaction.sign(signers);
+  } else {
+    recoveredTransaction.partialSign(...signers);
+  }
   return recoveredTransaction;
 }
 
@@ -90,9 +93,18 @@ function getSignersFromPrivateKeys(privateKeys: string[]): Signer[] {
   });
 }
 
-function getRawTransaction(encodedTransaction: string): Transaction {
-  const recoveredTransaction = Transaction.from(
-    Buffer.from(encodedTransaction, 'base64')
-  );
+function getRawTransaction(
+  encodedTransaction: string
+): Transaction | VersionedTransaction {
+  let recoveredTransaction: Transaction | VersionedTransaction;
+  try {
+    recoveredTransaction = Transaction.from(
+      Buffer.from(encodedTransaction, 'base64')
+    );
+  } catch (error) {
+    recoveredTransaction = VersionedTransaction.deserialize(
+      Buffer.from(encodedTransaction, 'base64')
+    );
+  }
   return recoveredTransaction;
 }
