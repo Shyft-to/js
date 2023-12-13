@@ -95,9 +95,34 @@ describe('candy machine test', () => {
       mintGroup: 'early',
     });
     console.dir(response, { depth: null });
-    expect(response.signers.length).toBe(1);
+    expect(response.signers.length).toBe(2);
+    expect(response.transaction_version).toBe('legacy');
     expect(response).toMatchObject<MintCandyMachineResp>({
       encoded_transaction: expect.any(String),
+      transaction_version: expect.any(String),
+      mint: expect.any(String),
+      signers: expect.any(Array),
+    });
+  }, 50000);
+
+  it('mint another items from different candy machine', async () => {
+    const response = await shyft.candyMachine.mint({
+      wallet: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
+      candyMachine: 'GrhNqG48nTBBxecS7oDJYyBRuTykZo3nSVtKMZckWnrx',
+      authority: 'AKhncfY9gnmsHCbpD4G48EJvpJHeCbg1uL6sczmsbX8V',
+      feePayer: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      guardSettings: {
+        thirdPartySigner: {
+          signer: 'AKhncfY9gnmsHCbpD4G48EJvpJHeCbg1uL6sczmsbX8V',
+        },
+      },
+    });
+    console.dir(response, { depth: null });
+    expect(response.signers.length).toBe(3);
+    expect(response.transaction_version).toBe(0);
+    expect(response).toMatchObject<MintCandyMachineResp>({
+      encoded_transaction: expect.any(String),
+      transaction_version: expect.any(Number),
       mint: expect.any(String),
       signers: expect.any(Array),
     });
