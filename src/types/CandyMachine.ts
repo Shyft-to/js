@@ -1,3 +1,4 @@
+import { TransactionVersion } from '@solana/web3.js';
 import { Nft } from './Nft';
 
 export enum CandyMachineProgram {
@@ -54,6 +55,7 @@ export type InsertCandyMachineResp = {
 
 export type MintCandyMachineResp = {
   encoded_transaction: string;
+  transaction_version: TransactionVersion;
   mint: string;
   signers: string[];
 };
