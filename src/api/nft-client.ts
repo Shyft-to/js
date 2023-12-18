@@ -5,10 +5,12 @@ import {
   Network,
   Nft,
   NftMintAndOwner,
+  PaginatedNfts,
   ServiceCharge,
 } from '@/types';
 import { CollectionClient } from './collection-client';
 import { CompressedNftClient } from './compressed-nft-client';
+import { isNumber } from 'lodash';
 
 export class NftClient {
   readonly collection: CollectionClient;
@@ -97,6 +99,53 @@ export class NftClient {
         params,
       });
       const nft = data.result as Nft[];
+      return nft;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getNftsByOwnerV2(input: {
+    network?: Network;
+    owner: string;
+    updateAuthority?: string;
+    refresh?: boolean;
+    page?: number;
+    size?: number;
+  }): Promise<PaginatedNfts> {
+    try {
+      const params = {
+        network: input.network ?? this.config.network,
+        address: input.owner,
+      };
+      if (input.updateAuthority) {
+        params['update_authority'] = input.updateAuthority;
+      }
+      if (input.refresh) {
+        params['refresh'] = input.refresh;
+      }
+      if (isNumber(input?.page)) {
+        if (input.page < 1) {
+          throw new Error('should not be less than 1: size');
+        }
+        params['page'] = input.page;
+      }
+      if (isNumber(input?.size)) {
+        if (input.size > 50 || input.size < 1) {
+          throw new Error('allowed between 1 to 50: size');
+        }
+        params['size'] = input.size;
+      }
+      const data = await restApiCall(
+        this.config.apiKey,
+        {
+          method: 'get',
+          url: 'nft/read_all',
+          params,
+        },
+        'v2'
+      );
+      const nft = data.result as PaginatedNfts;
       return nft;
     } catch (error) {
       throw error;
