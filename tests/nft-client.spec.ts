@@ -25,6 +25,16 @@ describe('read NFT test', () => {
     });
     expect(typeof nft).toBe('object');
   });
+  it('read paginated NFTs by owner', async () => {
+    const result = await shyft.nft.getNftsByOwnerV2({
+      network: Network.Mainnet,
+      owner: 'DBx5dQd9bCQUJfxAVjqXrinEsjVgPinjE3TXq1DZjytZ',
+      page: 2,
+      size: 7,
+    });
+    console.log(result);
+    expect(Array.isArray(result.nfts)).toBe(true);
+  });
   it('read selected NFTs', async () => {
     const nfts = await shyft.nft.getNftsByMintAddresses({
       network: Network.Mainnet,

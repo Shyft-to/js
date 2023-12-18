@@ -74,6 +74,7 @@ The SDK currently supports the following NFT API endpoints under the shyft.nft n
 - `getNftByMint()`: Get NFT on-chain and off-chain data.
 - `getNftsByMintAddresses()`: Get multiple NFTs on-chain and off-chain data.
 - `getNftByOwner()`: Get All NFTs held by a wallet address.
+- `getNftsByOwnerV2()`: Paginated version of `getNftByOwner`, returns the list of NFTs in a wallet. A maximum of 50 NFTs are returned in a single API request.
 - `getOwners()`: Returns NFT Owners for the provided NFT mint address list.
 - `createFromMetadata()`: Create an NFT from an already uploaded metadata URI. The on-chain metadata of the NFT is fetched from the off-chain metadata present at the given URI.
   > The metadata_uri should open a JSON document complying with Metaplex Non-Fungible Token Standard. If the JSON doesn't follow the Metaplex standard then the API returns an error.
