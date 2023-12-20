@@ -223,7 +223,7 @@ export class MpListingClient {
     sellerWallet: string;
     buyerWallet: string;
     serviceCharge?: ServiceCharge;
-  }): Promise<NftBuyResponse> {
+  }): Promise<NftBuyResponse & { signers: string[] }> {
     try {
       const reqBody = {
         network: input?.network ?? this.config.network,
@@ -243,7 +243,7 @@ export class MpListingClient {
         url: 'marketplace/buy',
         data: reqBody,
       });
-      const response = data.result as NftBuyResponse;
+      const response = data.result as NftBuyResponse & { signers: string[] };
       return response;
     } catch (error) {
       throw error;
