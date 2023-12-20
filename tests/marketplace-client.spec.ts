@@ -8,6 +8,10 @@ const shyft = new ShyftSdk({
 });
 
 describe('Marketplace test', () => {
+  beforeEach((): void => {
+    jest.setTimeout(20000);
+  });
+
   it('create mp', async () => {
     const { encoded_transaction } = await shyft.marketplace.create({
       creatorWallet: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
@@ -91,15 +95,23 @@ describe('Marketplace test', () => {
   });
 
   it('buy', async () => {
-    const { encoded_transaction } = await shyft.marketplace.listing.buy({
-      network: Network.Mainnet,
-      marketplaceAddress: 'AxrRwpzk4T6BsWhttPwVCmfeEMbfbasv1QxVc5JhUfvB',
-      nftAddress: 'A6v4ucyJ2sYnn4HiSnw4Z8mYhzQosRhE5tsH4NXM5v2N',
-      sellerWallet: '4AQHWYvT647XtdoW7KcVzjEwG3ZqmMDhBpZ316yJWrTp',
-      buyerWallet: 'Bme4LRYLq199vosFJcP2YrHSduMj27tmqdTNadYDma9A',
-      price: 250,
-    });
-    expect(typeof encoded_transaction).toBe('string');
+    const { encoded_transaction, transaction_version, signers } =
+      await shyft.marketplace.listing.buy({
+        network: Network.Devnet,
+        marketplaceAddress: '5LSMwR5GLr4WjDHS5FoUXQCN5osZYHRoDGjmcEsS843B',
+        nftAddress: '6PStcTWbV546dQCHbjVj4SP6Ht8e2eE4D8Mc951mH1yq',
+        sellerWallet: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+        buyerWallet: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+        price: 0.3,
+        serviceCharge: {
+          receiver: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+          token: 'HtXwt7NchBTV7xoqmjhQJqEjSrApq5FNnB8rxYu6eC7k',
+          amount: 0.01,
+        },
+      });
+
+    expect(transaction_version).toBe(0);
+    expect(signers.length).toBe(2);
   });
 
   it('bid', async () => {
