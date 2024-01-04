@@ -111,6 +111,7 @@ export class CompressedNftClient {
     mint: string;
     fromAddress: string;
     toAddress: string;
+    feePayer?: string;
   }): Promise<CNftTransferResponse> {
     try {
       const reqBody = {
@@ -119,6 +120,9 @@ export class CompressedNftClient {
         sender: input.fromAddress,
         receiver: input.toAddress,
       };
+      if (input.feePayer) {
+        reqBody['fee_payer'] = input.feePayer;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
         url: 'nft/compressed/transfer',
@@ -136,6 +140,7 @@ export class CompressedNftClient {
     mints: string[];
     fromAddress: string;
     toAddress: string;
+    feePayer?: string;
   }): Promise<CNftTransferManyResp> {
     try {
       const reqBody = {
@@ -144,6 +149,9 @@ export class CompressedNftClient {
         from_address: input.fromAddress,
         to_address: input.toAddress,
       };
+      if (input.feePayer) {
+        reqBody['fee_payer'] = input.feePayer;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
         url: 'nft/compressed/transfer_many',

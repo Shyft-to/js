@@ -195,10 +195,11 @@ describe('read NFT test', () => {
   });
   it('compressed NFT transfer', async () => {
     const transferResponse = await shyft.nft.compressed.transfer({
-      network: Network.Mainnet,
-      mint: '4J6rpfVt3x6VKFTCvbuXy4LLz6CegYCQf7717kgyARbw',
-      fromAddress: '6YGVd8wdF76bbnZzNej6Ft6jgdYojakeLGSraXBm2jMq',
-      toAddress: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
+      network: Network.Devnet,
+      mint: '6YQNj6b5N4WN6MmKvudF9toWquKgt4Uwpv25LhhJ7GW9',
+      fromAddress: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
+      toAddress: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      feePayer: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
     });
     expect(transferResponse).toMatchObject<CNftTransferResponse>({
       encoded_transaction: expect.any(String),
@@ -207,17 +208,20 @@ describe('read NFT test', () => {
   });
   it('multiple compressed NFTs transfer', async () => {
     const transferResponse = await shyft.nft.compressed.transferMany({
-      network: Network.Mainnet,
+      network: Network.Devnet,
       mints: [
-        '4J6rpfVt3x6VKFTCvbuXy4LLz6CegYCQf7717kgyARbw',
-        'JE37Hwx9URg2YKRGxC8vMNGs8CExS5KzB7VvJ9PjS3Y9',
-        'JDyXQ6Y6GAahgXPNN5LwTvyyGWpkNfiYy2KPQQ6WJrjs',
+        'J5eMJJzoyo3nxzQwHdLDreKF2RohPbbB8PZczePKUPYS',
+        'DDFWV1kCfx2Y2atUSu44YC7ibi8bCVBNexVHGEbomo5X',
+        'qBrB5WVi3FAcGMiyW1rRH3m9sGMftHu4qynUVCH4oa8',
+        'J5eMJJzoyo3nxzQwHdLDreKF2RohPbbB8PZczePKUPYS',
       ],
-      fromAddress: '6YGVd8wdF76bbnZzNej6Ft6jgdYojakeLGSraXBm2jMq',
-      toAddress: 'BFefyp7jNF5Xq2A4JDLLFFGpxLq5oPEFKBAQ46KJHW2R',
+      fromAddress: '3yTKSCKoDcjBFpbgxyJUh4cM1NG77gFXBimkVBx2hKrf',
+      toAddress: '2fmz8SuNVyxEP6QwKQs6LNaT2ATszySPEJdhUDesxktc',
+      feePayer: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
     });
     expect(transferResponse).toMatchObject<CNftTransferManyResp>({
       encoded_transactions: expect.any(Array),
+      signers: expect.any(Array),
     });
   });
   it('burn compressed NFT', async () => {
