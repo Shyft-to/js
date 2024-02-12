@@ -5,6 +5,7 @@ import {
   CNftMintResponse,
   CNftTransferManyResp,
   CNftTransferResponse,
+  CNftUpdateResponse,
   CreateMerkleTreeResponse,
   Network,
   Nft,
@@ -65,6 +66,7 @@ export class CompressedNftClient {
     isMutable?: boolean;
     receiver?: string;
     feePayer?: string;
+    priorityFee?: number;
   }): Promise<CNftMintResponse> {
     try {
       const reqBody = {
@@ -94,6 +96,9 @@ export class CompressedNftClient {
       if (input?.feePayer) {
         reqBody['fee_payer'] = input.feePayer;
       }
+      if (input?.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
         url: 'nft/compressed/mint',
@@ -112,6 +117,7 @@ export class CompressedNftClient {
     fromAddress: string;
     toAddress: string;
     feePayer?: string;
+    priorityFee?: number;
   }): Promise<CNftTransferResponse> {
     try {
       const reqBody = {
@@ -122,6 +128,9 @@ export class CompressedNftClient {
       };
       if (input.feePayer) {
         reqBody['fee_payer'] = input.feePayer;
+      }
+      if (input.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
       }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
@@ -141,6 +150,7 @@ export class CompressedNftClient {
     fromAddress: string;
     toAddress: string;
     feePayer?: string;
+    priorityFee?: number;
   }): Promise<CNftTransferManyResp> {
     try {
       const reqBody = {
@@ -151,6 +161,9 @@ export class CompressedNftClient {
       };
       if (input.feePayer) {
         reqBody['fee_payer'] = input.feePayer;
+      }
+      if (input.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
       }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
@@ -168,6 +181,7 @@ export class CompressedNftClient {
     network?: Network;
     walletAddress: string;
     mint: string;
+    priorityFee?: number;
   }): Promise<CNftBurnResponse> {
     try {
       const reqBody = {
@@ -175,6 +189,9 @@ export class CompressedNftClient {
         wallet_address: input.walletAddress,
         nft_address: input.mint,
       };
+      if (input.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'delete',
         url: 'nft/compressed/burn',
@@ -191,6 +208,7 @@ export class CompressedNftClient {
     network?: Network;
     mints: string[];
     walletAddress: string;
+    priorityFee?: number;
   }): Promise<CNftBurnManyResp> {
     try {
       const reqBody = {
@@ -198,12 +216,73 @@ export class CompressedNftClient {
         nft_addresses: input.mints,
         wallet_address: input.walletAddress,
       };
+      if (input.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'delete',
         url: 'nft/compressed/burn_many',
         data: reqBody,
       });
       const response = data.result as CNftBurnManyResp;
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async update(input: {
+    network?: Network;
+    authority: string;
+    mint: string;
+    name?: string;
+    symbol?: string;
+    metadataUri?: string;
+    royalty?: number;
+    primarySaleHappend?: boolean;
+    isMutable?: boolean;
+    feePayer?: string;
+    priorityFee?: number;
+  }): Promise<CNftUpdateResponse> {
+    try {
+      const reqBody = {
+        network: input.network ?? this.config.network,
+        authority: input.authority,
+        nft_address: input.mint,
+      };
+      if (input.name) {
+        reqBody['name'] = input.name;
+      }
+      if (input.symbol) {
+        reqBody['symbol'] = input.symbol;
+      }
+      if (input.metadataUri) {
+        reqBody['metadata_uri'] = input.metadataUri;
+      }
+      if (input.royalty) {
+        if (input.royalty > 100 || input.royalty < 0) {
+          throw new Error('"royalty" must be between 0 and 100');
+        }
+        reqBody['royalty'] = input.royalty;
+      }
+      if (input.primarySaleHappend !== undefined) {
+        reqBody['primary_sale_happened'] = input.primarySaleHappend;
+      }
+      if (input.isMutable !== undefined) {
+        reqBody['is_mutable'] = input.isMutable;
+      }
+      if (input.feePayer) {
+        reqBody['fee_payer'] = input.feePayer;
+      }
+      if (input.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
+      }
+      const data = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'nft/compressed/update',
+        data: reqBody,
+      });
+      const response = data.result as CNftUpdateResponse;
       return response;
     } catch (error) {
       throw error;
