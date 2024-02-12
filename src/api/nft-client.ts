@@ -304,6 +304,7 @@ export class NftClient {
     mints: string[];
     fromAddress: string;
     toAddress: string;
+    priorityFee?: number;
   }): Promise<string[]> {
     try {
       const reqBody = {
@@ -312,6 +313,9 @@ export class NftClient {
         from_address: input.fromAddress,
         to_address: input.toAddress,
       };
+      if (input?.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
+      }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
         url: 'nft/transfer_many',
