@@ -1,6 +1,14 @@
 export type ValidDepthSizePair =
   | { maxDepth: 3; maxBufferSize: 8 }
   | { maxDepth: 5; maxBufferSize: 8 }
+  | { maxDepth: 6; maxBufferSize: 16 }
+  | { maxDepth: 7; maxBufferSize: 16 }
+  | { maxDepth: 8; maxBufferSize: 16 }
+  | { maxDepth: 9; maxBufferSize: 16 }
+  | { maxDepth: 10; maxBufferSize: 32 }
+  | { maxDepth: 11; maxBufferSize: 32 }
+  | { maxDepth: 12; maxBufferSize: 32 }
+  | { maxDepth: 13; maxBufferSize: 32 }
   | { maxDepth: 14; maxBufferSize: 64 }
   | { maxDepth: 14; maxBufferSize: 256 }
   | { maxDepth: 14; maxBufferSize: 1024 }
@@ -32,7 +40,10 @@ type CommonTxnResponse = {
 };
 
 export type CreateMerkleTreeResponse = CommonTxnResponse & { tree: string };
-export type CNftMintResponse = CommonTxnResponse & { mint: string };
+export type CNftMintResponse = CommonTxnResponse & {
+  mint: string;
+  signers: string[];
+};
 export type CNftTransferResponse = CommonTxnResponse;
 export type CNftBurnResponse = CommonTxnResponse;
 export type CNftUpdateResponse = CommonTxnResponse;

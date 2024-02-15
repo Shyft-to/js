@@ -10,6 +10,7 @@ import {
   Network,
   Nft,
   PaginatedNfts,
+  ServiceCharge,
   ValidDepthSizePair,
 } from '@/types';
 import { isNumber } from 'lodash';
@@ -67,6 +68,7 @@ export class CompressedNftClient {
     receiver?: string;
     feePayer?: string;
     priorityFee?: number;
+    serviceCharge?: ServiceCharge;
   }): Promise<CNftMintResponse> {
     try {
       const reqBody = {
@@ -98,6 +100,9 @@ export class CompressedNftClient {
       }
       if (input?.priorityFee) {
         reqBody['priority_fee'] = input.priorityFee;
+      }
+      if (input?.serviceCharge) {
+        reqBody['service_charge'] = input.serviceCharge;
       }
       const data = await restApiCall(this.config.apiKey, {
         method: 'post',
