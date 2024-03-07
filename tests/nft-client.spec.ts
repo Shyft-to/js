@@ -186,9 +186,11 @@ describe('read NFT test', () => {
         'https://nftstorage.link/ipfs/bafkreigjxlfjhnpync5qmgv73yi4lqz4e65axwgpgqumvbopgvdrkwjpcm',
       collectionAddress: 'DgXdP7xA31HEviRKw6pk9Xj342dEWy8HFn1yjcsXZ9M9',
       receiver: '5KW2twHzRsAaiLeEx4zYNV35CV2hRrZGw7NYbwMfL4a2',
+      priorityFee: 100,
     });
     expect(mintResponse).toMatchObject<CNftMintResponse>({
       encoded_transaction: expect.any(String),
+      transaction_version: expect.any(String),
       mint: expect.any(String),
       signers: expect.any(Array),
     });
@@ -203,6 +205,7 @@ describe('read NFT test', () => {
     });
     expect(transferResponse).toMatchObject<CNftTransferResponse>({
       encoded_transaction: expect.any(String),
+      transaction_version: expect.any(String),
       signers: expect.any(Array),
     });
   });
@@ -232,6 +235,7 @@ describe('read NFT test', () => {
     });
     expect(burnResponse).toMatchObject<CNftBurnResponse>({
       encoded_transaction: expect.any(String),
+      transaction_version: expect.any(String),
       signers: expect.any(Array),
     });
   });

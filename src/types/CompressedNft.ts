@@ -1,3 +1,5 @@
+import { TransactionVersion } from '@solana/web3.js';
+
 export type ValidDepthSizePair =
   | { maxDepth: 3; maxBufferSize: 8 }
   | { maxDepth: 5; maxBufferSize: 8 }
@@ -42,11 +44,17 @@ type CommonTxnResponse = {
 export type CreateMerkleTreeResponse = CommonTxnResponse & { tree: string };
 export type CNftMintResponse = CommonTxnResponse & {
   mint: string;
-  signers: string[];
+  transaction_version: TransactionVersion;
 };
-export type CNftTransferResponse = CommonTxnResponse;
-export type CNftBurnResponse = CommonTxnResponse;
-export type CNftUpdateResponse = CommonTxnResponse;
+export type CNftTransferResponse = CommonTxnResponse & {
+  transaction_version: TransactionVersion;
+};
+export type CNftBurnResponse = CommonTxnResponse & {
+  transaction_version: TransactionVersion;
+};
+export type CNftUpdateResponse = CommonTxnResponse & {
+  transaction_version: TransactionVersion;
+};
 export type CNftTransferManyResp = {
   encoded_transactions: string[];
   signers: string[];

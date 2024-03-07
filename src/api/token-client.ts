@@ -207,6 +207,7 @@ export class TokenClient {
     fromAddress: string;
     tokenAddress: string;
     transferTo: TokenTransferTo[];
+    priorityFee?: number;
   }): Promise<AirdropTokenResponse> {
     try {
       const transferTo = input.transferTo.map((x) => {
@@ -221,6 +222,10 @@ export class TokenClient {
         transfer_info: transferTo,
         token_address: input.tokenAddress,
       };
+
+      if (input?.priorityFee) {
+        reqBody['priority_fee'] = input.priorityFee;
+      }
 
       const response = await restApiCall(this.config.apiKey, {
         method: 'post',
