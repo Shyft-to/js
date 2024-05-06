@@ -42,4 +42,18 @@ describe('callback test', () => {
     console.log(callbacks);
     expect(callbacks[0]).toBe('object');
   }, 50000);
+
+  it('pause callback', async () => {
+    const isPaused = await shyft.callback.pause({
+      id: '663889899aabe8e58dd4decb',
+    });
+    expect(isPaused).toBe(true);
+  }, 50000);
+
+  it('resume callback', async () => {
+    const isResumed = await shyft.callback.resume({
+      id: '663889899aabe8e58dd4decb',
+    });
+    expect(isResumed).toBe(true);
+  }, 50000);
 });

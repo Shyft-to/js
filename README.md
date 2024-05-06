@@ -330,6 +330,8 @@ callback namespace:
 - `list()`: Returns a list of all the callbacks registered for a user.
 - `addAddresses()`: Add Addresses in Callback.
 - `removeAddresses()`: Remove Addresses from callback.
+- `pause()`: Pause a callback.
+- `resume()`: Resume a callback.
 
 ### RPC
 

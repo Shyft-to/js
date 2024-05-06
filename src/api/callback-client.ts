@@ -208,6 +208,40 @@ export class CallbackClient {
     }
   }
 
+  async pause(input: { id: string }): Promise<boolean> {
+    try {
+      const reqBody = {
+        id: input.id,
+      };
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'callback/pause',
+        data: reqBody,
+      });
+      const isPaused = response.success as boolean;
+      return isPaused;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async resume(input: { id: string }): Promise<boolean> {
+    try {
+      const reqBody = {
+        id: input.id,
+      };
+      const response = await restApiCall(this.config.apiKey, {
+        method: 'post',
+        url: 'callback/resume',
+        data: reqBody,
+      });
+      const isResumed = response.success as boolean;
+      return isResumed;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   private isValidUrl(url: string) {
     try {
       new URL(url);
