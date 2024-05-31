@@ -10,6 +10,7 @@ export type CallBack = {
   enable_raw?: boolean;
   enable_events?: boolean;
   type?: CallbackType;
+  active: boolean;
   encoding?: CallbackEncoding;
   created_at: Date;
   updated_at: Date;
