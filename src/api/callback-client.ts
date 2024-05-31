@@ -20,7 +20,7 @@ export class CallbackClient {
     enableEvents?: boolean;
     type?: CallbackType;
     encoding?: CallbackEncoding;
-  }): Promise<Omit<CallBack, 'created_at' | 'updated_at'>> {
+  }): Promise<Omit<CallBack, 'active' | 'created_at' | 'updated_at'>> {
     try {
       if (!this.isValidUrl(input.callbackUrl)) {
         throw new Error(`not a valid URL: ${input.callbackUrl}`);
@@ -50,7 +50,10 @@ export class CallbackClient {
         url: 'callback/create',
         data: reqBody,
       });
-      const callback = response.result as CallBack;
+      const callback = response.result as Omit<
+        CallBack,
+        'active' | 'created_at' | 'updated_at'
+      >;
       return callback;
     } catch (error) {
       throw error;
@@ -91,6 +94,7 @@ export class CallbackClient {
       | 'enable_raw'
       | 'enable_events'
       | 'type'
+      | 'active'
       | 'encoding'
       | 'created_at'
       | 'updated_at'
@@ -126,7 +130,17 @@ export class CallbackClient {
         url: 'callback/update',
         data: reqBody,
       });
-      const callback = response.result as Omit<CallBack, 'callback_url'>;
+      const callback = response.result as Omit<
+        CallBack,
+        | 'callback_url'
+        | 'enable_raw'
+        | 'enable_events'
+        | 'type'
+        | 'active'
+        | 'encoding'
+        | 'created_at'
+        | 'updated_at'
+      >;
       return callback;
     } catch (error) {
       throw error;
@@ -163,7 +177,7 @@ export class CallbackClient {
   async addAddresses(input: {
     id: string;
     addresses: string[];
-  }): Promise<Omit<CallBack, 'callback_url' | 'enable_raw'>> {
+  }): Promise<Omit<CallBack, 'active' | 'callback_url' | 'enable_raw'>> {
     try {
       const reqBody = {
         id: input.id,
@@ -176,7 +190,7 @@ export class CallbackClient {
       });
       const callback = response.result as Omit<
         CallBack,
-        'callback_url' | 'enable_raw'
+        'active' | 'callback_url' | 'enable_raw'
       >;
       return callback;
     } catch (error) {
@@ -187,7 +201,7 @@ export class CallbackClient {
   async removeAddresses(input: {
     id: string;
     addresses: string[];
-  }): Promise<Omit<CallBack, 'callback_url' | 'enable_raw'>> {
+  }): Promise<Omit<CallBack, 'active' | 'callback_url' | 'enable_raw'>> {
     try {
       const reqBody = {
         id: input.id,
@@ -200,7 +214,7 @@ export class CallbackClient {
       });
       const callback = response.result as Omit<
         CallBack,
-        'callback_url' | 'enable_raw'
+        'active' | 'callback_url' | 'enable_raw'
       >;
       return callback;
     } catch (error) {
