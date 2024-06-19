@@ -51,6 +51,7 @@ export class TransactionClient {
     account: string;
     txNum?: number;
     beforeTxSignature?: string;
+    untilTxSignature?: string;
     enableRaw?: boolean;
     enableEvents?: boolean;
   }): Promise<TransactionHistory> {
@@ -67,6 +68,9 @@ export class TransactionClient {
     }
     if (input?.beforeTxSignature) {
       params['before_tx_signature'] = input.beforeTxSignature;
+    }
+    if (input?.untilTxSignature) {
+      params['until_tx_signature'] = input.untilTxSignature;
     }
     if (input?.enableRaw) {
       params['enable_raw'] = input.enableRaw;
@@ -91,10 +95,10 @@ export class TransactionClient {
     enableEvents?: boolean;
   }): Promise<TransactionHistory> {
     if (
-      input.transactionSignatues.length > 50 ||
+      input.transactionSignatues.length > 100 ||
       input.transactionSignatues.length < 1
     ) {
-      throw new Error('allowed between 1 to 50: transactionSignatues');
+      throw new Error('allowed between 1 to 100: transactionSignatues');
     }
     const reqBody = {
       network: input.network ?? this.config.network,
