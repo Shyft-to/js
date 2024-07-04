@@ -1,6 +1,7 @@
 export type TokenInfo = {
   name: string;
   symbol: string;
+  metadata_uri: string;
   image: string;
   address: string;
   mint_authority: string;
